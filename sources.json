@@ -1,0 +1,38 @@
+[
+  {
+    "id": "beincrypto",
+    "name": "BeInCrypto"
+  },
+  {
+    "id": "bitcoin_news",
+    "name": "Bitcoin News"
+  },
+  {
+    "id": "bitcoin_magazine",
+    "name": "Bitcoin Magazine"
+  },
+  {
+    "id": "coin_gape",
+    "name": "Coin Gape"
+  },
+  {
+    "id": "crypto_potato",
+    "name": "Crypto Potato"
+  },
+  {
+    "id": "crypto_slate",
+    "name": "Crypto Slate"
+  },
+  {
+    "id": "defiant",
+    "name": "The Defiant"
+  },
+  {
+    "id": "forkast",
+    "name": "Forkast"
+  },
+  {
+    "id": "protos",
+    "name": "Protos"
+  }
+]
