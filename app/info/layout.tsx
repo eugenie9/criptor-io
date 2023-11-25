@@ -22,14 +22,14 @@ const items = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid grid-cols-6 gap-6 gap-y-2 py-4">
-      <div className="col-span-1 border-r pr-2">
+      <div className="col-span-6 md:col-span-1 border-r-0 md:border-r pr-2">
         {items.map((item) => (
           <Link href={item.href} key={item.name}>
             <p className="text-lg font-semibold border-b p-2">{item.name}</p>
           </Link>
         ))}
       </div>
-      <div className="col-span-5">{children}</div>
+      <div className="col-span-6 md:col-span-5">{children}</div>
     </div>
   );
 }
