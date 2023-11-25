@@ -39,7 +39,7 @@ const getArticlesForSource = async (
 
 const memoizedGetArticlesForSource = memoizee(getArticlesForSource, {
   promise: true,
-  maxAge: 1000 * 60 * 10,
+  maxAge: 1000 * 60 * 2,
 });
 
 const getArticles = async (
@@ -70,7 +70,7 @@ const getArticles = async (
 
 const memoizedGetArticles = memoizee(getArticles, {
   promise: true,
-  maxAge: 1000 * 60 * 10,
+  maxAge: 1000 * 60 * 2,
 });
 
 const dynamoDBController = {
