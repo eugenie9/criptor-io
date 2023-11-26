@@ -16,6 +16,7 @@ export default async function News({
     start: string;
   };
 }) {
+  await new Promise((resolve) => setTimeout(resolve, 700));
   const id = params.id;
   const start = searchParams.start ? parseInt(searchParams.start) : 0;
 
