@@ -1,7 +1,7 @@
-import AskMore from "./components/AskMore";
-import { getArticles } from "./actions";
-import ItemLeftRight from "./components/ItemLeftRight";
-import ItemVertical from "./components/ItemVertical";
+import AskMore from "@/app/components/AskMore";
+import { getArticles } from "@/app/actions";
+import ItemLeftRight from "@/app/components/ItemLeftRight";
+import ItemVertical from "@/app/components/ItemVertical";
 
 export const revalidate = 60;
 

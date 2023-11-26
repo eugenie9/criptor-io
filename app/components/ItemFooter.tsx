@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getHowManyTimePassed, getSource } from "../utils";
+import { getHowManyTimePassed, getSource } from "@/app/utils";
 import Image from "next/image";
 
 export default function ItemFooter({ item }: { item: TArticle }) {

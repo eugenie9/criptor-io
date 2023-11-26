@@ -1,7 +1,7 @@
-import ItemVertical from "../../components/ItemVertical";
-import ItemLeftRight from "../../components/ItemLeftRight";
+import ItemVertical from "@/app/components/ItemVertical";
+import ItemLeftRight from "@/app/components/ItemLeftRight";
 import { getArticlesForSource } from "@/app/actions";
-import AskMore from "./AskMore";
+import AskMore from "@/app/publisher/[id]/AskMore";
 
 export const revalidate = 60;
 

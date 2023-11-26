@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SelectPublisher from "./SelectPublisher";
+import SelectPublisher from "@/app/components/SelectPublisher";
 import sources from "@/sources.json";
 
 export default function Header() {

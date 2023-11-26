@@ -1,4 +1,4 @@
-import LoadingScreen from "./components/Loading";
+import LoadingScreen from "@/app/components/Loading";
 
 export default async function Loading() {
   return <LoadingScreen />;

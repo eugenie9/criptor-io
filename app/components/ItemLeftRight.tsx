@@ -1,5 +1,5 @@
 import { getSource } from "@/app/utils";
-import ItemFooter from "./ItemFooter";
+import ItemFooter from "@/app/components/ItemFooter";
 
 export default function ItemLeftRight({
   item,
