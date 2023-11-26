@@ -5,6 +5,10 @@ import ItemVertical from "./components/ItemVertical";
 
 export const revalidate = 60;
 
+type TArticleWithPubDate = TArticle & {
+  pubDate: string;
+};
+
 export default async function News() {
   const today = new Date();
 
@@ -12,10 +16,17 @@ export default async function News() {
 
   // @ts-ignore
   const data: {
-    items: TArticle[];
+    items: TArticleWithPubDate[];
     lastEvaluatedKey: TLastEvaluatedKeyForAllSources;
   } = await getArticles("News " + todayString);
-  const { items, lastEvaluatedKey } = data;
+  const { items } = data;
+  let { lastEvaluatedKey } = data;
+  if (typeof lastEvaluatedKey === "undefined" && items.length) {
+    lastEvaluatedKey = {
+      pubDate: items[items.length - 1].pubDate,
+      date: items[items.length - 1].date,
+    };
+  }
 
   return (
     <>
