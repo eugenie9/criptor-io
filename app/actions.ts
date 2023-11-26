@@ -2,6 +2,8 @@
 
 import dynamodb from "@/dynamodb";
 
+export const revalidate = 60;
+
 const getArticlesForSource = async (source: string, start: number) => {
   const data = await dynamodb.getArticlesForSource(source, start);
 

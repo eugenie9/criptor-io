@@ -3,6 +3,8 @@ import ItemLeftRight from "../../components/ItemLeftRight";
 import { getArticlesForSource } from "@/app/actions";
 import AskMore from "./AskMore";
 
+export const revalidate = 60;
+
 export default async function News({
   params,
   searchParams,

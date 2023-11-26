@@ -3,6 +3,8 @@ import { getArticles } from "./actions";
 import ItemLeftRight from "./components/ItemLeftRight";
 import ItemVertical from "./components/ItemVertical";
 
+export const revalidate = 60;
+
 export default async function News() {
   const today = new Date();
 
