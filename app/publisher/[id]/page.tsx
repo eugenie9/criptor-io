@@ -2,6 +2,7 @@ import ItemVertical from "@/app/components/ItemVertical";
 import ItemLeftRight from "@/app/components/ItemLeftRight";
 import { getArticlesForSource } from "@/app/actions";
 import AskMore from "@/app/publisher/[id]/AskMore";
+import ArticleCard from "@/app/components/ArticleCard";
 
 export const revalidate = 60;
 
@@ -16,7 +17,6 @@ export default async function News({
     start: string;
   };
 }) {
-  await new Promise((resolve) => setTimeout(resolve, 700));
   const id = params.id;
   const start = searchParams.start ? parseInt(searchParams.start) : 0;
 
@@ -76,7 +76,7 @@ export default async function News({
               className={`col-span-12 md:col-span-6 lg:col-span-4`}
               key={item.url}
             >
-              <ItemVertical item={item} />
+              <ArticleCard article={item} />
             </div>
           );
         })}

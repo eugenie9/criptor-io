@@ -2,7 +2,7 @@
 
 import { getArticlesForSource } from "@/app/actions";
 import { useState } from "react";
-import ItemVertical from "@/app/components/ItemVertical";
+import ArticleCard from "@/app/components/ArticleCard";
 
 export default function AskMore({
   source,
@@ -38,7 +38,7 @@ export default function AskMore({
                 className={`col-span-12 md:col-span-6 lg:col-span-4`}
                 key={item.url}
               >
-                <ItemVertical item={item} />
+                <ArticleCard article={item} />
               </div>
             );
           })}
