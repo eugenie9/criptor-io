@@ -8,7 +8,7 @@ export default function ItemVertical({ item }: { item: TArticle }) {
     >
       <a href={item.url} target="_blank">
         <img
-          src={item.thumbnail || getSource(item.source).img}
+          src={item.thumbnail || getSource(item.source).logo}
           alt={item.title}
           className="rounded object-contain w-full max-w-full grayscale-[60%] transition-all duration-500 group-hover:grayscale-0 my-2"
         />

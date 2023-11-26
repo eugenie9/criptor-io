@@ -3,55 +3,46 @@ const getSource = (id: string) => {
     case "beincrypto":
       return {
         name: "BeInCrypto",
-        img: "https://beincrypto.com/feed/",
         logo: "/images/beincrypto-logo.jpeg",
       };
     case "bitcoin_news":
       return {
         name: "Bitcoin News",
-        img: "https://news.bitcoin.com/feed/",
         logo: "/images/bitcoin-news-logo.png",
       };
     case "bitcoin_magazine":
       return {
         name: "Bitcoin Magazine",
-        img: "https://bitcoinmagazine.com/feed",
         logo: "/images/bitcoin-magazine-logo.png",
       };
     case "coin_gape":
       return {
         name: "Coin Gape",
-        img: "https://coingape.com/feed/",
         logo: "/images/coin-gape-logo.jpeg",
       };
     case "crypto_potato":
       return {
         name: "Crypto Potato",
-        img: "https://cryptopotato.com/feed/",
         logo: "/images/crypto-potato-logo.webp",
       };
     case "crypto_slate":
       return {
         name: "Crypto Slate",
-        img: "https://cryptoslate.com/feed/",
         logo: "/images/crypto-slate-logo.jpeg",
       };
     case "defiant":
       return {
         name: "The Defiant",
-        img: "https://thedefiant.substack.com/feed/",
         logo: "/images/defiant-logo.jpeg",
       };
     case "forkast":
       return {
         name: "Forkast",
-        img: "https://forkast.news/feed/",
         logo: "/images/forkast-logo.png",
       };
     case "protos":
       return {
         name: "Protos",
-        img: "https://protos.com/feed/",
         logo: "/images/protos-logo.png",
       };
     default:

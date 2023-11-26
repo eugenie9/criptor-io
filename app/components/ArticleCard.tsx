@@ -8,7 +8,7 @@ export default function ArticleCard({ article }: { article: TArticle }) {
     >
       <a href={article.url} target="_blank">
         <img
-          src={article.thumbnail || getSource(article.source).img}
+          src={article.thumbnail || getSource(article.source).logo}
           alt={article.title}
           className="rounded object-cover h-64 sm:h-80 w-full max-w-full grayscale-[60%] transition-all duration-500 group-hover:grayscale-0 my-2"
         />

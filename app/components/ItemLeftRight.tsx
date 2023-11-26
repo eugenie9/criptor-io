@@ -16,7 +16,7 @@ export default function ItemLeftRight({
         <p className="text-xl font-bold mb-2">{item.title}</p>
         {item.thumbnail && (
           <img
-            src={item.thumbnail || getSource(item.source).img}
+            src={item.thumbnail || getSource(item.source).logo}
             alt={item.title}
             className={`${floatType} rounded object-contain max-h-full w-2/5 grayscale-[60%] transition-all duration-500 group-hover:grayscale-0`}
           />
