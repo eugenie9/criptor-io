@@ -23,17 +23,9 @@ const config: Config = {
             width: "100%",
           },
         },
-        blink: {
-          "50%": {
-            borderColor: "transparent",
-          },
-          "100%": {
-            borderColor: "white",
-          },
-        },
       },
       animation: {
-        typing: "typing 0.69s steps(20) infinite alternate, blink .7s infinite",
+        typing: "typing 0.4s steps(20) infinite alternate",
       },
     },
   },
