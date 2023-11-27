@@ -25,7 +25,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="col-span-6 md:col-span-1 border-r-0 md:border-r pr-2">
         {items.map((item) => (
           <Link href={item.href} key={item.name}>
-            <p className="text-lg font-semibold border-b p-2">{item.name}</p>
+            <p className="text-base lg:text-lg font-semibold border-b p-2">
+              {item.name}
+            </p>
           </Link>
         ))}
       </div>
