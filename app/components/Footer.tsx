@@ -8,7 +8,7 @@ export default async function Footer() {
 
         <ul className="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
           <li>
-            <Link href="/info/terms-of-service">About</Link>
+            <Link href="/about">About</Link>
           </li>
           <li>
             <Link href="/info/terms-of-service">Terms of Service</Link>
