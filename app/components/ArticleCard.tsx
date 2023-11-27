@@ -15,7 +15,7 @@ export default function ArticleCard({ article }: { article: TArticle }) {
         <p className="text-xl font-bold mb-2">{article.title}</p>
       </a>
 
-      <p className="text-base">{article.content}...</p>
+      <p className="text-base text-neutral-700">{article.content}...</p>
       <ItemFooter item={article} />
     </div>
   );

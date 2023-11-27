@@ -23,7 +23,7 @@ export default function ItemLeftRight({
         )}
       </a>
 
-      <p className="text-base">{item.content}...</p>
+      <p className="text-base text-neutral-700">{item.content}...</p>
 
       <ItemFooter item={item} />
     </div>

@@ -15,7 +15,7 @@ export default function ItemVertical({ item }: { item: TArticle }) {
         <p className="text-xl font-bold mb-2">{item.title}</p>
       </a>
 
-      <p className="text-base">{item.content}...</p>
+      <p className="text-base text-neutral-700">{item.content}...</p>
       <ItemFooter item={item} />
     </div>
   );
