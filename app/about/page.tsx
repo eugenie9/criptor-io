@@ -39,7 +39,7 @@ export default function About() {
 
         <div className="w-full xl:max-w-lg 2xl:max-w-xl">
           <h2 className="text-lg !leading-tight font-semibold text-neutral-900 xl:text-2xl mb-3">
-            It's all open-source!
+            It is all open-source!
           </h2>
           <span className="block text-base xl:text-lg text-neutral-600">
             👨🏻‍💻 The source code will be available on GitHub soon.
