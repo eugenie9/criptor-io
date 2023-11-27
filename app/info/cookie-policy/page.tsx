@@ -48,8 +48,8 @@ const items = [
 export default function Page() {
   return (
     <>
-      <p className="text-2xl font-bold mb-2">Cookie Policy</p>
-      <p>
+      <p className="text-2xl font-bold mb-2 text-neutral-900">Cookie Policy</p>
+      <p className="text-neutral-700">
         This Cookie Policy explains how we use cookies and similar technologies
         on our RSS reader service. By using our service, you consent to the use
         of cookies as described below.
@@ -57,10 +57,10 @@ export default function Page() {
 
       {items.map(({ heading, items }, i) => (
         <div key={i} className="py-2">
-          <p className="font-semibold text-lg">
+          <p className="font-semibold text-lg text-neutral-900">
             {i + 1}. {heading}
           </p>
-          <ul className="list-disc list-inside">
+          <ul className="list-disc list-inside text-neutral-700">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
             ))}

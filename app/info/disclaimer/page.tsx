@@ -52,8 +52,8 @@ const items = [
 export default function Page() {
   return (
     <>
-      <p className="text-2xl font-bold mb-2">Disclaimer</p>
-      <p>
+      <p className="text-2xl font-bold mb-2 text-neutral-900">Disclaimer</p>
+      <p className="text-neutral-700">
         The following disclaimer outlines the terms of use for our RSS reader
         service. By accessing and using our service, you agree to comply with
         the following:
@@ -61,10 +61,10 @@ export default function Page() {
 
       {items.map(({ heading, items }, i) => (
         <div key={i} className="py-2">
-          <p className="font-semibold text-lg">
+          <p className="font-semibold text-lg text-neutral-900">
             {i + 1}. {heading}
           </p>
-          <ul className="list-disc list-inside">
+          <ul className="list-disc list-inside text-neutral-700">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
             ))}

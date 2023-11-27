@@ -48,8 +48,10 @@ const items = [
 export default function Page() {
   return (
     <>
-      <p className="text-2xl font-bold mb-2">Terms of Service</p>
-      <p>
+      <p className="text-2xl font-bold mb-2 text-neutral-900">
+        Terms of Service
+      </p>
+      <p className="text-neutral-700">
         By accessing and using our RSS reader service, you agree to comply with
         and be bound by the following terms and conditions. If you do not agree
         with these terms, please do not use our service.
@@ -57,10 +59,10 @@ export default function Page() {
 
       {items.map(({ heading, items }, i) => (
         <div key={i} className="py-2">
-          <p className="font-semibold text-lg">
+          <p className="font-semibold text-lg text-neutral-900">
             {i + 1}. {heading}
           </p>
-          <ul className="list-disc list-inside">
+          <ul className="list-disc list-inside text-neutral-700">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
