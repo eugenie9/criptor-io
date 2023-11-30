@@ -21,7 +21,7 @@ export default function Header() {
               {source.name}
             </Link>
             {index < sources.length - 1 && (
-              <div className="border-r mx-2"></div>
+              <div className="border-r mx-1 xl:mx-2"></div>
             )}
           </>
         ))}
