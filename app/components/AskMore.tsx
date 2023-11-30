@@ -2,7 +2,9 @@
 
 import { getArticles } from "@/app/actions";
 import { useState } from "react";
-import ArticleCard from "./ArticleCard";
+import LoadingCircle from "./LoadingCircle";
+import LoadMoreButton from "@/app/components/LoadMoreButton";
+import ArticleContainer from "./ArticleContainer";
 
 export default function AskMore({
   lastEvaluatedKey,
@@ -49,40 +51,11 @@ export default function AskMore({
 
   return (
     <>
-      {data.length ? (
-        <div className="grid grid-cols-12 gap-6 gap-y-2 pb-4">
-          {data.map((item: TArticle) => {
-            return (
-              <div
-                className={`col-span-12 md:col-span-6 lg:col-span-4`}
-                key={item.url}
-              >
-                <ArticleCard article={item} />
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <></>
-      )}
+      <ArticleContainer data={data} />
 
-      {loading ? (
-        <div className="flex justify-center pb-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900" />
-        </div>
-      ) : (
-        <></>
-      )}
+      {loading ? <LoadingCircle /> : <></>}
 
-      <div className="flex justify-center mb-4">
-        <button
-          onClick={askData}
-          disabled={loading}
-          className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-        >
-          <span>Load More</span>
-        </button>
-      </div>
+      <LoadMoreButton onClick={askData} disabled={loading} />
     </>
   );
 }
