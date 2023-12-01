@@ -46,6 +46,13 @@ const getArticles = async (
   pubDate: string,
   lastEvaluated?: TLastEvaluatedKeyForAllSources
 ) => {
+  const _pubDate = pubDate.split(" ")?.[1]?.split("-");
+  const [year, month, day] = _pubDate;
+  // if month or day is double digit, remove leading zero
+  const _month = month[0] === "0" ? month[1] : month;
+  const _day = day[0] === "0" ? day[1] : day;
+  const _pubDateFormatted = `News ${year}-${_month}-${_day}`;
+
   const params = {
     TableName: DYNAMODB_FULL_TABLE,
     KeyConditionExpression: "#pubDate = :pubDate",
@@ -53,7 +60,7 @@ const getArticles = async (
       "#pubDate": "pubDate",
     },
     ExpressionAttributeValues: {
-      ":pubDate": pubDate,
+      ":pubDate": _pubDateFormatted,
     },
     ScanIndexForward: false,
     Limit: 9,
