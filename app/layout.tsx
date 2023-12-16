@@ -8,8 +8,11 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Criptor.io - Cryptocurrency News",
-  description: "An RSS reader for cryptocurrency news",
+  title: "Criptor.io - Your Ultimate Source for Cryptocurrency News",
+  description:
+    "Stay updated with the latest cryptocurrency news from around the globe with Criptor.io, your comprehensive RSS reader for all things crypto.",
+  keywords:
+    "Cryptocurrency, Crypto News, Bitcoin, Ethereum, Blockchain, Crypto Market, Altcoins, Crypto Trading, Crypto Investment, Crypto Updates, Blockchain Technology, DeFi, NFT, Crypto RSS Reader, Criptor",
 };
 
 export default function RootLayout({

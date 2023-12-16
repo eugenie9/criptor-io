@@ -3,20 +3,30 @@ import ItemLeftRight from "@/app/components/ItemLeftRight";
 import { getArticlesForSource } from "@/app/actions";
 import AskMore from "@/app/publisher/[id]/AskMore";
 import ArticleCard from "@/app/components/ArticleCard";
+import type { Metadata } from "next";
+import sources from "@/sources.json";
 
 export const revalidate = 60;
 
-export default async function News({
-  params,
-  searchParams,
-}: {
-  params: {
-    id: string;
+type Props = {
+  params: { id: string };
+  searchParams: { start: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = params.id;
+
+  let source = sources.find((source) => source.id == id);
+  if (!source) source = { id: "", name: "404" };
+
+  return {
+    title: `${source.name} - Cryptocurrency News | Criptor.io`,
+    description: `Stay updated with the latest cryptocurrency news from ${source.name} on Criptor.io, your comprehensive source for all things crypto.`,
+    keywords: `Cryptocurrency, Crypto News, Bitcoin, Ethereum, Blockchain, Crypto Market, Altcoins, Crypto Trading, Crypto Investment, Crypto Updates, Blockchain Technology, DeFi, NFT, Crypto RSS Reader, Criptor, ${source.name}`,
   };
-  searchParams: {
-    start: string;
-  };
-}) {
+}
+
+export default async function News({ params, searchParams }: Props) {
   const id = params.id;
   const start = searchParams.start ? parseInt(searchParams.start) : 0;
 
