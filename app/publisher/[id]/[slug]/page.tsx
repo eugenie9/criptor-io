@@ -218,7 +218,7 @@ export default async function NewsDetails({
           <h2 className="text-xl font-semibold">MORE ARTICLES</h2>
           <hr />
           <div className="flex flex-col md:max-lg:flex-row gap-4">
-            {items.map((item) => (
+            {items?.map((item) => (
               <div className="flex flex-col space-y-2" key={item.url}>
                 <Link href={`/publisher/${item.source}/${item.slug}`}>
                   <img
