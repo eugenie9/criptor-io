@@ -2,6 +2,8 @@ type TArticle = {
   id: string;
   title: string;
   content: string;
+  full_content: string;
+  slug: string;
   url: string;
   thumbnail: string;
   date: number;
