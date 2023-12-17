@@ -4,6 +4,8 @@ import memoizee from "memoizee";
 const DYNAMODB_TABLE = process.env.DYNAMODB_TABLE || "news-rss";
 const DYNAMODB_FULL_TABLE =
   process.env.DYNAMODB_FULL_TABLE || "news-rss-full-date";
+const DYNAMODB_TABLE_DETAILS =
+  process.env.DYNAMODB_TABLE_DETAILS || "news-rss-details";
 
 const dynamo = new DynamoDB.DocumentClient({
   region: "eu-central-1",
@@ -80,9 +82,40 @@ const memoizedGetArticles = memoizee(getArticles, {
   maxAge: 1000 * 60 * 2,
 });
 
+const getArticlesWithSourceAndSlug = async (source: string, slug: string) => {
+  const params = {
+    TableName: DYNAMODB_TABLE_DETAILS,
+    KeyConditionExpression: "#source = :source AND #slug = :slug",
+    ExpressionAttributeNames: {
+      "#source": "source",
+      "#slug": "slug",
+    },
+    ExpressionAttributeValues: {
+      ":source": source,
+      ":slug": slug,
+    },
+    ScanIndexForward: false,
+  };
+
+  const data = await dynamo.query(params).promise();
+
+  return {
+    items: data.Items,
+  };
+};
+
+const memoizedGetArticlesWithSourceAndSlug = memoizee(
+  getArticlesWithSourceAndSlug,
+  {
+    promise: true,
+    maxAge: 1000 * 60 * 2,
+  }
+);
+
 const dynamoDBController = {
   getArticles: memoizedGetArticles,
   getArticlesForSource: memoizedGetArticlesForSource,
+  getArticlesWithSourceAndSlug: memoizedGetArticlesWithSourceAndSlug,
 };
 
 export default dynamoDBController;

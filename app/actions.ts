@@ -17,4 +17,10 @@ const getArticles = async (
   return data;
 };
 
-export { getArticlesForSource, getArticles };
+const getArticlesWithSourceAndSlug = async (source: string, slug: string) => {
+  const data = await dynamodb.getArticlesWithSourceAndSlug(source, slug);
+
+  return data;
+};
+
+export { getArticlesForSource, getArticles, getArticlesWithSourceAndSlug };
