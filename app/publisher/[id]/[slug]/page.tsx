@@ -70,6 +70,10 @@ const calculateMinutesToRead = (content: string) => {
   return Math.ceil(numberOfWords / wordsPerMinute);
 };
 
+const shuffle = (array: any[]) => {
+  array.sort(() => Math.random() - 0.5);
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -115,6 +119,7 @@ export default async function NewsDetails({
   }
 
   const data = await getArticlesForSource(id, 0);
+  if (data.items) shuffle(data.items);
   const items = data.items?.slice(0, 3);
 
   const month = new Date(article.date).toLocaleString("en-US", {
