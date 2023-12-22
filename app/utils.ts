@@ -48,7 +48,6 @@ const getSource = (id: string) => {
     default:
       return {
         name: "",
-        img: "",
         logo: "",
       };
   }
@@ -75,4 +74,11 @@ const getHowManyTimePassed = (date: number) => {
   }
 };
 
-export { getSource, getHowManyTimePassed };
+const calculateMinutesToRead = (content: string) => {
+  const wordsPerMinute = 200;
+  const _content = content.replace(/<[^>]*>/g, "").split(/\s/g);
+  const numberOfWords = _content.filter((word) => word !== "").length;
+  return Math.ceil(numberOfWords / wordsPerMinute);
+};
+
+export { getSource, getHowManyTimePassed, calculateMinutesToRead };
