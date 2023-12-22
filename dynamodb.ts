@@ -65,7 +65,7 @@ const getArticles = async (
       ":pubDate": _pubDateFormatted,
     },
     ScanIndexForward: false,
-    Limit: 9,
+    Limit: 20,
     ExclusiveStartKey: lastEvaluated ? lastEvaluated : undefined,
   };
 
