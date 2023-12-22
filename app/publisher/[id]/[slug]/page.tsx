@@ -6,6 +6,7 @@ import { getSource } from "@/app/utils";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Section from "@/app/components/Section";
 
 export const revalidate = 600;
 
@@ -143,101 +144,103 @@ export default async function NewsDetails({
   const encodedText = `${encodedTitle} ${encodedURL}`;
 
   return (
-    <div className="grid grid-cols-4 gap-8 my-6 sm:my-8 flex-col sm:flex-row">
-      <div className="flex flex-col justify-center items-centers col-span-4 lg:col-span-3 space-y-4">
-        <h1 className="text-xl sm:text-2xl font-medium">{article.title}</h1>
+    <Section className="py-4">
+      <div className="grid grid-cols-4 gap-8 my-6 sm:my-8 flex-col sm:flex-row">
+        <div className="flex flex-col justify-center items-centers col-span-4 lg:col-span-3 space-y-4">
+          <h1 className="text-xl sm:text-2xl font-medium">{article.title}</h1>
 
-        <div className="flex justify-between flex-col sm:flex-row">
-          <div className="flex items-center">
-            <Link
-              className="flex items-center border-r border-black pr-4"
-              href={`/publisher/${id}`}
-            >
-              <Image
-                src={getSource(article.source).logo}
-                alt={article.title}
-                width={24}
-                height={24}
-                className="mr-2"
-              />
-              <span className="text-base sm:text-lg font-medium">
-                {getSource(article.source).name}
+          <div className="flex justify-between flex-col sm:flex-row">
+            <div className="flex items-center">
+              <Link
+                className="flex items-center border-r border-black pr-4"
+                href={`/publisher/${id}`}
+              >
+                <Image
+                  src={getSource(article.source).logo}
+                  alt={article.title}
+                  width={24}
+                  height={24}
+                  className="mr-2"
+                />
+                <span className="text-base sm:text-lg font-medium">
+                  {getSource(article.source).name}
+                </span>
+              </Link>
+
+              <span className="text-base text-neutral-700 px-4 border-r border-black hidden sm:block">
+                {date}
               </span>
-            </Link>
 
-            <span className="text-base text-neutral-700 px-4 border-r border-black hidden sm:block">
-              {date}
-            </span>
+              <span className="text-base text-neutral-700 px-4">
+                {calculateMinutesToRead(article.full_content)} min read
+              </span>
+            </div>
 
-            <span className="text-base text-neutral-700 px-4">
-              {calculateMinutesToRead(article.full_content)} min read
-            </span>
+            <div className="flex items-center space-x-2 mr-2 mt-4 sm:mt-0">
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedURL}&t=${encodedTitle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FacebookSVG />
+              </a>
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodedText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <XSVG />
+              </a>
+              <a href={`https://t.me/share/url?url=${encodedText}`}>
+                <TelegramSVG />
+              </a>
+              <a href={`https://api.whatsapp.com/send?text=${encodedText}`}>
+                <WhatsAppSVG />
+              </a>
+            </div>
           </div>
 
-          <div className="flex items-center space-x-2 mr-2 mt-4 sm:mt-0">
-            <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodedURL}&t=${encodedTitle}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FacebookSVG />
-            </a>
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodedText}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <XSVG />
-            </a>
-            <a href={`https://t.me/share/url?url=${encodedText}`}>
-              <TelegramSVG />
-            </a>
-            <a href={`https://api.whatsapp.com/send?text=${encodedText}`}>
-              <WhatsAppSVG />
-            </a>
-          </div>
-        </div>
+          {allowedImg.includes(id) && (
+            <img
+              src={article.thumbnail || getSource(article.source).logo}
+              alt={article.title}
+              className="rounded object-cover max-h-[400px] w-full max-w-full"
+            />
+          )}
 
-        {allowedImg.includes(id) && (
-          <img
-            src={article.thumbnail || getSource(article.source).logo}
-            alt={article.title}
-            className="rounded object-cover max-h-[400px] w-full max-w-full"
-          />
-        )}
-
-        <article
-          className="!text-lg flex flex-col space-y-4 
+          <article
+            className="!text-lg flex flex-col space-y-4 
           [&>img]:w-full [&>img]:rounded-lg [&>img]:object-contain
           [&>figure>img]:w-full [&>figure>img]:rounded-lg [&>figure>img]:object-contain
           [&>a]:!text-blue-500 [&>a]:!font-medium [&>a]:!underline
           [&>p>a]:!text-blue-500 [&>p>a]:!font-medium [&>p>a]:!underline
           [&>[data-el='widget-exchanges-affiliate']]:hidden
           overflow-hidden"
-          dangerouslySetInnerHTML={{ __html: article.full_content }}
-        />
-      </div>
+            dangerouslySetInnerHTML={{ __html: article.full_content }}
+          />
+        </div>
 
-      <div className="col-span-4 lg:col-span-1">
-        <section className="flex flex-col space-y-4 sticky top-8">
-          <h2 className="text-xl font-semibold">MORE ARTICLES</h2>
-          <hr />
-          <div className="flex flex-col md:max-lg:flex-row gap-4">
-            {items?.map((item) => (
-              <div className="flex flex-col space-y-2" key={item.url}>
-                <Link href={`/publisher/${item.source}/${item.slug}`}>
-                  <img
-                    src={item.thumbnail || getSource(item.source).logo}
-                    alt={item.title}
-                    className="rounded object-cover h-40 w-full max-w-full grayscale-[60%] transition-all duration-500 group-hover:grayscale-0 font-medium"
-                  />
-                  <p className="text-base my-2">{item.title}</p>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </section>
+        <div className="col-span-4 lg:col-span-1">
+          <section className="flex flex-col space-y-4 sticky top-8">
+            <h2 className="text-xl font-semibold">MORE ARTICLES</h2>
+            <hr />
+            <div className="flex flex-col md:max-lg:flex-row gap-4">
+              {items?.map((item) => (
+                <div className="flex flex-col space-y-2" key={item.url}>
+                  <Link href={`/publisher/${item.source}/${item.slug}`}>
+                    <img
+                      src={item.thumbnail || getSource(item.source).logo}
+                      alt={item.title}
+                      className="rounded object-cover h-40 w-full max-w-full grayscale-[60%] transition-all duration-500 group-hover:grayscale-0 font-medium"
+                    />
+                    <p className="text-base my-2">{item.title}</p>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
+    </Section>
   );
 }

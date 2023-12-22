@@ -5,6 +5,7 @@ import AskMore from "@/app/publisher/[id]/AskMore";
 import ArticleCard from "@/app/components/ArticleCard";
 import type { Metadata } from "next";
 import sources from "@/sources.json";
+import Section from "@/app/components/Section";
 
 export const revalidate = 60;
 
@@ -45,7 +46,7 @@ export default async function News({ params, searchParams }: Props) {
   if (!items.length) return <div>404</div>;
 
   return (
-    <>
+    <Section className="py-4">
       {items.length == 1 && (
         <div className="grid grid-cols-7 gap-6 gap-y-2">
           <div className="col-span-7 lg:col-span-4">
@@ -93,6 +94,6 @@ export default async function News({ params, searchParams }: Props) {
       </div>
 
       <AskMore source={id} start={lastEvaluatedKey} />
-    </>
+    </Section>
   );
 }
