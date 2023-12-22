@@ -6,7 +6,7 @@ import LinkWrapper from "./LinkWrapper";
 const Card = ({ article }: { article: TArticle }) => {
   return (
     <LinkWrapper article={article}>
-      <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg h-full flex">
+      <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg h-full min-h-[240px] flex">
         <img
           alt={article.title}
           src={article.thumbnail}
