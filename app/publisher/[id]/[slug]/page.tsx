@@ -2,11 +2,16 @@ import {
   getArticlesForSource,
   getArticlesWithSourceAndSlug,
 } from "@/app/actions";
-import { getSource } from "@/app/utils";
+import {
+  getHowManyTimePassed,
+  getSource,
+  calculateMinutesToRead,
+} from "@/app/utils";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Section from "@/app/components/Section";
+import LinkWrapper from "@/app/components/LinkWrapper";
 
 export const revalidate = 600;
 
@@ -64,15 +69,34 @@ const WhatsAppSVG = () => (
   </svg>
 );
 
-const calculateMinutesToRead = (content: string) => {
-  const wordsPerMinute = 200;
-  const _content = content.replace(/<[^>]*>/g, "").split(/\s/g);
-  const numberOfWords = _content.filter((word) => word !== "").length;
-  return Math.ceil(numberOfWords / wordsPerMinute);
-};
-
 const shuffle = (array: any[]) => {
   array.sort(() => Math.random() - 0.5);
+};
+
+const Card = ({ article }: { article: TArticle }) => {
+  return (
+    <LinkWrapper article={article}>
+      <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg h-[400px] flex">
+        <img
+          alt={article.title}
+          src={article.thumbnail}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+
+        <div className="relative bg-gradient-to-t from-gray-900/70 to-gray-900/30 flex-1 flex items-end">
+          <div className="p-4 sm:p-6 flex flex-col">
+            <h3 className="mt-0.5 text-base xl:text-lg text-white">
+              {article.title}
+            </h3>
+
+            <span className="font-medium text-sm text-white/90 mt-1">
+              {getHowManyTimePassed(article.date)}
+            </span>
+          </div>
+        </div>
+      </article>
+    </LinkWrapper>
+  );
 };
 
 export async function generateMetadata({
@@ -120,8 +144,12 @@ export default async function NewsDetails({
   }
 
   const data = await getArticlesForSource(id, 0);
-  if (data.items) shuffle(data.items);
-  const items = data.items?.slice(0, 3);
+  // @ts-ignore
+  let { items }: { items: TArticle[] } = data;
+  if (!items) items = [];
+
+  shuffle(items);
+  items = items.slice(0, 3);
 
   const month = new Date(article.date).toLocaleString("en-US", {
     month: "long",
@@ -143,16 +171,32 @@ export default async function NewsDetails({
 
   const encodedText = `${encodedTitle} ${encodedURL}`;
 
-  return (
-    <Section className="py-4">
-      <div className="grid grid-cols-4 gap-8 my-6 sm:my-8 flex-col sm:flex-row">
-        <div className="flex flex-col justify-center items-centers col-span-4 lg:col-span-3 space-y-4">
-          <h1 className="text-xl sm:text-2xl font-medium">{article.title}</h1>
+  let image = "";
 
-          <div className="flex justify-between flex-col sm:flex-row">
+  if (!allowedImg.includes(id)) {
+    // get first image from article
+    const firstImage = article.full_content.match(/<img.*?src="(.*?)"/);
+    // get image link
+    const imgLink = firstImage?.[0].match(/src="([^"]*)"/);
+    // get image source
+    const imageSource = imgLink?.[0].replace(/src="/, "");
+    // remove the last "
+    image = imageSource?.replace(/"$/, "");
+
+    // remove the image from the article
+    const content = article.full_content.replace(/<img.*?src="(.*?)\/>/, "");
+    article.full_content = content;
+  }
+
+  return (
+    <>
+      <div className="bg-gradient-to-br from-[#001839]/100 to-[#001839]/80">
+        <Section className="max-w-7xl !py-12 md:py-16">
+          <p className="text-white text-3xl">{article.title}</p>
+          <div className="flex justify-between flex-col sm:flex-row my-8">
             <div className="flex items-center">
               <Link
-                className="flex items-center border-r border-black pr-4"
+                className="flex items-center border-r border-white pr-4"
                 href={`/publisher/${id}`}
               >
                 <Image
@@ -162,16 +206,16 @@ export default async function NewsDetails({
                   height={24}
                   className="mr-2"
                 />
-                <span className="text-base sm:text-lg font-medium">
+                <span className="text-base sm:text-lg text-white font-medium">
                   {getSource(article.source).name}
                 </span>
               </Link>
 
-              <span className="text-base text-neutral-700 px-4 border-r border-black hidden sm:block">
+              <span className="text-base text-white px-4 border-r border-white hidden sm:block">
                 {date}
               </span>
 
-              <span className="text-base text-neutral-700 px-4">
+              <span className="text-base text-white px-4">
                 {calculateMinutesToRead(article.full_content)} min read
               </span>
             </div>
@@ -181,6 +225,7 @@ export default async function NewsDetails({
                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodedURL}&t=${encodedTitle}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="invert"
               >
                 <FacebookSVG />
               </a>
@@ -188,59 +233,62 @@ export default async function NewsDetails({
                 href={`https://twitter.com/intent/tweet?text=${encodedText}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="invert"
               >
                 <XSVG />
               </a>
-              <a href={`https://t.me/share/url?url=${encodedText}`}>
+              <a
+                href={`https://t.me/share/url?url=${encodedText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="invert"
+              >
                 <TelegramSVG />
               </a>
-              <a href={`https://api.whatsapp.com/send?text=${encodedText}`}>
+              <a
+                href={`https://api.whatsapp.com/send?text=${encodedText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="invert"
+              >
                 <WhatsAppSVG />
               </a>
             </div>
           </div>
-
-          {allowedImg.includes(id) && (
-            <img
-              src={article.thumbnail || getSource(article.source).logo}
-              alt={article.title}
-              className="rounded object-cover max-h-[400px] w-full max-w-full"
-            />
-          )}
-
-          <article
-            className="!text-lg flex flex-col space-y-4 
+          <img
+            src={article.thumbnail || image || getSource(article.source).logo}
+            alt={article.title}
+            className="rounded-lg object-cover max-h-[1000px] w-full max-w-full -mb-28"
+          />
+        </Section>
+      </div>
+      <Section className="max-w-5xl mt-12 !pb-0">
+        <article
+          className="!text-lg flex flex-col space-y-4 !leading-8
           [&>img]:w-full [&>img]:rounded-lg [&>img]:object-contain
           [&>figure>img]:w-full [&>figure>img]:rounded-lg [&>figure>img]:object-contain
           [&>a]:!text-blue-500 [&>a]:!font-medium [&>a]:!underline
           [&>p>a]:!text-blue-500 [&>p>a]:!font-medium [&>p>a]:!underline
           [&>[data-el='widget-exchanges-affiliate']]:hidden
           overflow-hidden"
-            dangerouslySetInnerHTML={{ __html: article.full_content }}
-          />
-        </div>
+          dangerouslySetInnerHTML={{ __html: article.full_content }}
+        />
+      </Section>
 
-        <div className="col-span-4 lg:col-span-1">
-          <section className="flex flex-col space-y-4 sticky top-8">
-            <h2 className="text-xl font-semibold">MORE ARTICLES</h2>
-            <hr />
-            <div className="flex flex-col md:max-lg:flex-row gap-4">
-              {items?.map((item) => (
-                <div className="flex flex-col space-y-2" key={item.url}>
-                  <Link href={`/publisher/${item.source}/${item.slug}`}>
-                    <img
-                      src={item.thumbnail || getSource(item.source).logo}
-                      alt={item.title}
-                      className="rounded object-cover h-40 w-full max-w-full grayscale-[60%] transition-all duration-500 group-hover:grayscale-0 font-medium"
-                    />
-                    <p className="text-base my-2">{item.title}</p>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </section>
+      <Section className="grid grid-cols-3 gap-4 max-w-7xl py-12">
+        <div className="col-span-3">
+          <p className="text-xl font-semibold">MORE ARTICLES</p>
         </div>
-      </div>
-    </Section>
+        <div className="col-span-3 md:col-span-1">
+          <Card article={items[0]} />
+        </div>
+        <div className="col-span-3 md:col-span-1">
+          <Card article={items[1]} />
+        </div>
+        <div className="col-span-3 md:col-span-1">
+          <Card article={items[2]} />
+        </div>
+      </Section>
+    </>
   );
 }
