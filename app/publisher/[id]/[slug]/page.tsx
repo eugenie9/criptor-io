@@ -166,7 +166,7 @@ export default async function NewsDetails({
   const date = `${month} ${day}, ${year}`;
   const encodedTitle = encodeURIComponent(`${article.title} | Criptor.io`);
   const encodedURL = encodeURIComponent(
-    `https://criptor.io/publisher/${id}/${slug}`
+    `https://www.criptor.io/publisher/${id}/${slug}`
   );
 
   const encodedText = `${encodedTitle} ${encodedURL}`;
