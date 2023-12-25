@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/", // Allow everything
     },
-    sitemap: "https://criptor.io/sitemap.xml",
+    sitemap: "https://wwww.criptor.io/sitemap.xml",
   };
 }
