@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+const BASE_URL = process.env.BASE_URL;
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,16 +8,16 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/", // Allow everything
     },
     sitemap: [
-      "https://www.criptor.io/sitemap.xml",
-      "https://www.criptor.io/sitemap/beincrypto.xml",
-      "https://www.criptor.io/sitemap/bitcoin_news.xml",
-      "https://www.criptor.io/sitemap/bitcoin_magazine.xml",
-      "https://www.criptor.io/sitemap/coin_gape.xml",
-      "https://www.criptor.io/sitemap/crypto_potato.xml",
-      "https://www.criptor.io/sitemap/crypto_slate.xml",
-      "https://www.criptor.io/sitemap/defiant.xml",
-      "https://www.criptor.io/sitemap/forkast.xml",
-      "https://www.criptor.io/sitemap/protos.xml",
+      `${BASE_URL}/sitemap.xml`,
+      `${BASE_URL}/sitemap/beincrypto.xml`,
+      `${BASE_URL}/sitemap/bitcoin_news.xml`,
+      `${BASE_URL}/sitemap/bitcoin_magazine.xml`,
+      `${BASE_URL}/sitemap/coin_gape.xml`,
+      `${BASE_URL}/sitemap/crypto_potato.xml`,
+      `${BASE_URL}/sitemap/crypto_slate.xml`,
+      `${BASE_URL}/sitemap/defiant.xml`,
+      `${BASE_URL}/sitemap/forkast.xml`,
+      `${BASE_URL}/sitemap/protos.xml`,
     ],
   };
 }
