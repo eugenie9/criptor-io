@@ -1,3 +1,5 @@
+import stopWords from "@/stopWords.json";
+
 const getSource = (id: string) => {
   switch (id) {
     case "beincrypto":
@@ -81,4 +83,146 @@ const calculateMinutesToRead = (content: string) => {
   return Math.ceil(numberOfWords / wordsPerMinute);
 };
 
-export { getSource, getHowManyTimePassed, calculateMinutesToRead };
+const remove = [
+  "figure",
+  "img",
+  "amp",
+  "target_",
+  "object",
+  "blank",
+  "wfull",
+  "rounded",
+];
+
+const months = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
+
+const monthsShort = [
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sept",
+  "oct",
+  "nov",
+  "dec",
+];
+
+const extractKeywords = (content: string) => {
+  // remove all figures
+  let cleanText = content.replace(/<figure[^>]*>.*?<\/figure>/g, "");
+  // remove all images
+  cleanText = cleanText.replace(/<img[^>]*>/g, "");
+  // remove all class attributes
+  cleanText = cleanText.replace(/class="[^"]*"/g, "");
+  // remove all html tags
+  cleanText = cleanText.replace(/<[^>]*>/g, "");
+
+  // remove all special characters
+  cleanText = cleanText.replace(/[^\w\s]/gi, "");
+  // remove all numbers
+  cleanText = cleanText.replace(/\d+/g, "");
+  // remove all extra spaces
+  cleanText = cleanText.replace(/\s+/g, " ").trim();
+
+  // convert to lowercase
+  cleanText = cleanText.toLowerCase();
+
+  // remove all months
+  months.forEach((month) => {
+    cleanText = cleanText.replace(new RegExp(month, "g"), "");
+  });
+
+  // remove all months
+  monthsShort.forEach((month) => {
+    cleanText = cleanText.replace(new RegExp(month, "g"), "");
+  });
+
+  // remove all the words starting with remove
+  remove.forEach((word) => {
+    cleanText = cleanText.replace(new RegExp(word, "g"), "");
+  });
+
+  // remove all stop words
+  cleanText = cleanText
+    .split(" ")
+    .filter((word) => !stopWords.includes(word))
+    .join(" ");
+
+  // remove all extra spaces
+  cleanText = cleanText.replace(/\s+/g, " ").trim();
+
+  // split into words
+  const words = cleanText.split(" ");
+
+  // split into bigrams
+  const bigrams = [];
+  for (let i = 0; i < words.length - 1; i++) {
+    bigrams.push(words[i] + " " + words[i + 1]);
+  }
+
+  // count the frequency of each word
+  const frequency: {
+    [key: string]: number;
+  } = {};
+  words.forEach((word) => {
+    if (frequency[word]) {
+      frequency[word]++;
+    } else {
+      frequency[word] = 1;
+    }
+  });
+
+  // count the frequency of each bigram
+  const frequency2: {
+    [key: string]: number;
+  } = {};
+  bigrams.forEach((bigram) => {
+    if (frequency2[bigram]) {
+      frequency2[bigram]++;
+    } else {
+      frequency2[bigram] = 1;
+    }
+  });
+
+  // sort the words by frequency
+  const sortedWords = Object.entries(frequency).sort((a, b) => b[1] - a[1]);
+
+  // sort the bigrams by frequency
+  const sortedBigrams = Object.entries(frequency2).sort((a, b) => b[1] - a[1]);
+
+  const keywords: string[] = [];
+
+  sortedWords.slice(0, 10).forEach((word) => {
+    keywords.push(word[0]);
+  });
+
+  sortedBigrams.slice(0, 10).forEach((bigram) => {
+    keywords.push(bigram[0]);
+  });
+
+  return keywords;
+};
+
+export {
+  getSource,
+  getHowManyTimePassed,
+  calculateMinutesToRead,
+  extractKeywords,
+};

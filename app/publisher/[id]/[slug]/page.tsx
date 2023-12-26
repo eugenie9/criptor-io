@@ -6,6 +6,7 @@ import {
   getHowManyTimePassed,
   getSource,
   calculateMinutesToRead,
+  extractKeywords,
 } from "@/app/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -112,9 +113,12 @@ export async function generateMetadata({
 
   const title = `${article?.title} | Criptor.io` || "Not found";
   const description = article?.content || "Not found";
+  const keywords = extractKeywords(article?.full_content || "");
+  keywords.push(...[getSource(article?.source).name.toLowerCase(), "criptor"]);
 
   return {
     title,
+    keywords,
     description,
     openGraph: {
       title,
