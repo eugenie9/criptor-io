@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
     },
     {
-      url: `${BASE_URL}info/terms-of-service`,
+      url: `${BASE_URL}/info/terms-of-service`,
       changeFrequency: "weekly",
     },
     ...publishers,
