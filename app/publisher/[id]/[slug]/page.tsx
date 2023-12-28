@@ -147,6 +147,10 @@ export default async function NewsDetails({
     return <div>Not found</div>;
   }
 
+  const keywords = extractKeywords(article.full_content || "");
+  keywords.push(...[getSource(article?.source).name.toLowerCase(), "criptor"]);
+  shuffle(keywords);
+
   const data = await getArticlesForSource(id, 0);
   // @ts-ignore
   let { items }: { items: TArticle[] } = data;
@@ -277,6 +281,22 @@ export default async function NewsDetails({
           overflow-hidden"
           dangerouslySetInnerHTML={{ __html: article.full_content }}
         />
+
+        <div className="my-4">
+          <span className="text-lg font-semibold border-b border-black">
+            KEYWORDS
+          </span>
+        </div>
+        <div className="flex flex-wrap gap-y-2">
+          {keywords.map((keyword, index) => (
+            <span
+              className="text-base font-medium mr-2 border border-gray-300 rounded-lg px-2 py-1 "
+              key={index}
+            >
+              {keyword}
+            </span>
+          ))}
+        </div>
       </Section>
 
       <Section className="grid grid-cols-3 gap-4 max-w-7xl py-12">
