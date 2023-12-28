@@ -145,14 +145,16 @@ const extractKeywords = (content: string) => {
   cleanText = cleanText.toLowerCase();
 
   // remove all months
-  months.forEach((month) => {
-    cleanText = cleanText.replace(new RegExp(month, "g"), "");
-  });
+  cleanText = cleanText
+    .split(" ")
+    .filter((word) => !months.includes(word))
+    .join(" ");
 
   // remove all months
-  monthsShort.forEach((month) => {
-    cleanText = cleanText.replace(new RegExp(month, "g"), "");
-  });
+  cleanText = cleanText
+    .split(" ")
+    .filter((word) => !monthsShort.includes(word))
+    .join(" ");
 
   // remove all the words starting with remove
   remove.forEach((word) => {
