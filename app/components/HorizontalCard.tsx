@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getSource } from "../utils";
 import LinkWrapper from "./LinkWrapper";
 
@@ -16,10 +17,12 @@ export default async function HorizontalCard({
         </LinkWrapper>
         <p>{article.content?.slice(0, 150)}...</p>
         <div className="flex flex-1 items-end">
-          <div className="flex items-center">
-            <img src={source.logo} alt={source.name} className="h-8" />
-            <p className="ml-2">{source?.name}</p>
-          </div>
+          <Link href={`/publisher/${article.source}`}>
+            <div className="flex items-center">
+              <img src={source.logo} alt={source.name} className="h-8" />
+              <p className="ml-2 font-semibold">{source?.name}</p>
+            </div>
+          </Link>
         </div>
       </div>
       <LinkWrapper article={article}>

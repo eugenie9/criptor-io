@@ -11,22 +11,21 @@ export default function AskMore({
   start,
 }: {
   source: string;
-  start: string;
+  start: number;
 }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TArticle[]>([]);
-  const [lastEvaluatedKey, setLastEvaluatedKey] = useState(start);
+  const [offset, setOffset] = useState(start);
 
   const askData = async () => {
     if (loading) return;
     setLoading(true);
-    // @ts-ignore
     const articles: {
       items: TArticle[];
-      lastEvaluatedKey: string;
-    } = await getArticlesForSource(source, Number(lastEvaluatedKey));
+      offset: number;
+    } = await getArticlesForSource(source, offset);
     setData([...data, ...articles.items]);
-    setLastEvaluatedKey(articles.lastEvaluatedKey);
+    setOffset(articles.offset);
     setLoading(false);
   };
 
@@ -36,11 +35,7 @@ export default function AskMore({
 
       {loading ? <LoadingCircle /> : <></>}
 
-      {lastEvaluatedKey ? (
-        <LoadMoreButton onClick={askData} disabled={loading} />
-      ) : (
-        <></>
-      )}
+      {offset ? <LoadMoreButton onClick={askData} disabled={loading} /> : <></>}
     </>
   );
 }

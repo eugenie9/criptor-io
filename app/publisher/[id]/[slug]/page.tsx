@@ -183,7 +183,7 @@ export default async function NewsDetails({
 
   if (!allowedImg.includes(id)) {
     // get first image from article
-    const firstImage = article.full_content.match(/<img.*?src="(.*?)"/);
+    const firstImage = article.full_content?.match(/<img.*?src="(.*?)"/);
     // get image link
     const imgLink = firstImage?.[0].match(/src="([^"]*)"/);
     // get image source
@@ -192,7 +192,7 @@ export default async function NewsDetails({
     image = imageSource?.replace(/"$/, "");
 
     // remove the image from the article
-    const content = article.full_content.replace(/<img.*?src="(.*?)\/>/, "");
+    const content = article.full_content?.replace(/<img.*?src="(.*?)\/>/, "");
     article.full_content = content;
   }
 
@@ -279,7 +279,7 @@ export default async function NewsDetails({
           [&>p>a]:!text-blue-500 [&>p>a]:!font-medium [&>p>a]:!underline
           [&>[data-el='widget-exchanges-affiliate']]:hidden
           overflow-hidden"
-          dangerouslySetInnerHTML={{ __html: article.full_content }}
+          dangerouslySetInnerHTML={{ __html: article.full_content || "" }}
         />
 
         <div className="my-4">

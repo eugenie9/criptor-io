@@ -33,13 +33,12 @@ export default async function News({ params, searchParams }: Props) {
 
   const data = await getArticlesForSource(id, start);
 
-  // @ts-ignore
   const {
     items,
-    lastEvaluatedKey,
+    offset,
   }: {
     items: TArticle[];
-    lastEvaluatedKey: string;
+    offset: number;
   } = data;
 
   if (!items) return <div>404</div>;
@@ -93,7 +92,7 @@ export default async function News({ params, searchParams }: Props) {
         })}
       </div>
 
-      <AskMore source={id} start={lastEvaluatedKey} />
+      <AskMore source={id} start={offset} />
     </Section>
   );
 }

@@ -16,7 +16,7 @@ export default function Header() {
               key={source.id}
               prefetch={false}
               href={`/publisher/${source.id}`}
-              className="xl:text-lg font-bold py-2"
+              className="xl:text-lg font-semibold py-2"
             >
               {source.name}
             </Link>

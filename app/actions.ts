@@ -1,24 +1,24 @@
 "use server";
 
-import dynamodb from "@/dynamodb";
+import mongoClient from "@/mongo/client";
 
-const getArticlesForSource = async (source: string, start: number) => {
-  const data = await dynamodb.getArticlesForSource(source, start);
+const getArticlesForSource = async (source: string, offset: number) => {
+  const data = await mongoClient.getArticlesForSource(source, offset);
 
-  return data;
+  return {
+    items: data,
+    offset: offset + data.length,
+  };
 };
 
-const getArticles = async (
-  pubDate: string,
-  lastEvaluated?: TLastEvaluatedKeyForAllSources
-) => {
-  const data = await dynamodb.getArticles(pubDate, lastEvaluated);
+const getArticles = async () => {
+  const data = await mongoClient.getArticles();
 
   return data;
 };
 
 const getArticlesWithSourceAndSlug = async (source: string, slug: string) => {
-  const data = await dynamodb.getArticlesWithSourceAndSlug(source, slug);
+  const data = await mongoClient.getArticlesWithSourceAndSlug(source, slug);
 
   return data;
 };

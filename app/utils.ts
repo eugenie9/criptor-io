@@ -78,8 +78,8 @@ const getHowManyTimePassed = (date: number) => {
 
 const calculateMinutesToRead = (content: string) => {
   const wordsPerMinute = 200;
-  const _content = content.replace(/<[^>]*>/g, "").split(/\s/g);
-  const numberOfWords = _content.filter((word) => word !== "").length;
+  const _content = content?.replace(/<[^>]*>/g, "").split(/\s/g);
+  const numberOfWords = _content?.filter((word) => word !== "").length;
   return Math.ceil(numberOfWords / wordsPerMinute);
 };
 

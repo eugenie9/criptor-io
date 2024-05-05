@@ -41,23 +41,10 @@ const NewsRow = ({
 };
 
 export default async function News() {
-  const today = new Date();
-
-  const todayString = today.toISOString().split("T")[0];
-
-  // @ts-ignore
   const data: {
     items: TArticleWithPubDate[];
-    lastEvaluatedKey: TLastEvaluatedKeyForAllSources;
-  } = await getArticles("News " + todayString);
+  } = await getArticles();
   const { items } = data;
-  let { lastEvaluatedKey } = data;
-  if (typeof lastEvaluatedKey === "undefined" && items.length) {
-    lastEvaluatedKey = {
-      pubDate: items[items.length - 1].pubDate,
-      date: items[items.length - 1].date,
-    };
-  }
 
   return (
     <div className="flex flex-col mt-4">
