@@ -273,11 +273,18 @@ export default async function NewsDetails({
       <Section className="max-w-5xl mt-12 !pb-0">
         <article
           className="!text-lg flex flex-col space-y-4 !leading-8
-          [&>img]:w-full [&>img]:rounded-lg [&>img]:object-contain
-          [&>figure>img]:w-full [&>figure>img]:rounded-lg [&>figure>img]:object-contain
+          [&>img]:max-w-5xl [&>img]:rounded-lg [&>img]:object-contain
+          [&>figure>img]:max-w-5xl [&>figure>img]:rounded-lg [&>figure>img]:object-contain
+          [&>figure>a>img]:max-w-5xl [&>figure>a>img]:rounded-lg [&>figure>a>img]:object-contain
           [&>a]:!text-blue-500 [&>a]:!font-medium [&>a]:!underline
           [&>p>a]:!text-blue-500 [&>p>a]:!font-medium [&>p>a]:!underline
           [&>[data-el='widget-exchanges-affiliate']]:hidden
+          [&>h1]:!text-3xl [&>h1]:!font-semibold [&>h1]:!mt-8 [&>h1]:!mb-4
+          [&>h2]:!text-2xl [&>h2]:!font-semibold [&>h2]:!mt-8 [&>h2]:!mb-4
+          [&>h3]:!text-xl [&>h3]:!font-semibold [&>h3]:!mt-8 [&>h3]:!mb-4
+          [&>h4]:!text-lg [&>h4]:!font-semibold [&>h4]:!mt-8 [&>h4]:!mb-4
+          [&>h5]:!text-base [&>h5]:!font-semibold [&>h5]:!mt-8 [&>h5]:!mb-4
+          [&>h6]:!text-base [&>h6]:!font-semibold [&>h6]:!mt-8 [&>h6]:!mb-4
           overflow-hidden"
           dangerouslySetInnerHTML={{ __html: article.full_content || "" }}
         />
