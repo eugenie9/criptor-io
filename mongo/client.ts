@@ -19,6 +19,25 @@ const memoizedGetArticlesForSource = memoizee(getArticlesForSource, {
   maxAge: 1000 * 60 * 2,
 });
 
+const getPopularArticlesForSource = async (source: string) => {
+  const data = await News.find({
+    source,
+    date: { $gt: Date.now() - 1000 * 60 * 60 * 24 * 7 },
+  })
+    .sort({ readCount: -1 })
+    .limit(5);
+
+  return data;
+};
+
+const memoizedGetPopularArticlesForSource = memoizee(
+  getPopularArticlesForSource,
+  {
+    promise: true,
+    maxAge: 1000 * 60 * 2,
+  }
+);
+
 const getArticles = async () => {
   const data = await News.find().sort({ date: -1 }).limit(20);
 
@@ -52,6 +71,7 @@ const mongoClient = {
   getArticles: memoizedGetArticles,
   getArticlesForSource: memoizedGetArticlesForSource,
   getArticlesWithSourceAndSlug: memoizedGetArticlesWithSourceAndSlug,
+  getPopularArticlesForSource: memoizedGetPopularArticlesForSource,
 };
 
 export default mongoClient;

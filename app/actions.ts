@@ -11,6 +11,12 @@ const getArticlesForSource = async (source: string, offset: number) => {
   };
 };
 
+const getPopularArticlesForSource = async (source: string) => {
+  const data = await mongoClient.getPopularArticlesForSource(source);
+
+  return data;
+};
+
 const getArticles = async () => {
   const data = await mongoClient.getArticles();
 
@@ -23,4 +29,9 @@ const getArticlesWithSourceAndSlug = async (source: string, slug: string) => {
   return data;
 };
 
-export { getArticlesForSource, getArticles, getArticlesWithSourceAndSlug };
+export {
+  getArticlesForSource,
+  getArticles,
+  getArticlesWithSourceAndSlug,
+  getPopularArticlesForSource,
+};
