@@ -1,11 +1,15 @@
-import ItemVertical from "@/app/components/ItemVertical";
-import ItemLeftRight from "@/app/components/ItemLeftRight";
-import { getArticlesForSource } from "@/app/actions";
+import {
+  getArticlesForSource,
+  getPopularArticlesForSource,
+} from "@/app/actions";
 import AskMore from "@/app/publisher/[id]/AskMore";
-import ArticleCard from "@/app/components/ArticleCard";
+import ArticleCard2 from "@/app/components/ArticleCard2";
 import type { Metadata } from "next";
 import sources from "@/sources.json";
 import Section from "@/app/components/Section";
+import CarouselCard from "@/app/components/Carousel/Card";
+import CarouselCardBig from "@/app/components/Carousel/CardBig";
+import PopularArticles from "@/app/components/PopularArticles";
 
 export const revalidate = 60;
 
@@ -33,6 +37,8 @@ export default async function News({ params, searchParams }: Props) {
 
   const data = await getArticlesForSource(id, start);
 
+  const popularArticles = await getPopularArticlesForSource(id);
+
   const {
     items,
     offset,
@@ -45,54 +51,41 @@ export default async function News({ params, searchParams }: Props) {
   if (!items.length) return <div>404</div>;
 
   return (
-    <Section className="py-4">
-      {items.length == 1 && (
-        <div className="grid grid-cols-7 gap-6 gap-y-2">
-          <div className="col-span-7 lg:col-span-4">
-            <ItemVertical item={items[0]} />
+    <>
+      <Section className="!py-0 mt-4">
+        <div className="grid grid-cols-7 gap-2">
+          <div className="col-span-7 md:col-span-2 flex flex-col space-y-2 max-md:order-2">
+            <CarouselCard article={items[1]} />
+            <CarouselCard article={items[2]} />
+          </div>
+          <div className="col-span-7 md:col-span-3 max-md:order-1">
+            <CarouselCardBig article={items[0]} />
+          </div>
+          <div className="col-span-7 md:col-span-2 flex flex-col space-y-2 max-md:order-3">
+            <CarouselCard article={items[3]} />
+            <CarouselCard article={items[4]} />
           </div>
         </div>
-      )}
+      </Section>
 
-      {items.length == 2 && (
-        <div className="grid grid-cols-7 gap-6 gap-y-2">
-          <div className="col-span-7 lg:col-span-4">
-            <ItemVertical item={items[0]} />
+      <Section className="py-4">
+        <div className="grid grid-cols-3 gap-8">
+          <div className="col-span-3 md:col-span-2">
+            {items.map((item, index) => {
+              if (index < 5) return;
+              return (
+                <div key={item.slug}>
+                  <ArticleCard2 article={item} />
+                </div>
+              );
+            })}
+            <AskMore source={id} start={offset} />
           </div>
-          <div className="col-span-7 md:col-span-7 lg:col-span-3 flex flex-col justify-center">
-            <ItemLeftRight item={items[1]} orientation={"right"} />
-          </div>
-        </div>
-      )}
-
-      {items.length >= 3 && (
-        <div className="grid grid-cols-7 gap-6 gap-y-2">
-          <div className="col-span-7 lg:col-span-4">
-            <ItemVertical item={items[0]} />
-          </div>
-          <div className="col-span-7 md:col-span-7 lg:col-span-3 flex flex-col justify-center">
-            <ItemLeftRight item={items[1]} orientation={"right"} />
-            <ItemLeftRight item={items[2]} orientation={"right"} />
+          <div className="col-span-3 md:col-span-1 h-auto">
+            <PopularArticles articles={popularArticles} />
           </div>
         </div>
-      )}
-
-      <div className="grid grid-cols-12 gap-6 gap-y-2 pb-4">
-        {items.map((item, index) => {
-          if (index < 3) return;
-
-          return (
-            <div
-              className={`col-span-12 md:col-span-6 lg:col-span-4`}
-              key={item.url}
-            >
-              <ArticleCard article={item} />
-            </div>
-          );
-        })}
-      </div>
-
-      <AskMore source={id} start={offset} />
-    </Section>
+      </Section>
+    </>
   );
 }
