@@ -1,7 +1,7 @@
 import { getArticlesForSource } from "@/app/actions";
 import { getHowManyTimePassed, getSource } from "@/app/utils";
-import Section from "./Section";
-import LinkWrapper from "./LinkWrapper";
+import Section from "../Section";
+import LinkWrapper from "../LinkWrapper";
 
 const Card = ({ article }: { article: TArticle }) => {
   return (
@@ -19,7 +19,7 @@ const Card = ({ article }: { article: TArticle }) => {
               {article.title}
             </h3>
 
-            <span className="font-medium text-sm text-white/90 mt-1">
+            <span className="font-medium text-sm text-white/90">
               {getHowManyTimePassed(article.date)}
             </span>
           </div>
@@ -40,12 +40,12 @@ const CardHorizontal = ({ article }: { article: TArticle }) => {
 
       <div className="p-4 sm:p-6 flex flex-col">
         <LinkWrapper article={article}>
-          <h3 className="mt-0.5 text-base xl:text-lg text-white">
+          <h3 className="mt-0.5 text-base xl:text-lg text-neutral-700">
             {article.title}
           </h3>
         </LinkWrapper>
 
-        <span className="font-medium text-sm text-white/90">
+        <span className="font-medium text-sm text-neutral-700 mt-1">
           {getHowManyTimePassed(article.date)}
         </span>
       </div>
@@ -53,15 +53,11 @@ const CardHorizontal = ({ article }: { article: TArticle }) => {
   );
 };
 
-export default async function FeaturedPublisher2({
-  publisher,
-}: {
-  publisher: string;
-}) {
-  const source = getSource(publisher);
+export default async function Defiant() {
+  const source = getSource("defiant");
   if (!source) return null;
 
-  const _articles = await getArticlesForSource(publisher, 0);
+  const _articles = await getArticlesForSource("defiant", 0);
 
   // @ts-ignore
   const { items }: { items: TArticle[] } = _articles;
@@ -73,12 +69,12 @@ export default async function FeaturedPublisher2({
   if (articles.length < 6) return null;
 
   return (
-    <div className="bg-[#172132]">
+    <div className="bg-gradient-to-l from-[#E0FBFC]/80 to-[#E0FBFC]/100">
       <Section>
         <div className="flex">
-          <div className="flex items-center border-b-2 pb-2">
+          <div className="flex items-center border-b-2 border-neutral-700 pb-2">
             <img src={source.logo} alt={source.name} className="h-10" />
-            <h2 className="text-2xl font-bold ml-2 text-white">
+            <h2 className="text-2xl font-bold ml-2 text-neutral-700">
               {source.name}
             </h2>
           </div>

@@ -1,7 +1,7 @@
-import { getArticlesForSource } from "../actions";
-import { getSource, getHowManyTimePassed } from "../utils";
-import Section from "./Section";
-import LinkWrapper from "./LinkWrapper";
+import { getArticlesForSource } from "../../actions";
+import { getSource, getHowManyTimePassed } from "../../utils";
+import Section from "../Section";
+import LinkWrapper from "../LinkWrapper";
 
 const Card = ({ article }: { article: TArticle }) => {
   return (
@@ -27,15 +27,11 @@ const Card = ({ article }: { article: TArticle }) => {
   );
 };
 
-export default async function FeaturedPublisher({
-  publisher,
-}: {
-  publisher: string;
-}) {
-  const source = getSource(publisher);
+export default async function CryptoSlate() {
+  const source = getSource("crypto_slate");
   if (!source) return null;
 
-  const _articles = await getArticlesForSource(publisher, 0);
+  const _articles = await getArticlesForSource("crypto_slate", 0);
 
   // @ts-ignore
   const { items }: { items: TArticle[] } = _articles;

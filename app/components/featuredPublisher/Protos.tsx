@@ -1,7 +1,7 @@
 import { getArticlesForSource } from "@/app/actions";
 import { getHowManyTimePassed, getSource } from "@/app/utils";
-import Section from "./Section";
-import LinkWrapper from "./LinkWrapper";
+import Section from "../Section";
+import LinkWrapper from "../LinkWrapper";
 
 const Card = ({ article }: { article: TArticle }) => {
   return (
@@ -53,15 +53,11 @@ const CardHorizontal = ({ article }: { article: TArticle }) => {
   );
 };
 
-export default async function FeaturedPublisher3({
-  publisher,
-}: {
-  publisher: string;
-}) {
-  const source = getSource(publisher);
+export default async function Protos() {
+  const source = getSource("protos");
   if (!source) return null;
 
-  const _articles = await getArticlesForSource(publisher, 0);
+  const _articles = await getArticlesForSource("protos", 0);
 
   // @ts-ignore
   const { items }: { items: TArticle[] } = _articles;
