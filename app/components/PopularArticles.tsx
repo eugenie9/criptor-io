@@ -13,7 +13,7 @@ const PopularArticles = ({ articles }: { articles: TArticle[] }) => {
       {articles.map((article) => {
         return (
           <div
-            className={`md:px-5 pb-5 group h-full grid grid-cols-3 items-center gap-4`}
+            className={`md:px-5 pb-5 group grid grid-cols-3 items-center gap-4`}
             key={article.slug}
           >
             <Link
