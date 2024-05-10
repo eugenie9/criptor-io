@@ -6,7 +6,7 @@ export default async function CarouselCard({ article }: { article: TArticle }) {
 
   return (
     <LinkWrapper article={article}>
-      <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg h-60 flex">
+      <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg h-[244px] flex">
         <img
           alt={article.title}
           src={article.thumbnail}

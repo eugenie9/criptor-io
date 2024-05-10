@@ -11,7 +11,7 @@ export default function Select() {
   };
 
   return (
-    <div className="border-b border-t border-black py-2 lg:hidden">
+    <div className="border-b border-t border-black px-4 py-2 lg:hidden">
       <select className="text-lg font-bold py-2" onChange={handleChange}>
         {sources.map((source) => (
           <option key={source.id} value={source.id}>

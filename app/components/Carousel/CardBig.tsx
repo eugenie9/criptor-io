@@ -10,7 +10,7 @@ export default async function CarouselCardBig({
 
   return (
     <LinkWrapper article={article}>
-      <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg h-60 md:h-[496px] flex">
+      <article className="relative overflow-hidden rounded-lgx shadow transition hover:shadow-lg h-72 md:h-[496px] flex cursor-pointer">
         <img
           alt={article.title}
           src={article.thumbnail}
@@ -19,7 +19,7 @@ export default async function CarouselCardBig({
 
         <div className="relative bg-gradient-to-t from-gray-900/70 to-gray-900/30 flex-1 flex items-end">
           <div className="p-4 sm:p-6">
-            <div className="bg-gradient-to-r from-[#172132]/100 to-[#172132]/80 text-neutral-200 w-auto mr-auto uppercase text-sm rounded-tl-lg rounded-br-3xl px-4 py-3 flex items-center absolute top-0 left-0 font-medium">
+            <div className="bg-gradient-to-r from-[#172132]/100 to-[#172132]/80 text-neutral-200 w-auto mr-auto uppercase text-sm rounded-br-3xl px-4 py-3 flex items-center absolute top-0 left-0 font-medium">
               <img src={source.logo} alt={source.name} className="h-5" />
               <p className="ml-2">{source.name}</p>
             </div>
