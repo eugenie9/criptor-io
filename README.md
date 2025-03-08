@@ -1,8 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Crypto News Aggregator
+
+A modern cryptocurrency news aggregator built with Next.js that collects and displays news from various crypto-focused publications.
+
+## Overview
+
+This application aggregates news from multiple cryptocurrency news sources, stores them in a MongoDB database, and presents them in a clean, modern interface. It's designed to be a one-stop destination for staying updated with the latest developments in the cryptocurrency world.
+
+## Features
+
+- **Multi-source News Aggregation**: Collects news from 9 major crypto publications including BeInCrypto, Bitcoin News, Bitcoin Magazine, Coin Gape, Crypto Potato, Crypto Slate, The Defiant, Forkast, and Protos.
+- **Modern UI**: Clean, responsive interface built with Next.js and Tailwind CSS.
+- **Performance Optimized**: Uses memoization for database queries to reduce load and improve performance.
+- **Popular Articles**: Tracks article read counts to display popular articles from each source.
+- **MongoDB Integration**: Stores and retrieves news articles from MongoDB.
+- **Server-side Rendering**: Leverages Next.js server components for improved performance and SEO.
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React 18, Tailwind CSS
+- **Backend**: Next.js API routes, MongoDB
+- **Authentication**: NextAuth.js
+- **Analytics**: Vercel Analytics
+- **Database**: MongoDB (via Mongoose)
+- **Deployment**: Vercel (recommended)
+
+## Project Structure
+
+- `/app`: Next.js application code
+  - `/components`: UI components
+  - `/api`: API routes
+  - `actions.ts`: Server actions for data fetching
+  - `utils.ts`: Utility functions
+- `/mongo`: MongoDB connection and models
+  - `/models`: Database schemas
+  - `client.ts`: MongoDB client with memoized query functions
+- `sources.json`: Configuration for news sources
+- `stopWords.json`: List of common words to exclude from keyword extraction
+- `types.d.ts`: TypeScript type definitions
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18 or later
+- MongoDB database (local or cloud-based)
+
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```
+MONGO_CONNECTION_STRING=your_mongodb_connection_string
+BASE_URL=your_base_url
+```
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +75,36 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Data Model
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The application uses a MongoDB schema for news articles with the following structure:
 
-## Learn More
+- `id`: Unique identifier for the article
+- `url`: Original article URL
+- `title`: Article title
+- `content`: Summary content
+- `full_content`: Complete article content
+- `slug`: URL-friendly version of the title
+- `thumbnail`: Image URL
+- `date`: Publication timestamp
+- `is_external`: Flag for external articles
+- `readCount`: Number of times the article has been read
+- `categories`: Array of article categories
+- `source`: Source publication identifier
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application is optimized for deployment on Vercel. Follow these steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Push your code to a Git repository
+2. Import the project into Vercel
+3. Configure the environment variables
+4. Deploy
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the terms included in the LICENSE file.
