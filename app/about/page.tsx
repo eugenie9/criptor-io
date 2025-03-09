@@ -54,7 +54,7 @@ export default function About() {
             </h2>
             <span className="block text-base xl:text-lg text-neutral-600">
               Hi, I am Yavuz, the creator of{" "}
-              <b className="text-black">Criptor.io</b>. I am a Full Stack
+              <b className="text-black">Criptor.net</b>. I am a Full Stack
               Software Developer passionate about web development and
               cryptocurrencies. This project was born out of my desire to build
               a simple app with Next.js to test its new features App Router and

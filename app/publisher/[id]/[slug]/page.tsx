@@ -111,7 +111,7 @@ export async function generateMetadata({
 
   const article = articles?.items?.[0];
 
-  const title = `${article?.title} | Criptor.io` || "Not found";
+  const title = `${article?.title} | Criptor.net` || "Not found";
   const description = article?.content || "Not found";
   const keywords = extractKeywords(article?.full_content || "");
   keywords.push(...[getSource(article?.source).name.toLowerCase(), "criptor"]);
@@ -172,9 +172,9 @@ export default async function NewsDetails({
   });
 
   const date = `${month} ${day}, ${year}`;
-  const encodedTitle = encodeURIComponent(`${article.title} | Criptor.io`);
+  const encodedTitle = encodeURIComponent(`${article.title} | Criptor.net`);
   const encodedURL = encodeURIComponent(
-    `https://www.criptor.io/publisher/${id}/${slug}`
+    `https://www.criptor.net/publisher/${id}/${slug}`
   );
 
   const encodedText = `${encodedTitle} ${encodedURL}`;

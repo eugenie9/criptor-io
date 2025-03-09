@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!source) source = { id: "", name: "404" };
 
   return {
-    title: `${source.name} - Cryptocurrency News | Criptor.io`,
-    description: `Stay updated with the latest cryptocurrency news from ${source.name} on Criptor.io, your comprehensive source for all things crypto.`,
+    title: `${source.name} - Cryptocurrency News | Criptor.net`,
+    description: `Stay updated with the latest cryptocurrency news from ${source.name} on Criptor.net, your comprehensive source for all things crypto.`,
     keywords: `Cryptocurrency, Crypto News, Bitcoin, Ethereum, Blockchain, Crypto Market, Altcoins, Crypto Trading, Crypto Investment, Crypto Updates, Blockchain Technology, DeFi, NFT, Crypto RSS Reader, Criptor, ${source.name}`,
   };
 }

@@ -2,10 +2,10 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Criptor.io - Your Ultimate Source for Cryptocurrency News",
-    short_name: "Criptor.io",
+    name: "Criptor.net - Your Ultimate Source for Cryptocurrency News",
+    short_name: "Criptor.net",
     description:
-      "Stay updated with the latest cryptocurrency news from around the globe with Criptor.io, your comprehensive RSS reader for all things crypto.",
+      "Stay updated with the latest cryptocurrency news from around the globe with Criptor.net, your comprehensive RSS reader for all things crypto.",
     start_url: "/",
     display: "standalone",
     background_color: "#fff",
