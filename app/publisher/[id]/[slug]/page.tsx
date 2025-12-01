@@ -154,27 +154,27 @@ export async function generateMetadata({
 }
 
 const symbols = {
-  "BTCUSDT": {
-    "name": "Bitcoin",
-    "logo": "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=040"
+  BTCUSDT: {
+    name: "Bitcoin",
+    logo: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=040",
   },
-  "ETHUSDT": {
-    "name": "Ethereum",
-    "logo": "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=040"
+  ETHUSDT: {
+    name: "Ethereum",
+    logo: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=040",
   },
-  "BNBUSDT": {
-    "name": "Binance Coin",
-    "logo": "https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=040"
+  BNBUSDT: {
+    name: "Binance Coin",
+    logo: "https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=040",
   },
-  "XRPUSDT": {
-    "name": "Ripple",
-    "logo": "https://cryptologos.cc/logos/xrp-xrp-logo.svg?v=040"
+  XRPUSDT: {
+    name: "Ripple",
+    logo: "https://cryptologos.cc/logos/xrp-xrp-logo.svg?v=040",
   },
-  "SOLUSDT": {
-    "name": "Solana",
-    "logo": "https://cryptologos.cc/logos/solana-sol-logo.svg?v=040"
-  }
-}
+  SOLUSDT: {
+    name: "Solana",
+    logo: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=040",
+  },
+};
 
 export default async function NewsDetails({
   params,
@@ -464,7 +464,7 @@ export default async function NewsDetails({
           <div className="lg:col-span-1">
             <div className="sticky top-48">
               {/* Related articles in sidebar */}
-              <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg md:px-6 mb-12">
+              <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-6 mb-8 md:mb-12">
                 <h3 className="text-xl font-heading font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -535,7 +535,7 @@ export default async function NewsDetails({
               </div>
 
               {/* Market data widget - example of additional content */}
-              <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg md:px-6">
+              <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-6 pb-4">
                 <h3 className="text-xl font-heading font-bold mb-4 text-gray-900 dark:text-gray-100 flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -560,22 +560,29 @@ export default async function NewsDetails({
                       const p = Number(price);
                       if (Number.isNaN(p)) return price;
                       // Always show at least 2 decimal digits, up to 8 for precision assets
-                      return p.toLocaleString("en-US", { 
-                        minimumFractionDigits: 2, 
-                        maximumFractionDigits: 8 
-                      }).replace(/\.?0+$/, ''); // Remove trailing zeros
+                      return p
+                        .toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 8,
+                        })
+                        .replace(/\.?0+$/, ""); // Remove trailing zeros
                     }
 
                     const price = priceItem.lastPrice;
                     const priceChangePercent = priceItem.priceChangePercent;
-                    const symbol = symbols[priceItem.symbol as keyof typeof symbols];
+                    const symbol =
+                      symbols[priceItem.symbol as keyof typeof symbols];
                     return (
                       <div
                         key={index}
                         className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700 last:border-0"
                       >
                         <div className="flex items-center space-x-2">
-                          <img src={symbol.logo} alt={symbol.name} className="w-4 h-4" />
+                          <img
+                            src={symbol.logo}
+                            alt={symbol.name}
+                            className="w-4 h-4"
+                          />
                           <span className="font-medium">{symbol.name}</span>
                         </div>
                         <div className="flex flex-col items-end">
@@ -584,14 +591,16 @@ export default async function NewsDetails({
                           </span>
                           <span
                             className={`text-xs ${
-                              priceChangePercent > 0 ? "text-green-500" : "text-red-500"
+                              priceChangePercent > 0
+                                ? "text-green-500"
+                                : "text-red-500"
                             }`}
                           >
                             {priceChangePercent}%
                           </span>
                         </div>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -606,7 +615,8 @@ export default async function NewsDetails({
           You May Also Like
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {items.slice(4, 8)
+          {items
+            .slice(4, 8)
             .map((relatedArticle, index) => (
               <div
                 key={index}
