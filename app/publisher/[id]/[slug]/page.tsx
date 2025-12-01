@@ -288,7 +288,7 @@ export default async function NewsDetails({
               {/* Publisher info and share buttons */}
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
                 <Link
-                  className="flex items-center group hover:bg-gray-50 dark:hover:bg-gray-800/30 rounded-lg px-3 py-2 transition-all duration-200 mb-4 sm:mb-0"
+                  className="flex items-center group hover:bg-gray-50 dark:hover:bg-gray-800/30 rounded-lg max-md:p-0 px-3 py-2 transition-all duration-200 mb-4 sm:mb-0"
                   href={`/publisher/${id}`}
                 >
                   <div className="w-10 h-10 rounded-full bg-white p-1 mr-3 overflow-hidden shadow-sm">

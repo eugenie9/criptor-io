@@ -38,7 +38,7 @@ export default function Header() {
         </div>
       </div>
 
-      <nav className="border-t border-gray-200 dark:border-gray-700 py-2 hidden lg:block bg-gray-50 dark:bg-gray-900/50">
+      <nav className="border-t border-gray-200 dark:border-gray-700 py-2 hidden lg:block bg-gray-50 dark:bg-gray-900/50 px-4">
         <div className="container mx-auto flex items-center">
           <div className="flex flex-wrap items-center gap-2 pr-4">
           {sources
