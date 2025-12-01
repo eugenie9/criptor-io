@@ -43,8 +43,8 @@ export default async function CryptoSlate() {
   if (articles.length < 6) return null;
 
   return (
-    <div className="xbg-[#F0F3F7] bg-gradient-to-b from-[#F0F3F7]/90 to-[#F0F3F7]/80">
-      <Section>
+    <div className="bg-gradient-to-b from-[#F0F3F7]/90 to-[#F0F3F7]/80 rounded-lg">
+      <Section className="!p-4 md:p-8 lg:p-12">
         <div className="flex">
           <div className="flex items-center border-b-2 border-black pb-2">
             <img src={source.logo} alt={source.name} className="h-10" />

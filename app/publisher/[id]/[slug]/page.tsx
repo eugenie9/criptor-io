@@ -1,6 +1,7 @@
 import {
   getArticlesForSource,
   getArticlesWithSourceAndSlug,
+  getCryptoPrices,
 } from "@/app/actions";
 import {
   getHowManyTimePassed,
@@ -8,7 +9,6 @@ import {
   calculateMinutesToRead,
   extractKeywords,
 } from "@/app/utils";
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Section from "@/app/components/Section";
@@ -77,22 +77,42 @@ const shuffle = (array: any[]) => {
 const Card = ({ article }: { article: TArticle }) => {
   return (
     <LinkWrapper article={article}>
-      <article className="relative overflow-hidden rounded-lg shadow transition hover:shadow-lg h-[400px] flex">
+      <article className="group relative overflow-hidden rounded-xl shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 h-[350px] flex bg-white dark:bg-crypto-dark/60">
         <img
           alt={article.title}
           src={article.thumbnail}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-105"
         />
 
-        <div className="relative bg-gradient-to-t from-gray-900/70 to-gray-900/30 flex-1 flex items-end">
-          <div className="p-4 sm:p-6 flex flex-col">
-            <h3 className="mt-0.5 text-base xl:text-lg text-white">
+        <div className="relative bg-gradient-to-t from-black/80 via-black/50 to-transparent flex-1 flex items-end z-10">
+          <div className="p-5 sm:p-6 flex flex-col">
+            <div className="flex items-center mb-3">
+              <span className="bg-crypto-light/90 text-white text-xs font-medium px-2 py-1 rounded-full">
+                {getSource(article.source).name}
+              </span>
+            </div>
+
+            <h3 className="font-heading font-bold text-lg text-white group-hover:text-crypto-light transition-colors duration-200 line-clamp-3">
               {article.title}
             </h3>
 
-            <span className="font-medium text-sm text-white/90 mt-1">
-              {getHowManyTimePassed(article.date)}
-            </span>
+            <div className="flex items-center mt-3 text-gray-300 text-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 mr-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{getHowManyTimePassed(article.date)}</span>
+            </div>
           </div>
         </div>
       </article>
@@ -133,6 +153,29 @@ export async function generateMetadata({
   };
 }
 
+const symbols = {
+  "BTCUSDT": {
+    "name": "Bitcoin",
+    "logo": "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=040"
+  },
+  "ETHUSDT": {
+    "name": "Ethereum",
+    "logo": "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=040"
+  },
+  "BNBUSDT": {
+    "name": "Binance Coin",
+    "logo": "https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=040"
+  },
+  "XRPUSDT": {
+    "name": "Ripple",
+    "logo": "https://cryptologos.cc/logos/xrp-xrp-logo.svg?v=040"
+  },
+  "SOLUSDT": {
+    "name": "Solana",
+    "logo": "https://cryptologos.cc/logos/solana-sol-logo.svg?v=040"
+  }
+}
+
 export default async function NewsDetails({
   params,
 }: {
@@ -141,6 +184,7 @@ export default async function NewsDetails({
   const id = params.id;
   const slug = params.slug;
   const articles = await getArticlesWithSourceAndSlug(id, slug);
+  const prices = await getCryptoPrices();
   const article = articles?.items?.[0];
 
   if (!article) {
@@ -157,7 +201,7 @@ export default async function NewsDetails({
   if (!items) items = [];
 
   shuffle(items);
-  items = items.slice(0, 3);
+  items = items.slice(0, 8);
 
   const month = new Date(article.date).toLocaleString("en-US", {
     month: "long",
@@ -198,126 +242,381 @@ export default async function NewsDetails({
 
   return (
     <>
-      <div className="bg-gradient-to-br from-[#001839]/100 to-[#001839]/80">
-        <Section className="max-w-7xl !py-12 md:py-16">
-          <p className="text-white text-3xl">{article.title}</p>
-          <div className="flex justify-between flex-col sm:flex-row my-8">
-            <div className="flex items-center">
-              <Link
-                className="flex items-center border-r border-white pr-4"
-                href={`/publisher/${id}`}
-              >
-                <Image
-                  src={getSource(article.source).logo}
-                  alt={article.title}
-                  width={24}
-                  height={24}
-                  className="mr-2"
-                />
-                <span className="text-base sm:text-lg text-white font-medium">
-                  {getSource(article.source).name}
+      {/* Article content with 2-to-1 grid layout */}
+      <Section className="max-w-[84rem] mx-auto !pb-0 max-sm:pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main article content - 2/3 width on desktop */}
+          <div className="lg:col-span-2">
+            <div className="container mx-auto">
+              {/* Breadcrumb navigation */}
+              <div className="flex items-center text-gray-500 text-sm mb-6">
+                <Link
+                  href="/"
+                  className="hover:text-crypto-light transition-colors flex items-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    />
+                  </svg>
+                  Home
+                </Link>
+                <span className="mx-2">›</span>
+                <Link
+                  href={`/publisher/${id}`}
+                  className="hover:text-crypto-light transition-colors flex items-center"
+                >
+                  <span className="truncate max-w-[120px]">
+                    {getSource(article.source).name}
+                  </span>
+                </Link>
+                <span className="mx-2">›</span>
+                <span className="text-gray-400 truncate max-w-[200px] hidden sm:inline">
+                  {article.title}
                 </span>
-              </Link>
+              </div>
 
-              <span className="text-base text-white px-4 border-r border-white hidden sm:block">
-                {date}
-              </span>
+              {/* Publisher info and share buttons */}
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
+                <Link
+                  className="flex items-center group hover:bg-gray-50 dark:hover:bg-gray-800/30 rounded-lg px-3 py-2 transition-all duration-200 mb-4 sm:mb-0"
+                  href={`/publisher/${id}`}
+                >
+                  <div className="w-10 h-10 rounded-full bg-white p-1 mr-3 overflow-hidden shadow-sm">
+                    <img
+                      src={getSource(article.source).logo}
+                      alt={getSource(article.source).name}
+                      className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-base font-medium text-gray-800 dark:text-gray-200 group-hover:text-crypto-light transition-colors">
+                      {getSource(article.source).name}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Original publisher
+                    </p>
+                  </div>
+                </Link>
 
-              <span className="text-base text-white px-4">
-                {calculateMinutesToRead(article.full_content)} min read
-              </span>
+                {/* Social share buttons */}
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-500 text-sm mr-1">Share:</span>
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodedURL}&t=${encodedTitle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-100 dark:bg-gray-800 hover:bg-[#1877f2]/10 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
+                    aria-label="Share on Facebook"
+                  >
+                    <FacebookSVG />
+                  </a>
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodedText}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-100 dark:bg-gray-800 hover:bg-[#1da1f2]/10 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
+                    aria-label="Share on Twitter"
+                  >
+                    <XSVG />
+                  </a>
+                  <a
+                    href={`https://t.me/share/url?url=${encodedText}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-100 dark:bg-gray-800 hover:bg-[#0088cc]/10 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
+                    aria-label="Share on Telegram"
+                  >
+                    <TelegramSVG />
+                  </a>
+                  <a
+                    href={`https://api.whatsapp.com/send?text=${encodedText}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-100 dark:bg-gray-800 hover:bg-[#25d366]/10 p-1.5 rounded-full transition-all duration-200 hover:scale-110"
+                    aria-label="Share on WhatsApp"
+                  >
+                    <WhatsAppSVG />
+                  </a>
+                </div>
+              </div>
+
+              {/* Article title */}
+              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight">
+                {article.title}
+              </h1>
+
+              {/* Article meta information */}
+              <div className="flex flex-wrap items-center gap-4 mb-8 text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 pb-6">
+                <div className="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="text-sm md:text-base">{date}</span>
+                </div>
+
+                <div className="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span className="text-sm md:text-base">
+                    {calculateMinutesToRead(article.full_content)} min read
+                  </span>
+                </div>
+              </div>
+
+              {/* Featured image */}
+              <div className="relative overflow-hidden rounded-lg shadow-md mb-10">
+                <img
+                  src={
+                    article.thumbnail || image || getSource(article.source).logo
+                  }
+                  alt={article.title}
+                  className="w-full max-w-full object-cover max-h-[500px]"
+                />
+              </div>
             </div>
 
-            <div className="flex items-center space-x-2 mr-2 mt-4 sm:mt-0">
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedURL}&t=${encodedTitle}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="invert"
-              >
-                <FacebookSVG />
-              </a>
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodedText}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="invert"
-              >
-                <XSVG />
-              </a>
-              <a
-                href={`https://t.me/share/url?url=${encodedText}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="invert"
-              >
-                <TelegramSVG />
-              </a>
-              <a
-                href={`https://api.whatsapp.com/send?text=${encodedText}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="invert"
-              >
-                <WhatsAppSVG />
-              </a>
+            <article
+              className="!text-lg flex flex-col space-y-4 !leading-8
+              [&>img]:max-w-full [&>img]:rounded-lg [&>img]:object-contain [&>img]:my-6
+              [&>figure>img]:max-w-full [&>figure>img]:rounded-lg [&>figure>img]:object-contain [&>figure>img]:my-6
+              [&>figure>a>img]:max-w-full [&>figure>a>img]:rounded-lg [&>figure>a>img]:object-contain [&>figure>a>img]:my-6
+              [&>a]:!text-crypto-light [&>a]:!font-medium [&>a]:!underline
+              [&>p>a]:!text-crypto-light [&>p>a]:!font-medium [&>p>a]:!underline
+              [&>[data-el='widget-exchanges-affiliate']]:hidden
+              [&>h1]:!text-3xl [&>h1]:!font-heading [&>h1]:!font-bold [&>h1]:!mt-8 [&>h1]:!mb-4 [&>h1]:!text-gray-900 dark:[&>h1]:!text-gray-100
+              [&>h2]:!text-2xl [&>h2]:!font-heading [&>h2]:!font-bold [&>h2]:!mt-8 [&>h2]:!mb-4 [&>h2]:!text-gray-900 dark:[&>h2]:!text-gray-100
+              [&>h3]:!text-xl [&>h3]:!font-heading [&>h3]:!font-bold [&>h3]:!mt-8 [&>h3]:!mb-4 [&>h3]:!text-gray-900 dark:[&>h3]:!text-gray-100
+              [&>h4]:!text-lg [&>h4]:!font-heading [&>h4]:!font-bold [&>h4]:!mt-8 [&>h4]:!mb-4 [&>h4]:!text-gray-900 dark:[&>h4]:!text-gray-100
+              [&>h5]:!text-base [&>h5]:!font-heading [&>h5]:!font-bold [&>h5]:!mt-8 [&>h5]:!mb-4 [&>h5]:!text-gray-900 dark:[&>h5]:!text-gray-100
+              [&>h6]:!text-base [&>h6]:!font-heading [&>h6]:!font-bold [&>h6]:!mt-8 [&>h6]:!mb-4 [&>h6]:!text-gray-900 dark:[&>h6]:!text-gray-100
+              [&>p]:!text-gray-800 dark:[&>p]:!text-gray-200 [&>p]:!my-4
+              [&>blockquote]:!border-l-4 [&>blockquote]:!border-crypto-light [&>blockquote]:!pl-4 [&>blockquote]:!italic [&>blockquote]:!my-6 [&>blockquote]:!text-gray-700 dark:[&>blockquote]:!text-gray-300
+              overflow-hidden"
+              dangerouslySetInnerHTML={{ __html: article.full_content || "" }}
+            />
+
+            {/* Keywords section */}
+            <div className="my-12 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-heading font-bold mb-4 text-gray-800 dark:text-gray-200 flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2 text-crypto-light"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                  />
+                </svg>
+                RELATED TOPICS
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {keywords.map((keyword, index) => (
+                  <span
+                    className="text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full px-3 py-1 hover:bg-crypto-light/20 dark:hover:bg-crypto-light/20 transition-colors duration-200 cursor-pointer"
+                    key={index}
+                  >
+                    {keyword}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-          <img
-            src={article.thumbnail || image || getSource(article.source).logo}
-            alt={article.title}
-            className="rounded-lg object-cover max-h-[1000px] w-full max-w-full -mb-28"
-          />
-        </Section>
-      </div>
-      <Section className="max-w-5xl mt-12 !pb-0">
-        <article
-          className="!text-lg flex flex-col space-y-4 !leading-8
-          [&>img]:max-w-5xl [&>img]:rounded-lg [&>img]:object-contain
-          [&>figure>img]:max-w-5xl [&>figure>img]:rounded-lg [&>figure>img]:object-contain
-          [&>figure>a>img]:max-w-5xl [&>figure>a>img]:rounded-lg [&>figure>a>img]:object-contain
-          [&>a]:!text-blue-500 [&>a]:!font-medium [&>a]:!underline
-          [&>p>a]:!text-blue-500 [&>p>a]:!font-medium [&>p>a]:!underline
-          [&>[data-el='widget-exchanges-affiliate']]:hidden
-          [&>h1]:!text-3xl [&>h1]:!font-semibold [&>h1]:!mt-8 [&>h1]:!mb-4
-          [&>h2]:!text-2xl [&>h2]:!font-semibold [&>h2]:!mt-8 [&>h2]:!mb-4
-          [&>h3]:!text-xl [&>h3]:!font-semibold [&>h3]:!mt-8 [&>h3]:!mb-4
-          [&>h4]:!text-lg [&>h4]:!font-semibold [&>h4]:!mt-8 [&>h4]:!mb-4
-          [&>h5]:!text-base [&>h5]:!font-semibold [&>h5]:!mt-8 [&>h5]:!mb-4
-          [&>h6]:!text-base [&>h6]:!font-semibold [&>h6]:!mt-8 [&>h6]:!mb-4
-          overflow-hidden"
-          dangerouslySetInnerHTML={{ __html: article.full_content || "" }}
-        />
 
-        <div className="my-4">
-          <span className="text-lg font-semibold border-b border-black">
-            KEYWORDS
-          </span>
-        </div>
-        <div className="flex flex-wrap gap-y-2">
-          {keywords.map((keyword, index) => (
-            <span
-              className="text-base font-medium mr-2 border border-gray-300 rounded-lg px-2 py-1 "
-              key={index}
-            >
-              {keyword}
-            </span>
-          ))}
+          {/* Sidebar content - 1/3 width on desktop */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-48">
+              {/* Related articles in sidebar */}
+              <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg md:px-6 mb-12">
+                <h3 className="text-xl font-heading font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-2 text-crypto-light"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                    />
+                  </svg>
+                  More From {getSource(article.source).name}
+                </h3>
+                <div className="space-y-6">
+                  {items.slice(0, 3).map((relatedArticle, index) => (
+                    <div key={index} className="group">
+                      <LinkWrapper article={relatedArticle}>
+                        <div className="flex items-start space-x-3">
+                          <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-md">
+                            <img
+                              src={
+                                relatedArticle.thumbnail ||
+                                getSource(relatedArticle.source).logo
+                              }
+                              alt={relatedArticle.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
+                          <div>
+                            <h4 className="text-base font-medium text-gray-800 dark:text-gray-200 group-hover:text-crypto-light transition-colors duration-200 line-clamp-2">
+                              {relatedArticle.title}
+                            </h4>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                              {getHowManyTimePassed(relatedArticle.date)}
+                            </p>
+                          </div>
+                        </div>
+                      </LinkWrapper>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6">
+                  <Link
+                    href={`/publisher/${id}`}
+                    className="inline-flex items-center text-crypto-light hover:text-crypto-light/80 font-medium text-sm"
+                  >
+                    View All Articles
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Market data widget - example of additional content */}
+              <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg md:px-6">
+                <h3 className="text-xl font-heading font-bold mb-4 text-gray-900 dark:text-gray-100 flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-2 text-crypto-light"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                  Market Overview
+                </h3>
+                <div className="space-y-3">
+                  {prices?.map((priceItem: any, index: number) => {
+                    // Function to format price - shows 8 decimal digits, no trailing zeros, keeps decimal point minimal if possible
+                    function formatPrice(price: string | number) {
+                      const p = Number(price);
+                      if (Number.isNaN(p)) return price;
+                      // Always show at least 2 decimal digits, up to 8 for precision assets
+                      return p.toLocaleString("en-US", { 
+                        minimumFractionDigits: 2, 
+                        maximumFractionDigits: 8 
+                      }).replace(/\.?0+$/, ''); // Remove trailing zeros
+                    }
+
+                    const price = priceItem.lastPrice;
+                    const priceChangePercent = priceItem.priceChangePercent;
+                    const symbol = symbols[priceItem.symbol as keyof typeof symbols];
+                    return (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700 last:border-0"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <img src={symbol.logo} alt={symbol.name} className="w-4 h-4" />
+                          <span className="font-medium">{symbol.name}</span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <span className="font-mono text-sm">
+                            {formatPrice(price)}
+                          </span>
+                          <span
+                            className={`text-xs ${
+                              priceChangePercent > 0 ? "text-green-500" : "text-red-500"
+                            }`}
+                          >
+                            {priceChangePercent}%
+                          </span>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 
-      <Section className="grid grid-cols-3 gap-4 max-w-7xl py-12">
-        <div className="col-span-3">
-          <p className="text-xl font-semibold">MORE ARTICLES</p>
-        </div>
-        <div className="col-span-3 md:col-span-1">
-          <Card article={items[0]} />
-        </div>
-        <div className="col-span-3 md:col-span-1">
-          <Card article={items[1]} />
-        </div>
-        <div className="col-span-3 md:col-span-1">
-          <Card article={items[2]} />
+      {/* Additional related articles in full width - optional */}
+      <Section className="bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300 mt-12">
+        <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 text-gray-900 dark:text-gray-100">
+          You May Also Like
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {items.slice(4, 8)
+            .map((relatedArticle, index) => (
+              <div
+                key={index}
+                className="animate-fade-in"
+                style={{ animationDelay: `${100}ms` }}
+              >
+                <Card article={relatedArticle} />
+              </div>
+            ))
+            .slice(0, 4)}
         </div>
       </Section>
     </>

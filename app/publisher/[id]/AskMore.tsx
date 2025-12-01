@@ -20,6 +20,7 @@ export default function AskMore({
   const askData = async () => {
     if (loading) return;
     setLoading(true);
+    // @ts-ignore
     const articles: {
       items: TArticle[];
       offset: number;

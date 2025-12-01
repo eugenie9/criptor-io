@@ -69,8 +69,8 @@ export default async function Defiant() {
   if (articles.length < 6) return null;
 
   return (
-    <div className="bg-gradient-to-l from-[#E0FBFC]/80 to-[#E0FBFC]/100">
-      <Section>
+    <div className="bg-gradient-to-l from-[#E0FBFC]/80 to-[#E0FBFC]/100 rounded-lg">
+      <Section className="p-4 md:p-8 lg:p-12">
         <div className="flex">
           <div className="flex items-center border-b-2 border-neutral-700 pb-2">
             <img src={source.logo} alt={source.name} className="h-10" />

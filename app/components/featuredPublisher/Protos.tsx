@@ -69,8 +69,8 @@ export default async function Protos() {
   if (articles.length < 6) return null;
 
   return (
-    <div className="bg-gradient-to-b from-[#A3C92C]/90 to-[#A3C92C]/80">
-      <Section>
+    <div className="bg-gradient-to-b from-[#A3C92C]/90 to-[#A3C92C]/80 rounded-lg">
+      <Section className="p-4 md:p-8 lg:p-12">
         <div className="flex">
           <div className="flex items-center border-b-2 border-black pb-2">
             <img src={source.logo} alt={source.name} className="h-10" />
