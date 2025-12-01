@@ -48,27 +48,43 @@ const items = [
 export default function Page() {
   return (
     <>
-      <p className="text-2xl font-bold mb-2 text-neutral-900">
-        Terms of Service
-      </p>
-      <p className="text-neutral-700">
-        By accessing and using our RSS reader service, you agree to comply with
-        and be bound by the following terms and conditions. If you do not agree
-        with these terms, please do not use our service.
-      </p>
+      <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-800">
+        <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Terms of Service
+        </h1>
+        <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+          By accessing and using our RSS reader service, you agree to comply with
+          and be bound by the following terms and conditions. If you do not agree
+          with these terms, please do not use our service.
+        </p>
+      </div>
 
-      {items.map(({ heading, items }, i) => (
-        <div key={i} className="py-2">
-          <p className="font-semibold text-lg text-neutral-900">
-            {i + 1}. {heading}
-          </p>
-          <ul className="list-disc list-inside text-neutral-700">
-            {items.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <div className="space-y-8">
+        {items.map(({ heading, items }, i) => (
+          <div
+            key={i}
+            className="p-6 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800 transition-all duration-200 hover:shadow-sm"
+          >
+            <h2 className="text-xl font-heading font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+              <span className="flex-shrink-0 w-8 h-8 bg-crypto-light/10 dark:bg-crypto-light/20 text-crypto-light rounded-full flex items-center justify-center text-sm font-bold mr-3">
+                {i + 1}
+              </span>
+              {heading}
+            </h2>
+            <ul className="space-y-2 ml-11">
+              {items.map((item, j) => (
+                <li
+                  key={j}
+                  className="text-gray-700 dark:text-gray-300 leading-relaxed flex items-start"
+                >
+                  <span className="text-crypto-light mr-2 mt-1.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
