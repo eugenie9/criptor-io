@@ -448,7 +448,7 @@ export default async function NewsDetails({
                 RELATED TOPICS
               </h3>
               <div className="flex flex-wrap gap-2">
-                {keywords.map((keyword, index) => (
+                {(keywords || []).map((keyword, index) => (
                   <span
                     className="text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full px-3 py-1 hover:bg-crypto-light/20 dark:hover:bg-crypto-light/20 transition-colors duration-200 cursor-pointer"
                     key={index}
@@ -483,7 +483,7 @@ export default async function NewsDetails({
                   More From {getSource(article.source).name}
                 </h3>
                 <div className="space-y-6">
-                  {items.slice(0, 3).map((relatedArticle, index) => (
+                  {(items || []).slice(0, 3).map((relatedArticle, index) => (
                     <div key={index} className="group">
                       <LinkWrapper article={relatedArticle}>
                         <div className="flex items-start space-x-3">
@@ -554,7 +554,7 @@ export default async function NewsDetails({
                   Market Overview
                 </h3>
                 <div className="space-y-3">
-                  {prices?.map((priceItem: any, index: number) => {
+                  {(prices || []).map((priceItem: any, index: number) => {
                     // Function to format price - shows 8 decimal digits, no trailing zeros, keeps decimal point minimal if possible
                     function formatPrice(price: string | number) {
                       const p = Number(price);
