@@ -70,7 +70,7 @@ export default async function Protos() {
 
   return (
     <div className="bg-gradient-to-b from-[#A3C92C]/90 to-[#A3C92C]/80 rounded-lg">
-      <Section className="p-4 md:p-8 lg:p-12">
+      <Section className="!p-8 lg:!p-12">
         <div className="flex">
           <div className="flex items-center border-b-2 border-black pb-2">
             <img src={source.logo} alt={source.name} className="h-10" />
