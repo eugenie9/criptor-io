@@ -11,7 +11,7 @@ const FEATURED_SOURCE_IDS = ["beincrypto", "coin_gape", "crypto_potato", "defian
 export default function Header() {
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-crypto-dark/95 backdrop-blur-sm transition-colors duration-300 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-      <div className="container mx-auto px-4 md:px-0">
+      <div className="container mx-auto px-4 xl:px-0">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <MobileMenu />

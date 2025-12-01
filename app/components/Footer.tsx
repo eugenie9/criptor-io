@@ -5,7 +5,7 @@ export default async function Footer() {
 
   return (
     <footer className="bg-white dark:bg-crypto-dark text-gray-700 dark:text-gray-300 transition-colors duration-300 py-8">
-      <div className="container mx-auto px-4 md:px-0">
+      <div className="container mx-auto px-4 xl:px-0">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2">
             <Link href="/" className="flex items-center">
