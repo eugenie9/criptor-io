@@ -12,7 +12,6 @@ export const revalidate = 60;
 
 type Props = {
   params: { id: string };
-  searchParams: { start: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -28,28 +27,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function News({ params, searchParams }: Props) {
+export default async function News({ params }: Props) {
   const id = params.id;
-  const start = searchParams.start ? parseInt(searchParams.start) : 0;
 
-  const data = await getArticlesForSource(id, start);
+  const data = await getArticlesForSource(id);
   const source = getSource(id);
 
   // Convert the data to match TArticle type
-  const rawData = data as any;
-  const items = rawData.items.map((item: any) => ({
-    id: item._id || item.id,
-    title: item.title,
-    content: item.content,
-    full_content: item.full_content,
-    slug: item.slug,
-    url: item.url,
-    thumbnail: item.thumbnail,
-    date: item.date,
-    source: item.source,
-  })) as TArticle[];
-
-  const offset = rawData.offset;
+  const items = data.items;
+  const lastDate = data.nextLastDate;
 
   if (!items) return <div>404</div>;
   if (!items.length) return <div>404</div>;
@@ -268,7 +254,7 @@ export default async function News({ params, searchParams }: Props) {
       </div>
 
       {/* Latest Articles */}
-        <div className="bg-white dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-900">
         <Section>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             {/* Main Content */}
@@ -375,7 +361,7 @@ export default async function News({ params, searchParams }: Props) {
               </div>
 
               <AnimatedContainer className="mt-8 lg:mt-16">
-                <AskMore source={id} start={offset} />
+                <AskMore source={id} lastDate={lastDate} />
               </AnimatedContainer>
             </div>
 

@@ -1,6 +1,6 @@
 import {
   getArticlesForSource,
-  getArticlesWithSourceAndSlug,
+  getArticleWithSourceAndSlug,
   getCryptoPrices,
 } from "@/app/actions";
 import {
@@ -127,9 +127,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const id = params.id;
   const slug = params.slug;
-  const articles = await getArticlesWithSourceAndSlug(id, slug);
-
-  const article = articles?.items?.[0];
+  const article = await getArticleWithSourceAndSlug(id, slug);
 
   const title = `${article?.title} | Criptor.net` || "Not found";
   const description = article?.content || "Not found";
@@ -183,9 +181,8 @@ export default async function NewsDetails({
 }) {
   const id = params.id;
   const slug = params.slug;
-  const articles = await getArticlesWithSourceAndSlug(id, slug);
+  const article = await getArticleWithSourceAndSlug(id, slug);
   const prices = await getCryptoPrices();
-  const article = articles?.items?.[0];
 
   if (!article) {
     return <div>Not found</div>;

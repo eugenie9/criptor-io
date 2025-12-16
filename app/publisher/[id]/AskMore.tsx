@@ -8,14 +8,14 @@ import ArticleContainer from "@/app/components/ArticleContainer";
 
 export default function AskMore({
   source,
-  start,
+  lastDate,
 }: {
   source: string;
-  start: number;
+  lastDate: number;
 }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TArticle[]>([]);
-  const [offset, setOffset] = useState(start);
+  const [offset, setOffset] = useState(lastDate);
 
   const askData = async () => {
     if (loading) return;
@@ -23,10 +23,10 @@ export default function AskMore({
     // @ts-ignore
     const articles: {
       items: TArticle[];
-      offset: number;
+      nextLastDate: number;
     } = await getArticlesForSource(source, offset);
     setData([...data, ...articles.items]);
-    setOffset(articles.offset);
+    setOffset(articles.nextLastDate);
     setLoading(false);
   };
 
