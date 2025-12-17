@@ -1,6 +1,5 @@
+import { getSitemapForSource } from "@/app/actions";
 import { NextRequest } from "next/server";
-
-const REMOTE_SITEMAP_URL = process.env.REMOTE_SITEMAP_URL;
 
 const sources = [
   "beincrypto.xml",
@@ -23,9 +22,25 @@ export async function GET(req: NextRequest) {
   if (!sources.includes(id)) {
     return new Response("Not found", { status: 404 });
   }
+  const source = id.replace(".xml", "");
 
-  const data = await fetch(`${REMOTE_SITEMAP_URL}/${id}`);
-  const xmlContent = await data.text();
+  const data = await getSitemapForSource(source);
+
+  let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xmlContent += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+  data.forEach((item: { slug: string; date: string }) => {
+    xmlContent += `  <url>\n`;
+    xmlContent += `    <loc>https://www.criptor.net/publisher/${source}/${item.slug}</loc>\n`;
+    xmlContent += `    <lastmod>${new Date(
+      item.date
+    ).toISOString()}</lastmod>\n`;
+    xmlContent += `    <changefreq>weekly</changefreq>\n`;
+    xmlContent += `    <priority>0.7</priority>\n`;
+    xmlContent += `  </url>\n`;
+  });
+
+  xmlContent += `</urlset>`;
 
   return new Response(xmlContent, { headers: { "Content-Type": "text/xml" } });
 }

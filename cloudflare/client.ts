@@ -102,11 +102,25 @@ const memoizedGetArticleBySourceAndSlug = memoizee(getArticleBySourceAndSlug, {
   maxAge: 1000 * 60 * 2,
 });
 
-const mongoClient = {
+const getSitemapForSource = async (source: string) => {
+  const data = await d1Query(
+    "SELECT slug, date FROM articles WHERE source = ? ORDER BY date DESC LIMIT 100",
+    [source]
+  );
+  return data;
+};
+
+const memoizedGetSitemapForSource = memoizee(getSitemapForSource, {
+  promise: true,
+  maxAge: 1000 * 60 * 60,
+});
+
+const cloudflareClient = {
   getArticles: memoizedGetArticles,
   getArticlesForSource: memoizedGetArticlesForSource,
   getArticleBySourceAndSlug: memoizedGetArticleBySourceAndSlug,
   getPopularArticlesForSource: memoizedGetPopularArticlesForSource,
+  getSitemapForSource: memoizedGetSitemapForSource,
 };
 
-export default mongoClient;
+export default cloudflareClient;

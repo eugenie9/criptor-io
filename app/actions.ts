@@ -18,6 +18,10 @@ const getArticleWithSourceAndSlug = async (source: string, slug: string) => {
   return await cloudflareClient.getArticleBySourceAndSlug(source, slug);
 };
 
+const getSitemapForSource = async (source: string) => {
+  return await cloudflareClient.getSitemapForSource(source);
+};
+
 const getCryptoPrices = async () => {
   try {
     const data = await fetch(
@@ -39,5 +43,6 @@ export {
   getArticles,
   getArticleWithSourceAndSlug,
   getPopularArticlesForSource,
+  getSitemapForSource,
   getCryptoPrices,
 };
