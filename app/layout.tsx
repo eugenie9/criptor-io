@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/Header";
@@ -24,11 +24,17 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "https://criptor.net"
+  ),
   title: "Criptor.net - Your Ultimate Source for Cryptocurrency News",
   description:
     "Stay updated with the latest cryptocurrency news from around the globe with Criptor.net, your comprehensive RSS reader for all things crypto.",
   keywords:
     "Cryptocurrency, Crypto News, Bitcoin, Ethereum, Blockchain, Crypto Market, Altcoins, Crypto Trading, Crypto Investment, Crypto Updates, Blockchain Technology, DeFi, NFT, Crypto RSS Reader, Criptor",
+};
+
+export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "#1c2434" },

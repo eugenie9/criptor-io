@@ -16,6 +16,19 @@ import LinkWrapper from "@/app/components/LinkWrapper";
 
 export const revalidate = 600;
 
+// Function to format price - shows 8 decimal digits, no trailing zeros, keeps decimal point minimal if possible
+function formatPrice(price: string | number) {
+  const p = Number(price);
+  if (Number.isNaN(p)) return price;
+  // Always show at least 2 decimal digits, up to 8 for precision assets
+  return p
+    .toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 8,
+    })
+    .replace(/\.?0+$/, ""); // Remove trailing zeros
+}
+
 const allowedImg = [
   "beincrypto",
   "bitcoin_magazine",
@@ -552,19 +565,6 @@ export default async function NewsDetails({
                 </h3>
                 <div className="space-y-3">
                   {(prices || []).map((priceItem: any, index: number) => {
-                    // Function to format price - shows 8 decimal digits, no trailing zeros, keeps decimal point minimal if possible
-                    function formatPrice(price: string | number) {
-                      const p = Number(price);
-                      if (Number.isNaN(p)) return price;
-                      // Always show at least 2 decimal digits, up to 8 for precision assets
-                      return p
-                        .toLocaleString("en-US", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 8,
-                        })
-                        .replace(/\.?0+$/, ""); // Remove trailing zeros
-                    }
-
                     const price = priceItem.lastPrice;
                     const priceChangePercent = priceItem.priceChangePercent;
                     const symbol =
