@@ -30,7 +30,7 @@ export default function About() {
               <p className="text-sm md:text-base text-neutral-600 dark:text-gray-300">
                 🔥 It is entirely serverless – from the frontend hosted on
                 Vercel, to the backend on AWS Lambda + Server Actions, and the
-                database on MongoDB. No servers provisioned at all.
+                database on Cloudflare D1. No servers provisioned at all.
               </p>
             </div>
 
@@ -39,7 +39,7 @@ export default function About() {
                 The tech stack
               </h3>
               <p className="text-sm md:text-base text-neutral-600 dark:text-gray-300">
-                🚀 Next.js 14, AWS Lambda, MongoDB, TypeScript, Tailwind CSS
+                🚀 Next.js 14, AWS Lambda, Cloudflare D1, TypeScript, Tailwind CSS
                 and Vercel – modern tools built for fast, reliable crypto news
                 delivery.
               </p>

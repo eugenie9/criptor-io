@@ -4,7 +4,7 @@ A modern cryptocurrency news aggregator built with Next.js that collects and dis
 
 ## Overview
 
-This application aggregates news from multiple cryptocurrency news sources, stores them in a MongoDB database, and presents them in a clean, modern interface. It's designed to be a one-stop destination for staying updated with the latest developments in the cryptocurrency world.
+This application aggregates news from multiple cryptocurrency news sources, stores them in a Cloudflare D1 database, and presents them in a clean, modern interface. It's designed to be a one-stop destination for staying updated with the latest developments in the cryptocurrency world.
 
 ## Features
 
@@ -12,16 +12,15 @@ This application aggregates news from multiple cryptocurrency news sources, stor
 - **Modern UI**: Clean, responsive interface built with Next.js and Tailwind CSS.
 - **Performance Optimized**: Uses memoization for database queries to reduce load and improve performance.
 - **Popular Articles**: Tracks article read counts to display popular articles from each source.
-- **MongoDB Integration**: Stores and retrieves news articles from MongoDB.
+- **Cloudflare D1 Integration**: Stores and retrieves news articles from Cloudflare D1 database.
 - **Server-side Rendering**: Leverages Next.js server components for improved performance and SEO.
 
 ## Tech Stack
 
 - **Frontend**: Next.js 14, React 18, Tailwind CSS
-- **Backend**: Next.js API routes, MongoDB
-- **Authentication**: NextAuth.js
+- **Backend**: Next.js API routes, Cloudflare D1
 - **Analytics**: Vercel Analytics
-- **Database**: MongoDB (via Mongoose)
+- **Database**: Cloudflare D1 (SQLite)
 - **Deployment**: Vercel (recommended)
 
 ## Project Structure
@@ -31,9 +30,9 @@ This application aggregates news from multiple cryptocurrency news sources, stor
   - `/api`: API routes
   - `actions.ts`: Server actions for data fetching
   - `utils.ts`: Utility functions
-- `/mongo`: MongoDB connection and models
-  - `/models`: Database schemas
-  - `client.ts`: MongoDB client with memoized query functions
+- `/cloudflare`: Cloudflare D1 integration
+  - `d1.ts`: D1 query client for executing SQL queries
+  - `client.ts`: Cloudflare D1 client with memoized query functions
 - `sources.json`: Configuration for news sources
 - `stopWords.json`: List of common words to exclude from keyword extraction
 - `types.d.ts`: TypeScript type definitions
@@ -42,17 +41,21 @@ This application aggregates news from multiple cryptocurrency news sources, stor
 
 ### Prerequisites
 
-- Node.js 18 or later
-- MongoDB database (local or cloud-based)
+- Node.js 24 or later
+- Cloudflare account with D1 database enabled
 
 ### Environment Variables
 
 Create a `.env` file in the root directory with the following variables:
 
 ```
-MONGO_CONNECTION_STRING=your_mongodb_connection_string
+CLOUDFLARE_ACCOUNT_ID=your_cloudflare_account_id
+CLOUDFLARE_D1_TOKEN=your_cloudflare_api_token
+CLOUDFLARE_D1_ID=your_d1_database_id
 BASE_URL=your_base_url
 ```
+
+You can find these values in your Cloudflare dashboard under Account ID and create an API Token with D1 permissions.
 
 ### Installation
 
@@ -81,8 +84,27 @@ pnpm dev
 
 ## Data Model
 
-The application uses a MongoDB schema for news articles with the following structure:
+The application uses a Cloudflare D1 SQLite database with the following `articles` table structure:
 
+```sql
+CREATE TABLE articles (
+  id TEXT PRIMARY KEY,
+  url TEXT,
+  title TEXT,
+  content TEXT,
+  full_content TEXT,
+  slug TEXT,
+  thumbnail TEXT,
+  date INTEGER,
+  is_external BOOLEAN,
+  read_count INTEGER DEFAULT 0,
+  categories TEXT,
+  source TEXT,
+  UNIQUE(source, slug)
+);
+```
+
+Column descriptions:
 - `id`: Unique identifier for the article
 - `url`: Original article URL
 - `title`: Article title
@@ -90,10 +112,10 @@ The application uses a MongoDB schema for news articles with the following struc
 - `full_content`: Complete article content
 - `slug`: URL-friendly version of the title
 - `thumbnail`: Image URL
-- `date`: Publication timestamp
+- `date`: Publication timestamp (Unix timestamp in milliseconds)
 - `is_external`: Flag for external articles
-- `readCount`: Number of times the article has been read
-- `categories`: Array of article categories
+- `read_count`: Number of times the article has been read
+- `categories`: Comma-separated or JSON string of article categories
 - `source`: Source publication identifier
 
 ## Deployment
