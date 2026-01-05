@@ -1,25 +1,25 @@
 "use server";
 
-import cloudflareClient from "@/cloudflare/client";
+import mysqlClient from "@/mysql/client";
 
 const getArticlesForSource = async (source: string, lastDate?: number) => {
-  return await cloudflareClient.getArticlesForSource(source, lastDate);
+  return await mysqlClient.getArticlesForSource(source, lastDate);
 };
 
 const getPopularArticlesForSource = async (source: string) => {
-  return await cloudflareClient.getPopularArticlesForSource(source);
+  return await mysqlClient.getPopularArticlesForSource(source);
 };
 
 const getArticles = async () => {
-  return await cloudflareClient.getArticles();
+  return await mysqlClient.getArticles();
 };
 
 const getArticleWithSourceAndSlug = async (source: string, slug: string) => {
-  return await cloudflareClient.getArticleBySourceAndSlug(source, slug);
+  return await mysqlClient.getArticleBySourceAndSlug(source, slug);
 };
 
 const getSitemapForSource = async (source: string) => {
-  return await cloudflareClient.getSitemapForSource(source);
+  return await mysqlClient.getSitemapForSource(source);
 };
 
 const getCryptoPrices = async () => {
