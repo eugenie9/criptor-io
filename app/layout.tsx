@@ -3,7 +3,7 @@ import { Inter, Montserrat, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,6 +52,20 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${montserrat.variable} ${robotoMono.variable}`}
     >
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-5VQ7Z6Y23B`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5VQ7Z6Y23B');
+          `}
+        </Script>
+      </head>
       <body
         className={`font-sans bg-white dark:bg-crypto-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
@@ -63,7 +77,6 @@ export default function RootLayout({
           <div className="border-b border-gray-200 dark:border-gray-700" />
           <Footer />
         </div>
-        <Analytics />
       </body>
     </html>
   );

@@ -19,7 +19,7 @@ This application aggregates news from multiple cryptocurrency news sources, stor
 
 - **Frontend**: Next.js 14, React 18, Tailwind CSS
 - **Backend**: Next.js API routes, Cloudflare D1
-- **Analytics**: Vercel Analytics
+- **Analytics**: Google Analytics
 - **Database**: Cloudflare D1 (SQLite)
 - **Deployment**: Vercel (recommended)
 
