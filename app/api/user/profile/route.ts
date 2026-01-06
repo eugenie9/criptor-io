@@ -22,16 +22,15 @@ export async function PUT(request: NextRequest) {
     }
 
     // Update user using better-auth admin API
-    const updated = await auth.api.updateUser({
+    await auth.api.updateUser({
       body: {
         name,
-        email,
       },
     });
 
     return NextResponse.json({
       success: true,
-      user: updated.user,
+      user: session.user,
     });
   } catch (error) {
     console.error("Update profile error:", error);

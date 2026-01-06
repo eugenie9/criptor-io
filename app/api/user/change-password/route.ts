@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
     // Note: better-auth handles password hashing and verification internally
     await auth.api.changePassword({
       body: {
+        currentPassword,
         newPassword,
         revokeOtherSessions: false,
       },
