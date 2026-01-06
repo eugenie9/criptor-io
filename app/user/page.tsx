@@ -45,64 +45,64 @@ export default function UserDashboardPage() {
   const user = session.user;
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-4 md:py-8 lg:py-16">
+    <div className="container mx-auto px-4 xl:px-0 py-3 sm:py-4 md:py-8 lg:py-16">
       {/* Welcome Header */}
-      <div className="mb-8 md:mb-12">
-        <div className="flex items-center space-x-4 mb-4">
-          <div className="h-16 w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center">
-            <span className="text-2xl font-bold text-white">
+      <div className="mb-6 sm:mb-8 md:mb-12">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
+          <div className="h-12 sm:h-16 w-12 sm:w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
+            <span className="text-xl sm:text-2xl font-bold text-white">
               {user.name?.charAt(0).toUpperCase() || "U"}
             </span>
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
               Welcome back, {user.name?.split(" ")[0] || "User"}! 👋
             </h1>
-            <p className="mt-1 text-lg text-gray-600 dark:text-gray-300">
+            <p className="mt-1 text-xs sm:text-base text-gray-600 dark:text-gray-300">
               Stay ahead of the crypto curve with your personalized news hub
             </p>
           </div>
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-3 gap-4 mt-6">
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-6">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-3 sm:p-4 text-center">
+            <div className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
               24
             </div>
-            <div className="text-sm text-blue-600 dark:text-blue-400">
+            <div className="text-xs sm:text-sm text-blue-600 dark:text-blue-400">
               Articles Read
             </div>
           </div>
-          <div className="bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+          <div className="bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg p-3 sm:p-4 text-center">
+            <div className="text-lg sm:text-2xl font-bold text-green-600 dark:text-green-400">
               7
             </div>
-            <div className="text-sm text-green-600 dark:text-green-400">
+            <div className="text-xs sm:text-sm text-green-600 dark:text-green-400">
               Days Active
             </div>
           </div>
-          <div className="bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+          <div className="bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg p-3 sm:p-4 text-center">
+            <div className="text-lg sm:text-2xl font-bold text-purple-600 dark:text-purple-400">
               5
             </div>
-            <div className="text-sm text-purple-600 dark:text-purple-400">
+            <div className="text-xs sm:text-sm text-purple-600 dark:text-purple-400">
               Saved Articles
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3 animate-fade-in">
+      <div className="grid gap-4 sm:gap-6 lg:grid-cols-3 animate-fade-in">
         {/* Your Reading Journey */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           {/* Today's Highlights */}
-          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 md:p-8">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-3">
-                <div className="h-8 w-8 bg-gradient-to-r from-crypto-light to-orange-600 rounded-lg flex items-center justify-center">
+          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-4 sm:p-6 md:p-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="h-7 sm:h-8 w-7 sm:w-8 bg-gradient-to-r from-crypto-light to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="h-5 w-5 text-white"
+                    className="h-4 sm:h-5 w-4 sm:w-5 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -115,25 +115,27 @@ export default function UserDashboardPage() {
                     />
                   </svg>
                 </div>
-                <h2 className="text-xl md:text-2xl font-heading font-semibold text-gray-800 dark:text-gray-100">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-heading font-semibold text-gray-800 dark:text-gray-100">
                   Today&apos;s Crypto Highlights
                 </h2>
               </div>
-              <span className="text-sm text-crypto-light font-medium">
+              <span className="text-xs sm:text-sm text-crypto-light font-medium">
                 Just for you
               </span>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-start space-x-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">BTC</span>
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                <div className="flex-shrink-0 w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-xs sm:text-sm">
+                    BTC
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-sm sm:text-base text-gray-800 dark:text-gray-100 mb-1">
                     Bitcoin Reaches New Monthly High
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
                     Market analysis shows strong institutional interest driving
                     the latest surge...
                   </p>
@@ -145,15 +147,17 @@ export default function UserDashboardPage() {
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">ETH</span>
+              <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                <div className="flex-shrink-0 w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-xs sm:text-sm">
+                    ETH
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-sm sm:text-base text-gray-800 dark:text-gray-100 mb-1">
                     Ethereum 2.0 Staking Rewards Update
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
                     New staking mechanisms promise higher yields for long-term
                     holders...
                   </p>
@@ -166,12 +170,14 @@ export default function UserDashboardPage() {
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700">
               <Link
                 href="/"
                 className="inline-flex items-center text-crypto-light hover:text-crypto-light/80 font-medium transition-colors"
               >
-                <span>Explore more articles</span>
+                <span className="text-xs sm:text-sm">
+                  Explore more articles
+                </span>
                 <svg
                   className="ml-2 h-4 w-4"
                   fill="none"
@@ -190,11 +196,11 @@ export default function UserDashboardPage() {
           </div>
 
           {/* Reading Preferences */}
-          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 md:p-8">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="h-8 w-8 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-4 sm:p-6 md:p-8">
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="h-7 sm:h-8 w-7 sm:w-8 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="h-5 w-5 text-white"
+                  className="h-4 sm:h-5 w-4 sm:w-5 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -207,20 +213,20 @@ export default function UserDashboardPage() {
                   />
                 </svg>
               </div>
-              <h2 className="text-xl md:text-2xl font-heading font-semibold text-gray-800 dark:text-gray-100">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-heading font-semibold text-gray-800 dark:text-gray-100">
                 Your Favorite Sources
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
               {["BeInCrypto", "The Defiant", "Protos", "CryptoSlate"].map(
                 (source, index) => (
                   <div
                     key={source}
-                    className="text-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                    className="text-center p-3 sm:p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                   >
                     <div
-                      className={`h-12 w-12 mx-auto mb-3 rounded-full flex items-center justify-center ${
+                      className={`h-10 sm:h-12 w-10 sm:w-12 mx-auto mb-2 sm:mb-3 rounded-full flex items-center justify-center ${
                         index === 0
                           ? "bg-blue-100 dark:bg-blue-900/30"
                           : index === 1
@@ -231,7 +237,7 @@ export default function UserDashboardPage() {
                       }`}
                     >
                       <span
-                        className={`text-sm font-bold ${
+                        className={`text-xs sm:text-sm font-bold ${
                           index === 0
                             ? "text-blue-600 dark:text-blue-400"
                             : index === 1
@@ -244,7 +250,7 @@ export default function UserDashboardPage() {
                         {source.charAt(0)}
                       </span>
                     </div>
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
                       {source}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -258,28 +264,28 @@ export default function UserDashboardPage() {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Profile Summary */}
-          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6">
+          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-4 sm:p-6">
             <div className="text-center">
-              <div className="h-20 w-20 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">
+              <div className="h-16 sm:h-20 w-16 sm:w-20 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <span className="text-xl sm:text-2xl font-bold text-white">
                   {user.name.charAt(0).toUpperCase()}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">
                 {user.name}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-3 sm:mb-4">
                 Crypto Enthusiast since{" "}
                 {new Date(user.createdAt).toLocaleDateString("en-US", {
                   month: "long",
                   year: "numeric",
                 })}
               </p>
-              <div className="flex items-center justify-center space-x-1 mb-4">
+              <div className="flex items-center justify-center gap-1 mb-3 sm:mb-4">
                 <span className="text-crypto-light">⭐</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
                   Premium Reader
                 </span>
               </div>
@@ -295,18 +301,18 @@ export default function UserDashboardPage() {
           </div>
 
           {/* Quick Actions */}
-          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">
+          <div className="bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3 sm:mb-4">
               Quick Actions
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               <Link
                 href="/user/preferences"
-                className="flex items-center p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
+                className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
               >
-                <div className="h-8 w-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mr-3">
+                <div className="h-7 sm:h-8 w-7 sm:w-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="h-4 w-4 text-blue-600 dark:text-blue-400"
+                    className="h-4 sm:h-5 w-4 sm:w-5 text-blue-600 dark:text-blue-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -319,18 +325,18 @@ export default function UserDashboardPage() {
                     />
                   </svg>
                 </div>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-crypto-light transition-colors">
+                <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-crypto-light transition-colors">
                   Reading Preferences
                 </span>
               </Link>
 
               <Link
                 href="/user/settings"
-                className="flex items-center p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
+                className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
               >
-                <div className="h-8 w-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mr-3">
+                <div className="h-7 sm:h-8 w-7 sm:w-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="h-4 w-4 text-green-600 dark:text-green-400"
+                    className="h-4 sm:h-5 w-4 sm:w-5 text-green-600 dark:text-green-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -343,18 +349,18 @@ export default function UserDashboardPage() {
                     />
                   </svg>
                 </div>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-crypto-light transition-colors">
+                <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-crypto-light transition-colors">
                   Account Security
                 </span>
               </Link>
 
               <button
                 onClick={handleLogout}
-                className="flex items-center p-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors group w-full text-left"
+                className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors group w-full text-left"
               >
-                <div className="h-8 w-8 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mr-3">
+                <div className="h-7 sm:h-8 w-7 sm:w-8 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="h-4 w-4 text-red-600 dark:text-red-400"
+                    className="h-4 sm:h-5 w-4 sm:w-5 text-red-600 dark:text-red-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -367,7 +373,7 @@ export default function UserDashboardPage() {
                     />
                   </svg>
                 </div>
-                <span className="text-sm font-medium text-red-600 dark:text-red-400 group-hover:text-red-500 transition-colors">
+                <span className="text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 group-hover:text-red-500 transition-colors">
                   Sign Out
                 </span>
               </button>
@@ -375,10 +381,10 @@ export default function UserDashboardPage() {
           </div>
 
           {/* Achievement Badge */}
-          <div className="bg-gradient-to-br from-crypto-light/10 to-orange-500/10 border border-crypto-light/20 rounded-lg p-6 text-center">
-            <div className="h-12 w-12 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
+          <div className="bg-gradient-to-br from-crypto-light/10 to-orange-500/10 border border-crypto-light/20 rounded-lg p-4 sm:p-6 text-center">
+            <div className="h-10 sm:h-12 w-10 sm:w-12 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
               <svg
-                className="h-6 w-6 text-white"
+                className="h-5 sm:h-6 w-5 sm:w-6 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -391,7 +397,7 @@ export default function UserDashboardPage() {
                 />
               </svg>
             </div>
-            <h4 className="text-sm font-semibold text-crypto-light mb-1">
+            <h4 className="text-xs sm:text-sm font-semibold text-crypto-light mb-1">
               Early Adopter
             </h4>
             <p className="text-xs text-gray-600 dark:text-gray-400">

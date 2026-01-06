@@ -48,7 +48,6 @@ export default function Header() {
                 About
               </Button>
             </div>
-            <AuthButton />
             {/* <ThemeToggle /> */}
           </div>
         </div>

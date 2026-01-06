@@ -61,15 +61,15 @@ export default function PreferencesPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-8 md:py-16">
+    <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16">
       <div className="max-w-2xl mx-auto animate-fade-in">
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Link
             href="/user"
-            className="inline-flex items-center text-sm text-crypto-light hover:text-crypto-light/80 transition-colors mb-6 font-medium"
+            className="inline-flex items-center text-xs sm:text-sm text-crypto-light hover:text-crypto-light/80 transition-colors mb-4 sm:mb-6 font-medium"
           >
             <svg
-              className="h-4 w-4 mr-2"
+              className="h-3 sm:h-4 w-3 sm:w-4 mr-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -83,10 +83,10 @@ export default function PreferencesPage() {
             </svg>
             Back to Dashboard
           </Link>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="h-16 w-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
+            <div className="h-12 sm:h-16 w-12 sm:w-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
               <svg
-                className="h-8 w-8 text-white"
+                className="h-6 sm:h-8 w-6 sm:w-8 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -100,21 +100,21 @@ export default function PreferencesPage() {
               </svg>
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
+              <h1 className="text-xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
                 Your Preferences
               </h1>
-              <p className="mt-1 text-base text-gray-600 dark:text-gray-300">
+              <p className="mt-1 text-xs sm:text-base text-gray-600 dark:text-gray-300">
                 Customize your crypto news experience to match your interests
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 md:p-8 border border-gray-100 dark:border-gray-800">
+        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-4 sm:p-6 md:p-8 border border-gray-100 dark:border-gray-800">
           {success && (
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-6 py-4 rounded-lg text-sm mb-6 flex items-center">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-4 sm:px-6 py-3 sm:py-4 rounded-lg text-xs sm:text-sm mb-4 sm:mb-6 flex items-center gap-3">
               <svg
-                className="h-5 w-5 text-green-500 mr-3"
+                className="h-4 sm:h-5 w-4 sm:w-5 text-green-500 flex-shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -135,12 +135,12 @@ export default function PreferencesPage() {
             </div>
           )}
 
-          <div className="space-y-6">
-            <div className="flex items-center justify-between py-6 border-b border-gray-200 dark:border-gray-700">
-              <div className="flex items-start space-x-4">
-                <div className="h-10 w-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mt-1">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 py-4 sm:py-6 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-start gap-3 sm:gap-4 flex-1">
+                <div className="h-9 sm:h-10 w-9 sm:w-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="h-5 w-5 text-blue-600 dark:text-blue-400"
+                    className="h-4 sm:h-5 w-4 sm:w-5 text-blue-600 dark:text-blue-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -154,16 +154,16 @@ export default function PreferencesPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-gray-800 dark:text-gray-100">
+                  <h3 className="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-100">
                     Email Notifications
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">
                     Get notified about breaking crypto news, market alerts, and
                     account updates
                   </p>
                 </div>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
+              <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
                 <input
                   type="checkbox"
                   checked={preferences.emailNotifications}

@@ -45,12 +45,12 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="container mx-auto px-4 xl:px-0 py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
-        <div className="max-w-md w-full space-y-8 animate-fade-in">
+      <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
+        <div className="max-w-md w-full space-y-6 sm:space-y-8 animate-fade-in">
           <div className="text-center">
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 mb-6">
+            <div className="mx-auto flex items-center justify-center h-14 sm:h-16 w-14 sm:w-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 mb-4 sm:mb-6">
               <svg
-                className="h-8 w-8 text-white"
+                className="h-7 sm:h-8 w-7 sm:w-8 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -63,22 +63,22 @@ export default function ForgotPasswordPage() {
                 />
               </svg>
             </div>
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
               Check Your Email 📧
             </h1>
-            <p className="mt-3 text-base text-gray-600 dark:text-gray-300">
+            <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-300">
               We&apos;ve sent a password reset link to
             </p>
-            <p className="text-lg font-semibold text-crypto-light mt-1">
+            <p className="text-base sm:text-lg font-semibold text-crypto-light mt-1">
               {email}
             </p>
-            <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
+            <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
               Please check your inbox and follow the instructions to reset your
               password and get back to tracking crypto news.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-8 border border-gray-100 dark:border-gray-800">
+          <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 sm:p-8 border border-gray-100 dark:border-gray-800">
             <div className="text-center space-y-4">
               <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
                 <p className="text-sm text-blue-700 dark:text-blue-300 mb-2">
@@ -110,12 +110,12 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 animate-fade-in">
+    <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8 animate-fade-in">
         <div className="text-center">
-          <div className="h-16 w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="h-14 sm:h-16 w-14 sm:w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
             <svg
-              className="h-8 w-8 text-white"
+              className="h-7 sm:h-8 w-7 sm:w-8 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -128,16 +128,16 @@ export default function ForgotPasswordPage() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
             Reset Your Password
           </h1>
-          <p className="mt-3 text-base text-gray-600 dark:text-gray-300">
+          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-300">
             No worries! Enter your email address and we&apos;ll send you a
             secure link to reset your password
           </p>
         </div>
 
-        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-8 border border-gray-100 dark:border-gray-800">
+        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 sm:p-8 border border-gray-100 dark:border-gray-800">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
               <div className="bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-6 py-4 rounded-lg text-sm flex items-center">
@@ -189,10 +189,10 @@ export default function ForgotPasswordPage() {
               </Button>
             </div>
 
-            <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="text-center pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700">
               <Link
                 href="/auth/login"
-                className="text-sm text-crypto-light hover:text-crypto-light/80 transition-colors font-medium"
+                className="text-xs sm:text-sm text-crypto-light hover:text-crypto-light/80 transition-colors font-medium"
               >
                 ← Back to Sign In
               </Link>

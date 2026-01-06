@@ -85,12 +85,12 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
+      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-6 sm:space-y-8">
           <div className="text-center">
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/20">
+            <div className="mx-auto flex items-center justify-center h-11 sm:h-12 w-11 sm:w-12 rounded-full bg-green-100 dark:bg-green-900/20">
               <svg
-                className="h-6 w-6 text-green-600 dark:text-green-400"
+                className="h-5 sm:h-6 w-5 sm:w-6 text-green-600 dark:text-green-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -103,16 +103,16 @@ export default function ResetPasswordPage() {
                 />
               </svg>
             </div>
-            <h1 className="mt-4 text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
+            <h1 className="mt-3 sm:mt-4 text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
               Password Reset Successful
             </h1>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
               Your password has been successfully reset. You can now sign in
               with your new password.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
             <Link href="/auth/login">
               <Button variant="primary" className="w-full">
                 Go to Sign In
@@ -125,21 +125,21 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
             Reset Password
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
             Enter your new password below
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border border-gray-200 dark:border-gray-700">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
+          <form className="space-y-5 sm:space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-md text-sm">
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-md text-xs sm:text-sm">
                 {error}
               </div>
             )}
@@ -147,7 +147,7 @@ export default function ResetPasswordPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
                 New Password
               </label>
@@ -159,7 +159,7 @@ export default function ResetPasswordPage() {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-crypto-light focus:border-transparent transition-colors"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-crypto-light focus:border-transparent transition-colors text-sm"
                 placeholder="At least 8 characters"
               />
             </div>
@@ -167,7 +167,7 @@ export default function ResetPasswordPage() {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
                 Confirm New Password
               </label>
@@ -179,7 +179,7 @@ export default function ResetPasswordPage() {
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-crypto-light focus:border-transparent transition-colors"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-crypto-light focus:border-transparent transition-colors text-sm"
                 placeholder="Confirm your password"
               />
             </div>
@@ -198,7 +198,7 @@ export default function ResetPasswordPage() {
             <div className="text-center">
               <Link
                 href="/auth/login"
-                className="text-sm text-crypto-light hover:text-crypto-light/80 transition-colors"
+                className="text-xs sm:text-sm text-crypto-light hover:text-crypto-light/80 transition-colors"
               >
                 ← Back to Sign In
               </Link>

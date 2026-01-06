@@ -88,12 +88,12 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-8 md:py-16">
+    <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16">
       <div className="max-w-2xl mx-auto animate-fade-in">
         <div className="mb-8">
           <Link
             href="/user"
-            className="inline-flex items-center text-sm text-crypto-light hover:text-crypto-light/80 transition-colors mb-6 font-medium"
+            className="inline-flex items-center text-xs sm:text-sm text-crypto-light hover:text-crypto-light/80 transition-colors mb-6 font-medium"
           >
             <svg
               className="h-4 w-4 mr-2"
@@ -110,10 +110,10 @@ export default function SettingsPage() {
             </svg>
             Back to Dashboard
           </Link>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="h-16 w-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
+            <div className="h-12 sm:h-16 w-12 sm:w-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center flex-shrink-0">
               <svg
-                className="h-8 w-8 text-white"
+                className="h-6 sm:h-8 w-6 sm:w-8 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -127,10 +127,10 @@ export default function SettingsPage() {
               </svg>
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
                 Account Security
               </h1>
-              <p className="mt-1 text-base text-gray-600 dark:text-gray-300">
+              <p className="mt-1 text-sm sm:text-base text-gray-600 dark:text-gray-300">
                 Keep your Criptor account safe and secure
               </p>
             </div>
@@ -139,11 +139,11 @@ export default function SettingsPage() {
 
         <div className="space-y-6">
           {/* Change Password */}
-          <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 md:p-8 border border-gray-100 dark:border-gray-800">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="h-10 w-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+          <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-4 sm:p-6 md:p-8 border border-gray-100 dark:border-gray-800">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-6">
+              <div className="h-9 sm:h-10 w-9 sm:w-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="h-6 w-6 text-white"
+                  className="h-5 sm:h-6 w-5 sm:w-6 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -157,19 +157,22 @@ export default function SettingsPage() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-xl md:text-2xl font-heading font-semibold text-gray-800 dark:text-gray-100">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-heading font-semibold text-gray-800 dark:text-gray-100">
                   Change Password
                 </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                   Keep your account secure with a strong password
                 </p>
               </div>
             </div>
-            <form className="space-y-6" onSubmit={handleChangePassword}>
+            <form
+              className="space-y-4 sm:space-y-6"
+              onSubmit={handleChangePassword}
+            >
               {error && (
-                <div className="bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-6 py-4 rounded-lg text-sm flex items-center">
+                <div className="bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 sm:px-6 py-3 sm:py-4 rounded-lg text-xs sm:text-sm flex items-start sm:items-center gap-2 sm:gap-3">
                   <svg
-                    className="h-5 w-5 text-red-500 mr-3"
+                    className="h-4 sm:h-5 w-4 sm:w-5 text-red-500 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -186,9 +189,9 @@ export default function SettingsPage() {
               )}
 
               {success && (
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-6 py-4 rounded-lg text-sm flex items-center">
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-4 sm:px-6 py-3 sm:py-4 rounded-lg text-xs sm:text-sm flex items-start sm:items-center gap-2 sm:gap-3">
                   <svg
-                    className="h-5 w-5 text-green-500 mr-3"
+                    className="h-4 sm:h-5 w-4 sm:w-5 text-green-500 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -214,7 +217,7 @@ export default function SettingsPage() {
               <div>
                 <label
                   htmlFor="currentPassword"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Current Password
                 </label>
@@ -230,7 +233,7 @@ export default function SettingsPage() {
               <div>
                 <label
                   htmlFor="newPassword"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   New Password
                 </label>
@@ -241,7 +244,7 @@ export default function SettingsPage() {
                   required
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-crypto-light focus:border-transparent transition-colors"
                 />
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-xs sm:text-xs text-gray-500 dark:text-gray-400">
                   Must be at least 8 characters long
                 </p>
               </div>
@@ -249,7 +252,7 @@ export default function SettingsPage() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Confirm New Password
                 </label>
@@ -262,7 +265,7 @@ export default function SettingsPage() {
                 />
               </div>
 
-              <div className="flex items-center justify-end pt-4">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 sm:gap-4 pt-3 sm:pt-4">
                 <Button type="submit" variant="primary" disabled={saving}>
                   {saving ? "Changing..." : "Change Password"}
                 </Button>
@@ -271,11 +274,11 @@ export default function SettingsPage() {
           </div>
 
           {/* Danger Zone */}
-          <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark border border-red-200 dark:border-red-800 p-6 md:p-8">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="h-10 w-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
+          <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark border border-red-200 dark:border-red-800 p-4 sm:p-6 md:p-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
+              <div className="h-9 sm:h-10 w-9 sm:w-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="h-6 w-6 text-white"
+                  className="h-5 sm:h-6 w-5 sm:w-6 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -289,16 +292,16 @@ export default function SettingsPage() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-xl font-heading font-semibold text-red-600 dark:text-red-400">
+                <h2 className="text-lg sm:text-xl font-heading font-semibold text-red-600 dark:text-red-400">
                   Danger Zone
                 </h2>
-                <p className="text-sm text-red-500 dark:text-red-400">
+                <p className="text-xs sm:text-sm text-red-500 dark:text-red-400">
                   Irreversible account actions
                 </p>
               </div>
             </div>
-            <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 mb-4">
-              <p className="text-sm text-red-700 dark:text-red-300 mb-2">
+            <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-3 sm:p-4 mb-4">
+              <p className="text-xs sm:text-sm text-red-700 dark:text-red-300 mb-2">
                 <strong>⚠️ Warning:</strong> Account deletion is permanent
               </p>
               <p className="text-xs text-red-600 dark:text-red-400">

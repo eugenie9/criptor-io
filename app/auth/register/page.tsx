@@ -71,12 +71,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 animate-fade-in">
+    <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8 animate-fade-in">
         <div className="text-center">
-          <div className="h-16 w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="h-14 sm:h-16 w-14 sm:w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
             <svg
-              className="h-8 w-8 text-white"
+              className="h-7 sm:h-8 w-7 sm:w-8 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -89,14 +89,14 @@ export default function RegisterPage() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
             Join the Crypto Revolution!
           </h1>
-          <p className="mt-3 text-base text-gray-600 dark:text-gray-300">
+          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-300">
             Create your account and get personalized crypto news from trusted
             sources
           </p>
-          <div className="flex items-center justify-center space-x-6 mt-4 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-3 sm:mt-4 text-xs text-gray-500 dark:text-gray-400">
             <div className="flex items-center">
               <svg
                 className="h-4 w-4 text-green-500 mr-1"
@@ -132,8 +132,8 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-8 border border-gray-100 dark:border-gray-800">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 sm:p-8 border border-gray-100 dark:border-gray-800">
+          <form className="space-y-5 sm:space-y-6" onSubmit={handleSubmit}>
             {error && (
               <div className="bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-6 py-4 rounded-lg text-sm flex items-center">
                 <svg
@@ -247,8 +247,8 @@ export default function RegisterPage() {
               </Button>
             </div>
 
-            <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-center pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 Already part of our community?{" "}
                 <Link
                   href="/auth/login"

@@ -59,12 +59,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 animate-fade-in">
+    <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8 animate-fade-in">
         <div className="text-center">
-          <div className="h-16 w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="h-14 sm:h-16 w-14 sm:w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
             <svg
-              className="h-8 w-8 text-white"
+              className="h-7 sm:h-8 w-7 sm:w-8 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -77,15 +77,15 @@ export default function LoginPage() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
             Welcome Back to Criptor!
           </h1>
-          <p className="mt-3 text-base text-gray-600 dark:text-gray-300">
+          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-300">
             Sign in to access your personalized crypto news dashboard
           </p>
         </div>
 
-        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-8 border border-gray-100 dark:border-gray-800">
+        <div className="bg-white dark:bg-crypto-dark rounded-lg shadow-card dark:shadow-card-dark hover:shadow-card-hover dark:hover:shadow-card-hover-dark transition-all duration-300 p-6 sm:p-8 border border-gray-100 dark:border-gray-800">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {success && (
               <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-6 py-4 rounded-lg text-sm flex items-center">
@@ -189,8 +189,8 @@ export default function LoginPage() {
               </Button>
             </div>
 
-            <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-center pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 New to Criptor?{" "}
                 <Link
                   href="/auth/register"

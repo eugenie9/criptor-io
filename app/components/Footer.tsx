@@ -4,18 +4,20 @@ export default async function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white dark:bg-crypto-dark text-gray-700 dark:text-gray-300 transition-colors duration-300 py-8">
+    <footer className="bg-white dark:bg-crypto-dark text-gray-700 dark:text-gray-300 transition-colors duration-300 py-6 sm:py-8">
       <div className="container mx-auto px-4 xl:px-0">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="col-span-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+          <div className="col-span-2 mb-4">
             <Link href="/" className="flex items-center">
-              <h2 className="text-3xl font-bold text-crypto-light">Criptor</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-crypto-light">
+                Criptor
+              </h2>
             </Link>
-            <p className="mt-4 text-base leading-7">
+            <p className="mt-4 text-sm sm:text-base leading-7">
               Your comprehensive RSS reader for all things cryptocurrency. Stay
               updated with the latest news from around the globe.
             </p>
-            <div className="mt-4 flex space-x-4">
+            <div className="mt-4 flex gap-3 sm:gap-4 flex-wrap">
               <a
                 href="https://twitter.com"
                 target="_blank"
@@ -23,7 +25,7 @@ export default async function Footer() {
                 aria-label="Twitter"
               >
                 <svg
-                  className="h-6 w-6 text-gray-500 dark:text-gray-400 hover:text-crypto-light"
+                  className="h-5 sm:h-6 w-5 sm:w-6 text-gray-500 dark:text-gray-400 hover:text-crypto-light"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -37,7 +39,7 @@ export default async function Footer() {
                 aria-label="GitHub"
               >
                 <svg
-                  className="h-6 w-6 text-gray-500 dark:text-gray-400 hover:text-crypto-light"
+                  className="h-5 sm:h-6 w-5 sm:w-6 text-gray-500 dark:text-gray-400 hover:text-crypto-light"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -51,12 +53,14 @@ export default async function Footer() {
             </div>
           </div>
           <div className="col-span-1">
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="text-base sm:text-lg font-semibold mb-4">
+              Quick Links
+            </h3>
+            <ul className="space-y-2 sm:space-y-2.5">
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   About
                 </Link>
@@ -64,7 +68,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/info/privacy-policy"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   Privacy Policy
                 </Link>
@@ -72,7 +76,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/info/terms-of-service"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   Terms of Service
                 </Link>
@@ -80,7 +84,7 @@ export default async function Footer() {
               <li>
                 <Link
                   href="/info/cookie-policy"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   Cookie Policy
                 </Link>
@@ -88,12 +92,14 @@ export default async function Footer() {
             </ul>
           </div>
           <div className="col-span-1">
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
+            <h3 className="text-base sm:text-lg font-semibold mb-4">
+              Resources
+            </h3>
+            <ul className="space-y-2 sm:space-y-2.5">
               <li>
                 <Link
                   href="/info/disclaimer"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   Disclaimer
                 </Link>
@@ -101,7 +107,7 @@ export default async function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   Blog
                 </a>
@@ -109,7 +115,7 @@ export default async function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   Help Center
                 </a>
@@ -117,7 +123,7 @@ export default async function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:text-crypto-light transition-colors duration-200"
+                  className="hover:text-crypto-light transition-colors duration-200 text-sm sm:text-base"
                 >
                   Contact
                 </a>
@@ -125,12 +131,12 @@ export default async function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">
+        <div className="border-t border-gray-200 dark:border-gray-700 mt-6 sm:mt-8 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+          <p className="text-xs sm:text-sm">
             © {currentYear} Criptor. All rights reserved.
           </p>
-          <div className="mt-4 md:mt-0">
-            <p className="text-sm">
+          <div>
+            <p className="text-xs sm:text-sm text-center sm:text-right">
               Built with <span className="text-crypto-light">♥</span> for crypto
               enthusiasts
             </p>
