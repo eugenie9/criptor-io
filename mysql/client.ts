@@ -113,11 +113,6 @@ const getArticleBySourceAndSlug = async (source: string, slug: string) => {
   );
 
   if (data.length > 0) {
-    // Increase read_count by 1
-    execQuery(
-      "UPDATE articles SET read_count = read_count + 1 WHERE source = ? AND slug = ?",
-      [source, slug]
-    );
     return parseArticle(data[0]);
   } else {
     return null;
@@ -142,12 +137,11 @@ const memoizedGetSitemapForSource = memoizee(getSitemapForSource, {
   maxAge: 1000 * 60 * 60,
 });
 
-const cloudflareClient = {
+export default {
+  execQuery,
   getArticles: memoizedGetArticles,
   getArticlesForSource: memoizedGetArticlesForSource,
   getArticleBySourceAndSlug: memoizedGetArticleBySourceAndSlug,
   getPopularArticlesForSource: memoizedGetPopularArticlesForSource,
   getSitemapForSource: memoizedGetSitemapForSource,
 };
-
-export default cloudflareClient;

@@ -15,7 +15,20 @@ const getArticles = async () => {
 };
 
 const getArticleWithSourceAndSlug = async (source: string, slug: string) => {
-  return await mysqlClient.getArticleBySourceAndSlug(source, slug);
+  try {
+    const response = await mysqlClient.getArticleBySourceAndSlug(source, slug);
+    if (response) {
+      // Increase read_count by 1
+      mysqlClient.execQuery(
+        "UPDATE articles SET read_count = read_count + 1 WHERE source = ? AND slug = ?",
+        [source, slug]
+      );
+
+      return response;
+    }
+  } catch (error) {
+    return null;
+  }
 };
 
 const getSitemapForSource = async (source: string) => {
