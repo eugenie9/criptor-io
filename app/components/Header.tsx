@@ -1,8 +1,11 @@
+"use client";
 import Link from "next/link";
 import sources from "@/sources.json";
 import MobileMenu from "./MobileMenu";
 import Button from "./Button";
+import AuthButton from "./AuthButton";
 import { getSource } from "@/app/utils";
+import { usePathname } from "next/navigation";
 
 const FEATURED_SOURCE_IDS = [
   "beincrypto",
@@ -15,6 +18,12 @@ const FEATURED_SOURCE_IDS = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  const isAuthPage = pathname.includes("/auth");
+  const isUserPage = pathname.includes("/user");
+
+  const shouldShowNav = !isAuthPage && !isUserPage;
+
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-crypto-dark/95 backdrop-blur-sm transition-colors duration-300 border-b border-gray-200 dark:border-gray-800 shadow-sm">
       <div className="container mx-auto px-4 xl:px-0">
@@ -39,12 +48,17 @@ export default function Header() {
                 About
               </Button>
             </div>
+            <AuthButton />
             {/* <ThemeToggle /> */}
           </div>
         </div>
       </div>
 
-      <nav className="border-t border-gray-200 dark:border-gray-700 py-2 hidden lg:block bg-gray-50 dark:bg-gray-900/50 px-4">
+      <nav
+        className={`border-t border-gray-200 dark:border-gray-700 py-2 hidden lg:block bg-gray-50 dark:bg-gray-900/50 ${
+          shouldShowNav ? "" : "lg:hidden"
+        }`}
+      >
         <div className="container mx-auto flex items-center">
           <div className="flex flex-wrap items-center gap-2 pr-4">
             {sources
