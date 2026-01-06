@@ -5,10 +5,12 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Button from "@/app/components/Button";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/utils/auth-client";
 
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = authClient.useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,31 +23,35 @@ export default function LoginPage() {
     }
   }, [searchParams]);
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/user");
+    }
+  }, [session, router]);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      await authClient.signIn.email(
+        {
+          email: email,
+          password: password,
         },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || "Login failed");
-        setLoading(false);
-        return;
-      }
-
-      // Redirect to user dashboard
-      router.push("/user");
-      router.refresh();
+        {
+          onSuccess: () => {
+            // Session will be updated automatically
+            // Router will redirect via useEffect above
+          },
+          onError: (ctx) => {
+            setError(ctx.error?.message || "Invalid email or password");
+            setLoading(false);
+          },
+        }
+      );
     } catch (err) {
       setError("An error occurred. Please try again.");
       setLoading(false);

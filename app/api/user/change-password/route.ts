@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/utils/auth";
 
-// Dummy implementation - replace with actual D1 database queries
 export async function POST(request: NextRequest) {
   try {
-    // TODO: Verify user session/token
-    // const session = await getSession(request);
-    // if (!session || !session.userId) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
+    // Get the session from better-auth
+    const session = await auth.api.getSession({
+      headers: request.headers,
+    });
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
     const { currentPassword, newPassword } = await request.json();
 
@@ -25,21 +28,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Replace with actual D1 database queries
-    // Example:
-    // const user = await db.prepare("SELECT password_hash FROM users WHERE id = ?")
-    //   .bind(session.userId).first();
-    
-    // const isValid = await bcrypt.compare(currentPassword, user.password_hash);
-    // if (!isValid) {
-    //   return NextResponse.json({ error: "Current password is incorrect" }, { status: 400 });
-    // }
-    
-    // const passwordHash = await bcrypt.hash(newPassword, 10);
-    // await db.prepare("UPDATE users SET password_hash = ? WHERE id = ?")
-    //   .bind(passwordHash, session.userId).run();
+    // Update password using better-auth
+    // Note: better-auth handles password hashing and verification internally
+    await auth.api.changePassword({
+      body: {
+        newPassword,
+        revokeOtherSessions: false,
+      },
+    });
 
-    // Dummy response
     return NextResponse.json({
       success: true,
       message: "Password changed successfully",
@@ -47,9 +44,8 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Change password error:", error);
     return NextResponse.json(
-      { error: "An error occurred" },
+      { error: "An error occurred or current password is incorrect" },
       { status: 500 }
     );
   }
 }
-

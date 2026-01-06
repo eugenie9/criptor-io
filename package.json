@@ -12,6 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "better-auth": "^1.4.10",
     "memoizee": "^0.4.15",
     "mysql2": "^3.16.0",
     "next": "^14.0.2",

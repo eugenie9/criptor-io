@@ -1,47 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
+import { authClient } from "@/utils/auth-client";
 
 export default function AuthButton() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch("/api/auth/me");
-        setIsAuthenticated(response.ok);
-      } catch (error) {
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
+  const { data: session, isPending } = authClient.useSession();
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-      setIsAuthenticated(false);
-      router.push("/auth/login");
-      router.refresh();
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/auth/login");
+        },
+      },
+    });
   };
 
-  if (loading) {
+  if (isPending) {
     return null;
   }
 
-  if (isAuthenticated) {
+  if (session?.user) {
     return (
       <div className="flex items-center space-x-2">
         <Button href="/user" variant="ghost" size="sm">
@@ -65,4 +47,3 @@ export default function AuthButton() {
     </div>
   );
 }
-

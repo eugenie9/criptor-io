@@ -4,17 +4,11 @@ import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@/app/components/Button";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { authClient } from "@/utils/auth-client";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: session, isPending } = authClient.useSession();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -24,28 +18,18 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("/api/auth/me");
-        if (!response.ok) {
-          router.push("/auth/login");
-          return;
-        }
-        const data = await response.json();
-        setUser(data.user);
-        setFormData({
-          name: data.user.name,
-          email: data.user.email,
-        });
-      } catch (error) {
-        router.push("/auth/login");
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!isPending && !session?.user) {
+      router.push("/auth/login");
+      return;
+    }
 
-    fetchUser();
-  }, [router]);
+    if (session?.user) {
+      setFormData({
+        name: session.user.name || "",
+        email: session.user.email || "",
+      });
+    }
+  }, [session?.user, isPending, router]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,15 +55,15 @@ export default function ProfilePage() {
       }
 
       setSuccess(true);
-      setUser(data.user);
       setSaving(false);
+      setTimeout(() => setSuccess(false), 5000);
     } catch (err) {
       setError("An error occurred. Please try again.");
       setSaving(false);
     }
   };
 
-  if (loading) {
+  if (isPending) {
     return (
       <div className="min-h-[calc(100vh-200px)] flex items-center justify-center">
         <div className="text-center">
@@ -90,7 +74,7 @@ export default function ProfilePage() {
     );
   }
 
-  if (!user) {
+  if (!session?.user) {
     return null;
   }
 

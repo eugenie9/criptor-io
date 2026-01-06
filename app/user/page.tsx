@@ -1,56 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@/app/components/Button";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: string;
-}
+import { authClient } from "@/utils/auth-client";
 
 export default function UserDashboardPage() {
+  const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch user data
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("/api/auth/me");
-        if (!response.ok) {
-          router.push("/auth/login");
-          return;
-        }
-        const data = await response.json();
-        setUser(data.user);
-      } catch (error) {
-        router.push("/auth/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, [router]);
+    // Only redirect if we've finished loading AND there's no session
+    if (!isPending && !session?.user) {
+      router.push("/auth/login");
+    }
+  }, [session?.user, isPending, router]);
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-      router.push("/auth/login");
-      router.refresh();
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/auth/login");
+        },
+      },
+    });
   };
 
-  if (loading) {
+  if (isPending) {
     return (
       <div className="min-h-[calc(100vh-200px)] flex items-center justify-center">
         <div className="text-center">
@@ -61,9 +38,11 @@ export default function UserDashboardPage() {
     );
   }
 
-  if (!user) {
+  if (!session?.user) {
     return null;
   }
+
+  const user = session.user;
 
   return (
     <div className="container mx-auto px-4 xl:px-0 py-4 md:py-8 lg:py-16">
@@ -72,12 +51,12 @@ export default function UserDashboardPage() {
         <div className="flex items-center space-x-4 mb-4">
           <div className="h-16 w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center">
             <span className="text-2xl font-bold text-white">
-              {user.name.charAt(0).toUpperCase()}
+              {user.name?.charAt(0).toUpperCase() || "U"}
             </span>
           </div>
           <div>
             <h1 className="text-3xl md:text-4xl font-heading font-bold text-gray-800 dark:text-gray-100">
-              Welcome back, {user.name.split(" ")[0]}! 👋
+              Welcome back, {user.name?.split(" ")[0] || "User"}! 👋
             </h1>
             <p className="mt-1 text-lg text-gray-600 dark:text-gray-300">
               Stay ahead of the crypto curve with your personalized news hub

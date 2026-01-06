@@ -60,20 +60,23 @@ export default function ResetPasswordPage() {
         },
         body: JSON.stringify({
           token,
-          password: formData.password,
+          newPassword: formData.password,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || "Failed to reset password");
+        setError(data.message || data.error || "Failed to reset password");
         setLoading(false);
         return;
       }
 
       setSuccess(true);
       setLoading(false);
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 2000);
     } catch (err) {
       setError("An error occurred. Please try again.");
       setLoading(false);
@@ -104,7 +107,8 @@ export default function ResetPasswordPage() {
               Password Reset Successful
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Your password has been successfully reset. You can now sign in with your new password.
+              Your password has been successfully reset. You can now sign in
+              with your new password.
             </p>
           </div>
 
@@ -205,4 +209,3 @@ export default function ResetPasswordPage() {
     </div>
   );
 }
-

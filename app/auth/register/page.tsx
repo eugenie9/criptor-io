@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
 import Button from "@/app/components/Button";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/utils/auth-client";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { data: session } = authClient.useSession();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,6 +17,13 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/user");
+    }
+  }, [session, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -40,33 +49,25 @@ export default function RegisterPage() {
 
     setLoading(true);
 
-    try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    await authClient.signUp.email(
+      {
+        email: formData.email,
+        password: formData.password,
+        name: formData.name || "test",
+        image: "",
+      },
+      {
+        onSuccess: () => {
+          // Session will be updated automatically
+          // Router will redirect via useEffect above
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || "Registration failed");
-        setLoading(false);
-        return;
+        onError: (ctx) => {
+          console.error(ctx);
+          setError(ctx.error?.message || "Failed to create account");
+          setLoading(false);
+        },
       }
-
-      // Redirect to login page
-      router.push("/auth/login?registered=true");
-    } catch (err) {
-      setError("An error occurred. Please try again.");
-      setLoading(false);
-    }
+    );
   };
 
   return (
