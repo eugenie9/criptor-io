@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { nextCookies } from "better-auth/next-js";
 import { createPool } from "mysql2/promise";
 
 export const auth = betterAuth({
@@ -20,5 +21,5 @@ export const auth = betterAuth({
     enabled: true,
   },
   secret: process.env.BETTER_AUTH_SECRET || "",
-  baseUrl: process.env.BETTER_AUTH_URL || "",
+  plugins: [nextCookies()],
 });
