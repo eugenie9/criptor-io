@@ -97,6 +97,23 @@ const searchArticles = memoizee(
   }
 );
 
+const subscribeToNewsletter = async (email: string) => {
+  try {
+    const result: any = await mysqlClient.execQuery(
+      "INSERT INTO newsletter_subscribers (email) VALUES (?) ON DUPLICATE KEY UPDATE updated_at = NOW()",
+      [email]
+    );
+    console.log("Subscription result:", result);
+    // If affectedRows === 1, it's a new subscription. If === 2, it was already subscribed
+    return {
+      success: true,
+      isNewSubscriber: result?.affectedRows === 1,
+    };
+  } catch (error) {
+    return { success: false, isNewSubscriber: false };
+  }
+};
+
 export {
   getArticlesForSource,
   getArticles,
@@ -105,4 +122,5 @@ export {
   getSitemapForSource,
   getCryptoPrices,
   searchArticles,
+  subscribeToNewsletter,
 };
