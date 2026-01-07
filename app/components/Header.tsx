@@ -4,6 +4,7 @@ import sources from "@/sources.json";
 import MobileMenu from "./MobileMenu";
 import Button from "./Button";
 import AuthButton from "./AuthButton";
+import SearchBox from "./SearchBox";
 import { getSource } from "@/app/utils";
 import { usePathname } from "next/navigation";
 
@@ -42,7 +43,10 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
+            <div className="max-xl:hidden">
+              <SearchBox />
+            </div>
             <div className="hidden md:block">
               <Button href="/about" variant="outline" size="sm">
                 About

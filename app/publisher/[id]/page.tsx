@@ -1,12 +1,12 @@
 import { getArticlesForSource } from "@/app/actions";
 import AskMore from "@/app/publisher/[id]/AskMore";
-import ArticleCard2 from "@/app/components/ArticleCard2";
 import type { Metadata } from "next";
 import sources from "@/sources.json";
 import Section from "@/app/components/Section";
 import AnimatedContainer from "@/app/components/AnimatedContainer";
 import { getSource } from "@/app/utils";
 import Link from "next/link";
+import SubscribeToUpdates from "@/app/components/SubscribeToUpdates";
 
 export const revalidate = 60;
 
@@ -107,11 +107,11 @@ export default async function News({ params }: Props) {
               <span className="text-crypto-light text-sm font-medium tracking-wider uppercase mb-4 block">
                 Featured Article
               </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-6">
+              <h2 className="text-xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-6">
                 {items[0].title}
               </h2>
               <div className="w-16 h-1 bg-crypto-light mb-6"></div>
-              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 dark:text-gray-300 text-base xl:text-lg leading-relaxed mb-8">
                 {items[0].content?.slice(0, 280)}...
               </p>
               <div className="flex items-center mb-8">
@@ -178,9 +178,9 @@ export default async function News({ params }: Props) {
       {/* Top Stories */}
       <div className="bg-gray-50 dark:bg-gray-800">
         <Section>
-          <div className="flex flex-col items-center text-center mb-12">
+          <div className="flex flex-col items-center text-center mb-12 mt-4">
             <span className="text-crypto-light text-sm font-medium tracking-wider uppercase mb-3 block">
-              Editor&apos;s Selection
+              Editor's Selection
             </span>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-3">
               Top Stories
@@ -263,13 +263,13 @@ export default async function News({ params }: Props) {
                 <span className="text-crypto-light text-sm font-medium tracking-wider uppercase mb-3 block">
                   Recent Publications
                 </span>
-                <h2 className="text-3xl font-heading font-bold text-gray-900 dark:text-white mb-3">
+                <h2 className="text-2xl xl:text-3xl font-heading font-bold text-gray-900 dark:text-white mb-3">
                   Latest Articles
                 </h2>
                 <div className="w-16 h-1 bg-crypto-light mb-6"></div>
               </div>
 
-              <div className="flexflex-col space-y-12">
+              <div className="flex flex-col space-y-12">
                 {items.slice(4, 10).map((item, index) => (
                   <AnimatedContainer
                     key={item.slug}
@@ -336,7 +336,7 @@ export default async function News({ params }: Props) {
 
                         <Link
                           href={`/publisher/${id}/${item.slug}`}
-                          className="inline-flex items-center text-crypto-light hover:text-crypto-dark dark:hover:text-white font-medium transition-colors group"
+                          className="inline-flex items-center text-crypto-light hover:text-crypto-dark dark:hover:text-white font-medium transition-colors group mb-4"
                         >
                           Continue Reading
                           <svg
@@ -444,25 +444,7 @@ export default async function News({ params }: Props) {
                 </div>
 
                 {/* Newsletter Signup */}
-                <div className="bg-crypto-light bg-opacity-10 dark:bg-opacity-20 p-8 rounded-lg">
-                  <h3 className="text-xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
-                    Subscribe to Updates
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm">
-                    Get the latest cryptocurrency news and insights delivered
-                    directly to your inbox.
-                  </p>
-                  <div className="flex flex-col space-y-3">
-                    <input
-                      type="email"
-                      placeholder="Your email address"
-                      className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-crypto-light"
-                    />
-                    <button className="bg-crypto-light hover:bg-crypto-dark text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors">
-                      Subscribe Now
-                    </button>
-                  </div>
-                </div>
+                <SubscribeToUpdates />
               </div>
             </div>
           </div>

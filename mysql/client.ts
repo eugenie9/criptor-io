@@ -72,6 +72,7 @@ const getArticlesForSource = async (source: string, lastDate?: number) => {
 const memoizedGetArticlesForSource = memoizee(getArticlesForSource, {
   promise: true,
   maxAge: 1000 * 60 * 2,
+  length: 2,
 });
 
 const getPopularArticlesForSource = async (source: string) => {
@@ -88,6 +89,7 @@ const memoizedGetPopularArticlesForSource = memoizee(
   {
     promise: true,
     maxAge: 1000 * 60 * 2,
+    length: 1,
   }
 );
 
@@ -122,6 +124,7 @@ const getArticleBySourceAndSlug = async (source: string, slug: string) => {
 const memoizedGetArticleBySourceAndSlug = memoizee(getArticleBySourceAndSlug, {
   promise: true,
   maxAge: 1000 * 60 * 2,
+  length: 2,
 });
 
 const getSitemapForSource = async (source: string) => {
@@ -135,6 +138,23 @@ const getSitemapForSource = async (source: string) => {
 const memoizedGetSitemapForSource = memoizee(getSitemapForSource, {
   promise: true,
   maxAge: 1000 * 60 * 60,
+  length: 1,
+});
+
+const getArticlesByIds = async (ids: string[]) => {
+  if (ids.length === 0) {
+    return [];
+  }
+  const placeholders = ids.map(() => "?").join(",");
+  const query = `SELECT id, title, content, slug, thumbnail, source FROM articles WHERE id IN (${placeholders})`;
+  const data = await execQuery(query, ids);
+  return data.map(parseArticle);
+};
+
+const memoizedGetArticlesByIds = memoizee(getArticlesByIds, {
+  promise: true,
+  maxAge: 1000 * 60 * 2,
+  length: 1,
 });
 
 export default {
@@ -144,4 +164,5 @@ export default {
   getArticleBySourceAndSlug: memoizedGetArticleBySourceAndSlug,
   getPopularArticlesForSource: memoizedGetPopularArticlesForSource,
   getSitemapForSource: memoizedGetSitemapForSource,
+  getArticlesByIds: memoizedGetArticlesByIds,
 };

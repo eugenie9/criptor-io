@@ -13,9 +13,11 @@ const Card = ({ article }: { article: TArticle }) => {
       />
 
       <div>
-        <div className="p-4 flex flex-col">
+        <div className="py-4 px-2 flex flex-col">
           <LinkWrapper article={article}>
-            <h3 className="mt-0.5 text-lg font-medium">{article.title}</h3>
+            <h3 className="mt-0.5 text-base xl:text-lg font-medium">
+              {article.title}
+            </h3>
           </LinkWrapper>
 
           <span className="font-medium text-sm mt-1">
@@ -44,11 +46,11 @@ export default async function CryptoSlate() {
 
   return (
     <div className="bg-gradient-to-b from-[#F0F3F7]/90 to-[#F0F3F7]/80 rounded-lg">
-      <Section className="!p-4 md:p-8 lg:p-12">
+      <Section className="!p-8 lg:p-12">
         <div className="flex">
           <div className="flex items-center border-b-2 border-black pb-2">
             <img src={source.logo} alt={source.name} className="h-10" />
-            <h2 className="text-2xl font-bold ml-2">{source.name}</h2>
+            <h2 className="text-lg font-bold ml-2">{source.name}</h2>
           </div>
         </div>
 

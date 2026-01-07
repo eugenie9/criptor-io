@@ -6,6 +6,9 @@ export default async function CarouselCardBig({
 }: {
   article: TArticle;
 }) {
+  if (!article) {
+    return null;
+  }
   const source = getSource(article.source);
 
   return (
@@ -20,29 +23,29 @@ export default async function CarouselCardBig({
         <div className="relative bg-gradient-to-t from-gray-900/80 to-gray-900/20 flex-1 flex items-end">
           <div className="p-4 sm:p-6">
             <div className="bg-crypto-dark/90 text-white w-auto mr-auto uppercase text-sm rounded-br-xl px-4 py-3 flex items-center absolute top-0 left-0 font-medium shadow-md">
-              <img 
-                src={source.logo} 
-                alt={source.name} 
-                className="h-5 w-5 object-contain rounded-full bg-white p-0.5" 
+              <img
+                src={source.logo}
+                alt={source.name}
+                className="h-5 w-5 object-contain rounded-full bg-white p-0.5"
               />
               <p className="ml-2 font-medium">{source.name}</p>
             </div>
-            <h3 className="mt-0.5 font-heading text-lg xl:text-xl font-bold text-white group-hover:text-crypto-light transition-colors duration-200">
+            <h3 className="mt-0.5 font-heading text-base xl:text-xl font-bold text-white group-hover:text-crypto-light transition-colors duration-200">
               {article.title}
             </h3>
             <div className="mt-2 flex items-center">
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-4 w-4 text-white/70" 
-                fill="none" 
-                viewBox="0 0 24 24" 
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-white/70"
+                fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
               <span className="font-medium text-xs text-white/90 ml-1">
