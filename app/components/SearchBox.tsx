@@ -112,16 +112,16 @@ export default function SearchBox() {
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search news..."
+            placeholder="Search articles..."
             value={state.query}
             onChange={handleInputChange}
             onFocus={() => setState((prev) => ({ ...prev, isOpen: true }))}
-            className="w-full px-4 py-2.5 pl-10 pr-10 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-crypto-light/50 focus:border-crypto-light transition-all duration-200"
+            className="w-full px-4 py-2.5 pl-11 pr-10 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-crypto-light/30 focus:border-crypto-light transition-all"
           />
 
           {/* Search Icon */}
           <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -162,14 +162,14 @@ export default function SearchBox() {
 
       {/* Search Results Dropdown */}
       {state.isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg z-50 overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl dark:shadow-2xl z-50 overflow-hidden">
           {/* Loading State */}
           {state.isLoading && (
-            <div className="p-4 text-center">
-              <div className="inline-block">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-crypto-light"></div>
+            <div className="p-6 text-center">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-crypto-light/10 dark:bg-crypto-light/20 mb-3">
+                <div className="animate-spin rounded-full h-5 w-5 border-2 border-crypto-light border-t-transparent"></div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Searching...
               </p>
             </div>
@@ -177,8 +177,12 @@ export default function SearchBox() {
 
           {/* Error State */}
           {state.error && !state.isLoading && (
-            <div className="p-4 text-center text-sm text-red-600 dark:text-red-400">
-              {state.error}
+            <div className="p-6">
+              <div className="bg-crypto-dark/5 dark:bg-crypto-dark/30 border-l-4 border-crypto-light rounded px-4 py-3">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {state.error}
+                </p>
+              </div>
             </div>
           )}
 
@@ -188,21 +192,26 @@ export default function SearchBox() {
             state.query &&
             state.results.length === 0 && (
               <div className="p-8 text-center">
-                <svg
-                  className="w-12 h-12 mx-auto text-gray-400 dark:text-gray-600 mb-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  No articles found for "{state.query}"
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 text-gray-400 dark:text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
+                  No results found
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Try different keywords or check your spelling
                 </p>
               </div>
             )}
@@ -210,29 +219,41 @@ export default function SearchBox() {
           {/* Results List */}
           {!state.isLoading && state.results.length > 0 && (
             <div className="max-h-96 overflow-y-auto">
+              <div className="px-3 py-2 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  {state.results.length}{" "}
+                  {state.results.length === 1 ? "Result" : "Results"}
+                </p>
+              </div>
               {state.results.map((result, index) => {
                 const source = getSource(result.source);
                 return (
                   <button
                     key={index}
                     onClick={() => handleResultClick(result)}
-                    className="w-full text-left p-3 hover:bg-gray-50 dark:hover:bg-gray-800 border-b border-gray-100 dark:border-gray-800 last:border-b-0 transition-colors group"
+                    className="w-full text-left p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-all group"
                   >
                     <div className="flex gap-3">
                       {result.thumbnail && (
-                        <img
-                          src={result.thumbnail}
-                          alt={result.title}
-                          className="h-12 w-12 rounded object-cover flex-shrink-0"
-                        />
+                        <div className="relative flex-shrink-0">
+                          <img
+                            src={result.thumbnail}
+                            alt={result.title}
+                            className="h-14 w-14 rounded-lg object-cover ring-1 ring-gray-200 dark:ring-gray-700"
+                          />
+                        </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100 group-hover:text-crypto-light transition-colors line-clamp-2">
+                        <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100 group-hover:text-crypto-light transition-colors line-clamp-2 mb-1">
                           {result.title}
                         </h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          {source?.name}
-                        </p>
+                        {source && (
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                              {source.name}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </button>
@@ -243,9 +264,9 @@ export default function SearchBox() {
               {state.results.length > 0 && (
                 <button
                   onClick={handleSubmit}
-                  className="w-full p-3 text-center text-sm font-medium text-crypto-light hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-t border-gray-100 dark:border-gray-800"
+                  className="w-full p-3.5 text-center text-sm font-medium text-crypto-light hover:bg-crypto-light/5 dark:hover:bg-crypto-light/10 transition-all border-t border-gray-100 dark:border-gray-700"
                 >
-                  View all results
+                  View all results →
                 </button>
               )}
             </div>
@@ -253,8 +274,25 @@ export default function SearchBox() {
 
           {/* Empty State - No Query */}
           {!state.isLoading && !state.query && state.results.length === 0 && (
-            <div className="p-4 text-center text-sm text-gray-600 dark:text-gray-400">
-              Start typing to search...
+            <div className="p-6 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-crypto-light/10 dark:bg-crypto-light/20 flex items-center justify-center">
+                <svg
+                  className="w-6 h-6 text-crypto-light"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Start typing to search articles
+              </p>
             </div>
           )}
         </div>
