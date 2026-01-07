@@ -1,8 +1,8 @@
 export default function Loading() {
   return (
-    <div className="flex flex-col mt-4 animate-pulse">
+    <div className="flex flex-col pt-8 lg:pt-4 px-4 lg:px-8 max-w-7xl mx-auto w-full animate-pulse">
       {/* Hero section skeleton - 3 large cards */}
-      <div className="grid grid-cols-8 md:grid-cols-7 gap-4 px-4 xl:px-0 mb-8">
+      <div className="grid grid-cols-8 md:grid-cols-7 gap-4 mb-8">
         <div className="col-span-8 md:col-span-3">
           <div className="relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 h-72 md:h-[496px]">
             <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 animate-shimmer"></div>
@@ -37,10 +37,13 @@ export default function Loading() {
       </div>
 
       {/* News rows skeleton */}
-      <div className="container mx-auto px-4 md:px-0 py-8 md:py-10">
+      <div className="w-full py-8 md:py-10">
         <div className="grid grid-cols-2 gap-4">
           {[1, 2].map((i) => (
-            <div key={i} className="grid grid-cols-3 bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg overflow-hidden">
+            <div
+              key={i}
+              className="grid grid-cols-3 bg-white dark:bg-crypto-dark border border-gray-100 dark:border-gray-800 rounded-lg overflow-hidden"
+            >
               <div className="col-span-2 flex flex-col p-6 sm:p-8 space-y-4">
                 <div className="h-6 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
                 <div className="h-6 w-5/6 bg-gray-200 dark:bg-gray-700 rounded"></div>

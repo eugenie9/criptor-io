@@ -8,9 +8,7 @@ export default function Section({
   className?: string;
 }) {
   return (
-    <div
-      className={`container mx-auto px-4 xl:px-0 py-4 md:py-8 lg:py-16 ${className}`}
-    >
+    <div className={`w-full py-4 md:py-8 lg:py-12 ${className}`}>
       {children}
     </div>
   );

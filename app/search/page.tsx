@@ -14,7 +14,7 @@ export default async function SearchPageContent({
 
   return (
     <div className="flex flex-col">
-      <Section className="py-8 md:py-12">
+      <Section className="py-8 md:py-12 px-4 lg:px-8 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 md:mb-8">
           <h1 className="text-2xl md:text-4xl font-heading font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -33,7 +33,7 @@ export default async function SearchPageContent({
             <SearchResults query={query} initialResults={results} />
           </div>
           <div className="col-span-3 xl:col-span-1">
-            <div className="flex flex-col space-y-6 sticky top-48 mt-12">
+            <div className="flex flex-col space-y-6 sticky top-32 mt-12">
               <SubscribeToUpdates />
 
               <MarketOverview />

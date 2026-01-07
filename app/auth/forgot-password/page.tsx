@@ -45,7 +45,7 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
         <div className="max-w-md w-full space-y-6 sm:space-y-8 animate-fade-in">
           <div className="text-center">
             <div className="mx-auto flex items-center justify-center h-14 sm:h-16 w-14 sm:w-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 mb-4 sm:mb-6">
@@ -110,7 +110,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
+    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6 sm:py-8 md:py-16 min-h-[calc(100vh-200px)] flex items-center justify-center">
       <div className="max-w-md w-full space-y-6 sm:space-y-8 animate-fade-in">
         <div className="text-center">
           <div className="h-14 sm:h-16 w-14 sm:w-16 bg-gradient-to-br from-crypto-light to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">

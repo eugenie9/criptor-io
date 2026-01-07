@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <Section className="py-8 md:py-12">
+    <Section className="py-8 md:py-12 px-4 lg:px-8 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
         {/* Sidebar Navigation */}
         <aside className="lg:sticky lg:top-24 lg:h-fit">

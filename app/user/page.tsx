@@ -45,7 +45,7 @@ export default function UserDashboardPage() {
   const user = session.user;
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-3 sm:py-4 md:py-8 lg:py-16">
+    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 sm:py-4 md:py-8 lg:py-16">
       {/* Welcome Header */}
       <div className="mb-6 sm:mb-8 md:mb-12">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">

@@ -61,7 +61,7 @@ export default function PreferencesPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-6 sm:py-8 md:py-16">
+    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6 sm:py-8 md:py-16">
       <div className="max-w-2xl mx-auto animate-fade-in">
         <div className="mb-6 sm:mb-8">
           <Link

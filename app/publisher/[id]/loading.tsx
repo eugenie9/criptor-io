@@ -3,7 +3,7 @@ export default function Loading() {
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Publisher Header Skeleton */}
       <div className="relative bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div className="container mx-auto py-12 px-4">
+        <div className="max-w-7xl mx-auto py-12 px-4 lg:px-8">
           <div className="flex flex-col items-center text-center mb-8 animate-pulse">
             <div className="mb-6">
               <div className="h-20 w-20 rounded-full bg-gray-200 dark:bg-gray-700 mx-auto" />
@@ -24,7 +24,7 @@ export default function Loading() {
 
       {/* Featured Article Skeleton */}
       <div className="bg-white dark:bg-gray-900">
-        <div className="container mx-auto py-12 px-4 animate-pulse">
+        <div className="max-w-7xl mx-auto py-12 px-4 lg:px-8 animate-pulse">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="h-4 w-28 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
@@ -47,7 +47,7 @@ export default function Loading() {
 
       {/* Top Stories Skeleton */}
       <div className="bg-gray-50 dark:bg-gray-800">
-        <div className="container mx-auto py-12 px-4 animate-pulse">
+        <div className="max-w-7xl mx-auto py-12 px-4 lg:px-8 animate-pulse">
           <div className="flex flex-col items-center text-center mb-12">
             <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded mb-3"></div>
             <div className="h-8 w-48 bg-gray-200 dark:bg-gray-700 rounded mb-3"></div>
@@ -56,7 +56,10 @@ export default function Loading() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white dark:bg-gray-700 h-full flex flex-col border border-gray-100 dark:border-gray-600 animate-pulse">
+              <div
+                key={i}
+                className="bg-white dark:bg-gray-700 h-full flex flex-col border border-gray-100 dark:border-gray-600 animate-pulse"
+              >
                 <div className="h-48 w-full bg-gray-200 dark:bg-gray-800"></div>
                 <div className="p-6 flex-1 flex flex-col">
                   <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded mb-3"></div>
@@ -71,7 +74,7 @@ export default function Loading() {
 
       {/* Latest Articles Skeleton */}
       <div className="bg-white dark:bg-gray-900">
-        <div className="container mx-auto py-12 px-4 animate-pulse">
+        <div className="max-w-7xl mx-auto py-12 px-4 lg:px-8 animate-pulse">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             {/* Main Content */}
             <div className="col-span-1 md:col-span-8">
@@ -82,7 +85,10 @@ export default function Loading() {
               </div>
               <div className="flexflex-col space-y-12">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="border-b border-gray-100 dark:border-gray-800 last:border-0 pb-8 animate-pulse">
+                  <div
+                    key={i}
+                    className="border-b border-gray-100 dark:border-gray-800 last:border-0 pb-8 animate-pulse"
+                  >
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                       <div className="col-span-1 md:col-span-5 md:order-2">
                         <div className="h-48 w-full bg-gray-200 dark:bg-gray-800 rounded-lg"></div>

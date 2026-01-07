@@ -216,11 +216,11 @@ export default async function NewsDetails({
   return (
     <>
       {/* Article content with 2-to-1 grid layout */}
-      <Section className="max-w-[84rem] mx-auto !pb-0 max-sm:pt-8">
+      <Section className="max-w-7xl mx-auto !pb-0 pt-8 px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main article content - 2/3 width on desktop */}
           <div className="lg:col-span-2">
-            <div className="container mx-auto">
+            <div>
               {/* Breadcrumb navigation */}
               <div className="flex items-center text-gray-500 text-sm mb-6">
                 <Link
@@ -435,7 +435,7 @@ export default async function NewsDetails({
 
           {/* Sidebar content - 1/3 width on desktop */}
           <div className="lg:col-span-1">
-            <div className="sticky top-48">
+            <div className="sticky top-32">
               {/* Related articles in sidebar */}
               <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-6 mb-8 md:mb-12">
                 <h3 className="text-xl font-heading font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center">

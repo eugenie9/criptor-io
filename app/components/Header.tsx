@@ -1,10 +1,13 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import sources from "@/sources.json";
 import MobileMenu from "./MobileMenu";
+import MobileSearchOverlay from "./MobileSearchOverlay";
 import Button from "./Button";
 import AuthButton from "./AuthButton";
 import SearchBox from "./SearchBox";
+import ThemeToggle from "./ThemeToggle";
 import { getSource } from "@/app/utils";
 import { usePathname } from "next/navigation";
 
@@ -22,15 +25,16 @@ export default function Header() {
   const pathname = usePathname();
   const isAuthPage = pathname.includes("/auth");
   const isUserPage = pathname.includes("/user");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const shouldShowNav = !isAuthPage && !isUserPage;
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-crypto-dark/95 backdrop-blur-sm transition-colors duration-300 border-b border-gray-200 dark:border-gray-800 shadow-sm">
       <div className="container mx-auto px-4 xl:px-0">
-        <div className="flex justify-between items-center py-4">
+        {/* Desktop Header */}
+        <div className="hidden lg:flex justify-between items-center py-4">
           <div className="flex items-center">
-            <MobileMenu />
             <Link href="/" className="flex items-center ml-0 lg:ml-0">
               <div className="flex flex-col">
                 <h1 className="text-2xl md:text-3xl font-heading font-bold text-crypto-light">
@@ -52,7 +56,43 @@ export default function Header() {
                 About
               </Button>
             </div>
-            {/* <ThemeToggle /> */}
+          </div>
+        </div>
+
+        {/* Mobile Header */}
+        <div className="flex lg:hidden justify-between items-center py-3">
+          {/* Left: Hamburger */}
+          <MobileMenu />
+
+          {/* Center: Logo */}
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-crypto-light">
+              <span className="text-white font-bold text-xl">C</span>
+            </div>
+          </Link>
+
+          {/* Right: Search & Theme Toggle */}
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Search"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+            <ThemeToggle />
           </div>
         </div>
       </div>
@@ -91,6 +131,12 @@ export default function Header() {
           </Link>
         </div>
       </nav>
+
+      {/* Mobile Search Overlay */}
+      <MobileSearchOverlay
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </header>
   );
 }

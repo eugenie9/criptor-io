@@ -52,7 +52,7 @@ export default function SearchResults({
     } else {
       performSearch();
     }
-  }, [currentOffset]);
+  }, [query, currentOffset]);
 
   return (
     <>

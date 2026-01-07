@@ -4,7 +4,7 @@ import Section from "../components/Section";
 
 export default function About() {
   return (
-    <Section className="py-8 md:py-12 lg:py-16">
+    <Section className="py-8 md:py-12 lg:py-16 px-4 lg:px-8 max-w-7xl mx-auto">
       <div className="grid gap-10 lg:gap-16 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center">
         <div className="space-y-6">
           <div className="rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-gray-100 dark:border-gray-800 shadow-card dark:shadow-card-dark p-6 sm:p-8">
@@ -39,9 +39,9 @@ export default function About() {
                 The tech stack
               </h3>
               <p className="text-sm md:text-base text-neutral-600 dark:text-gray-300">
-                🚀 Next.js 14, AWS Lambda, Cloudflare D1, TypeScript, Tailwind CSS
-                and Vercel – modern tools built for fast, reliable crypto news
-                delivery.
+                🚀 Next.js 14, AWS Lambda, Cloudflare D1, TypeScript, Tailwind
+                CSS and Vercel – modern tools built for fast, reliable crypto
+                news delivery.
               </p>
             </div>
           </div>
@@ -84,14 +84,14 @@ export default function About() {
         </div>
 
         <div className="relative hidden lg:flex justify-center">
-            <Image
-              src="/images/ipad-mockup-portrait.png"
-              className="rotate-[15deg] drop-shadow-2xl"
-              alt="iPad mockup showing Criptor"
-              width={420}
-              height={420}
-              priority
-            />
+          <Image
+            src="/images/ipad-mockup-portrait.png"
+            className="rotate-[15deg] drop-shadow-2xl"
+            alt="iPad mockup showing Criptor"
+            width={420}
+            height={420}
+            priority
+          />
         </div>
       </div>
     </Section>

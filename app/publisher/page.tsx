@@ -5,7 +5,7 @@ import sources from "@/sources.json";
 
 export default async function PublisherList() {
   return (
-    <Section className="py-6 md:py-12 lg:py-16">
+    <Section className="py-6 md:py-12 lg:py-16 px-4 lg:px-8 max-w-7xl mx-auto">
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold font-heading text-gray-900 dark:text-white mb-2">
           Publishers

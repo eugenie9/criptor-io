@@ -54,8 +54,25 @@
     @apply border-gray-200 dark:border-gray-700;
   }
   body {
-    @apply bg-white dark:bg-crypto-dark text-gray-900 dark:text-gray-100;
+    @apply bg-gray-50 dark:bg-[#0a0e14] text-gray-900 dark:text-gray-100;
   }
+}
+
+/* Sidebar scrollbar styling */
+aside::-webkit-scrollbar {
+  width: 6px;
+}
+
+aside::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+aside::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-600;
 }
 
 .animate-fade-in {
@@ -67,10 +84,12 @@
 }
 
 @keyframes blink {
-  0%, 50% {
+  0%,
+  50% {
     opacity: 1;
   }
-  51%, 100% {
+  51%,
+  100% {
     opacity: 0;
   }
 }

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/app/components/Header";
+import SidebarLayout from "@/app/components/SidebarLayout";
 import Footer from "@/app/components/Footer";
 import Script from "next/script";
 
@@ -69,14 +69,13 @@ export default function RootLayout({
       <body
         className={`font-sans bg-white dark:bg-crypto-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
-        <div className="flex flex-col min-h-screen min-w-screen">
-          <Header />
-          <main className="flex flex-col flex-1 container mx-auto animate-fade-in">
+        <SidebarLayout>
+          <main className="flex flex-col flex-1 animate-fade-in">
             {children}
           </main>
           <div className="border-b border-gray-200 dark:border-gray-700" />
           <Footer />
-        </div>
+        </SidebarLayout>
       </body>
     </html>
   );

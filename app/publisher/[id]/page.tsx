@@ -44,7 +44,7 @@ export default async function News({ params }: Props) {
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Publisher Header */}
       <div className="relative bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div className="container mx-auto py-12 px-4">
+        <div className="max-w-7xl mx-auto py-12 px-4 lg:px-8">
           <div className="flex flex-col items-center text-center mb-8">
             <div className="mb-6">
               <img
@@ -101,7 +101,7 @@ export default async function News({ params }: Props) {
 
       {/* Featured Article */}
       <div className="bg-white dark:bg-gray-900">
-        <Section>
+        <Section className="px-4 lg:px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedContainer className="order-2 lg:order-1">
               <span className="text-crypto-light text-sm font-medium tracking-wider uppercase mb-4 block">
@@ -177,7 +177,7 @@ export default async function News({ params }: Props) {
 
       {/* Top Stories */}
       <div className="bg-gray-50 dark:bg-gray-800">
-        <Section>
+        <Section className="px-4 lg:px-8 max-w-7xl mx-auto">
           <div className="flex flex-col items-center text-center mb-12 mt-4">
             <span className="text-crypto-light text-sm font-medium tracking-wider uppercase mb-3 block">
               Editor's Selection
@@ -255,7 +255,7 @@ export default async function News({ params }: Props) {
 
       {/* Latest Articles */}
       <div className="bg-white dark:bg-gray-900">
-        <Section>
+        <Section className="px-4 lg:px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             {/* Main Content */}
             <div className="col-span-1 md:col-span-8">
@@ -367,7 +367,7 @@ export default async function News({ params }: Props) {
 
             {/* Sidebar */}
             <div className="col-span-1 md:col-span-4">
-              <div className="sticky top-24 lg:top-48 space-y-10">
+              <div className="sticky top-32 space-y-10">
                 {/* About Publisher */}
                 <div className="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-100 dark:border-gray-700">
                   <div className="flex items-center mb-6">
