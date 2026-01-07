@@ -1,7 +1,6 @@
 import {
   getArticlesForSource,
   getArticleWithSourceAndSlug,
-  getCryptoPrices,
 } from "@/app/actions";
 import {
   getHowManyTimePassed,

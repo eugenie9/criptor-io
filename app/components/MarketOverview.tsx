@@ -1,5 +1,3 @@
-"use client";
-import { useEffect, useState } from "react";
 import { getCryptoPrices } from "../actions";
 
 // Function to format price - shows 8 decimal digits, no trailing zeros, keeps decimal point minimal if possible
@@ -38,16 +36,8 @@ const symbols = {
   },
 };
 
-export default function MarketOverview() {
-  const [prices, setPrices] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchPrices = async () => {
-      const data = await getCryptoPrices();
-      setPrices(data);
-    };
-    fetchPrices();
-  }, []);
+export default async function MarketOverview() {
+  const prices = await getCryptoPrices();
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-6 pb-4">
