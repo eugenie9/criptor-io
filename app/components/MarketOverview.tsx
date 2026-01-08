@@ -1,40 +1,6 @@
 import { getCryptoPrices } from "../actions";
-
-// Function to format price - shows 8 decimal digits, no trailing zeros, keeps decimal point minimal if possible
-function formatPrice(price: string | number) {
-  const p = Number(price);
-  if (Number.isNaN(p)) return price;
-  // Always show at least 2 decimal digits, up to 8 for precision assets
-  return p
-    .toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 8,
-    })
-    .replace(/\.?0+$/, ""); // Remove trailing zeros
-}
-
-const symbols = {
-  BTCUSDT: {
-    name: "Bitcoin",
-    logo: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=040",
-  },
-  ETHUSDT: {
-    name: "Ethereum",
-    logo: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=040",
-  },
-  BNBUSDT: {
-    name: "Binance Coin",
-    logo: "https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=040",
-  },
-  XRPUSDT: {
-    name: "Ripple",
-    logo: "https://cryptologos.cc/logos/xrp-xrp-logo.svg?v=040",
-  },
-  SOLUSDT: {
-    name: "Solana",
-    logo: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=040",
-  },
-};
+import symbols from "@/data/symbols.json";
+import { formatPrice } from "../utils";
 
 export default async function MarketOverview() {
   const prices = await getCryptoPrices();
@@ -60,6 +26,7 @@ export default async function MarketOverview() {
       </h3>
       <div className="space-y-3">
         {(prices || []).map((priceItem: any, index: number) => {
+          if (index >= 4) return null; // Show only top 5
           const price = priceItem.lastPrice;
           const priceChangePercent = priceItem.priceChangePercent;
           const symbol = symbols[priceItem.symbol as keyof typeof symbols];

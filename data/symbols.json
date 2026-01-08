@@ -1,0 +1,52 @@
+{
+  "BTCUSDT": {
+    "name": "Bitcoin",
+    "shortName": "BTC",
+    "logo": "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=040"
+  },
+  "ETHUSDT": {
+    "name": "Ethereum",
+    "shortName": "ETH",
+    "logo": "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=040"
+  },
+  "BNBUSDT": {
+    "name": "Binance Coin",
+    "shortName": "BNB",
+    "logo": "https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=040"
+  },
+  "XRPUSDT": {
+    "name": "Ripple",
+    "shortName": "XRP",
+    "logo": "https://cryptologos.cc/logos/xrp-xrp-logo.svg?v=040"
+  },
+  "SOLUSDT": {
+    "name": "Solana",
+    "shortName": "SOL",
+    "logo": "https://cryptologos.cc/logos/solana-sol-logo.svg?v=040"
+  },
+  "TRXUSDT": {
+    "name": "Tron",
+    "shortName": "TRX",
+    "logo": "https://cryptologos.cc/logos/tron-trx-logo.svg?v=040"
+  },
+  "DOGEUSDT": {
+    "name": "Dogecoin",
+    "shortName": "DOGE",
+    "logo": "https://cryptologos.cc/logos/dogecoin-doge-logo.svg?v=040"
+  },
+  "ADAUSDT": {
+    "name": "Cardano",
+    "shortName": "ADA",
+    "logo": "https://cryptologos.cc/logos/cardano-ada-logo.svg?v=040"
+  },
+  "BCHUSDT": {
+    "name": "Bitcoin Cash",
+    "shortName": "BCH",
+    "logo": "https://cryptologos.cc/logos/bitcoin-cash-bch-logo.svg?v=040"
+  },
+  "LINKUSDT": {
+    "name": "Chainlink",
+    "shortName": "LINK",
+    "logo": "https://cryptologos.cc/logos/chainlink-link-logo.svg?v=040"
+  }
+}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import sources from "@/sources.json";
 import { getSource } from "@/app/utils";
 import ThemeToggle from "./ThemeToggle";
@@ -102,7 +102,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </Link>
 
             {/* Theme Toggle */}
-            <ThemeToggle />
+            <></>
           </div>
         </div>
 
@@ -121,10 +121,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         </div>
 
         {/* Mobile Menu Content */}
-        <div className="lg:hidden px-4 py-6">
+        <div className="lg:hidden px-4 py-4">
           {/* Navigation */}
-          <div className="mb-8">
-            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 px-2">
+          <div className="mb-6">
+            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3 px-2">
               Navigation
             </h3>
             <div className="space-y-1">
@@ -135,15 +135,15 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                     key={item.href}
                     href={item.href}
                     onClick={onClose}
-                    className={`flex items-center justify-between px-4 py-3.5 rounded-xl transition-colors group ${
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors group ${
                       isActive
                         ? "bg-crypto-light/10 text-crypto-light dark:bg-crypto-light/20"
                         : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
-                    <span className="font-medium">{item.label}</span>
+                    <span className="text-sm font-medium">{item.label}</span>
                     <svg
-                      className="w-5 h-5 text-gray-400 group-hover:text-crypto-light transition-colors"
+                      className="w-4 h-4 text-gray-400 group-hover:text-crypto-light transition-colors"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -162,8 +162,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </div>
 
           {/* Featured Publishers */}
-          <div className="mb-8">
-            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 px-2">
+          <div className="mb-6">
+            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3 px-2">
               Featured Publishers
             </h3>
             <div className="space-y-1">
@@ -176,7 +176,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                       key={source.id}
                       href={`/publisher/${source.id}`}
                       onClick={onClose}
-                      className={`flex items-center justify-between px-4 py-3.5 rounded-xl transition-colors group ${
+                      className={`flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors group ${
                         isActive
                           ? "bg-gray-100 dark:bg-gray-800"
                           : "hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -188,12 +188,12 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                           alt={source.name}
                           className="h-6 w-6 object-contain rounded bg-white p-0.5"
                         />
-                        <span className="font-medium text-gray-700 dark:text-gray-300 group-hover:text-crypto-light transition-colors">
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-crypto-light transition-colors">
                           {source.name}
                         </span>
                       </div>
                       <svg
-                        className="w-5 h-5 text-gray-400 group-hover:text-crypto-light transition-colors"
+                        className="w-4 h-4 text-gray-400 group-hover:text-crypto-light transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -213,18 +213,18 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
           {/* Footer Links */}
           <div>
-            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 px-2">
+            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3 px-2">
               Legal
             </h3>
             <div className="space-y-1">
               <Link
                 href="/info/privacy-policy"
                 onClick={onClose}
-                className="flex items-center justify-between px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
               >
-                <span className="font-medium">Privacy Policy</span>
+                <span className="text-sm font-medium">Privacy Policy</span>
                 <svg
-                  className="w-5 h-5 text-gray-400 group-hover:text-crypto-light transition-colors"
+                  className="w-4 h-4 text-gray-400 group-hover:text-crypto-light transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -240,11 +240,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               <Link
                 href="/info/terms-of-service"
                 onClick={onClose}
-                className="flex items-center justify-between px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
+                className="flex items-center justify-between px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
               >
-                <span className="font-medium">Terms of Service</span>
+                <span className="text-sm font-medium">Terms of Service</span>
                 <svg
-                  className="w-5 h-5 text-gray-400 group-hover:text-crypto-light transition-colors"
+                  className="w-4 h-4 text-gray-400 group-hover:text-crypto-light transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -258,7 +258,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                 </svg>
               </Link>
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-6 px-4">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 px-3">
               © 2025 Criptor.net
             </p>
           </div>

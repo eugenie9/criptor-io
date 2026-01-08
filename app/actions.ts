@@ -2,6 +2,7 @@
 
 import mysqlClient from "@/mysql/client";
 import meilisearch from "@/utils/meilisearch";
+import market from "@/app/actions/market";
 import memoizee from "memoizee";
 
 const getArticlesForSource = async (source: string, lastDate?: number) => {
@@ -36,34 +37,6 @@ const getArticleWithSourceAndSlug = async (source: string, slug: string) => {
 const getSitemapForSource = async (source: string) => {
   return await mysqlClient.getSitemapForSource(source);
 };
-
-const getCryptoPrices = async () => {
-  try {
-    const data = await getTickers();
-    return data;
-  } catch (error) {
-    return [];
-  }
-};
-
-const getTickers = memoizee(
-  async () => {
-    try {
-      const data = await fetch(
-        'https://api.binance.com/api/v3/ticker/tradingDay?symbols=["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT"]',
-        {
-          method: "GET",
-          redirect: "follow",
-        }
-      );
-      const prices = await data.json();
-      return prices;
-    } catch (error) {
-      return [];
-    }
-  },
-  { promise: true, maxAge: 1 * 60 * 1000 }
-);
 
 const searchArticles = memoizee(
   async (query: string, limit: number = 10, offset: number = 0) => {
@@ -103,7 +76,6 @@ const subscribeToNewsletter = async (email: string) => {
       "INSERT INTO newsletter_subscribers (email) VALUES (?) ON DUPLICATE KEY UPDATE updated_at = NOW()",
       [email]
     );
-    console.log("Subscription result:", result);
     // If affectedRows === 1, it's a new subscription. If === 2, it was already subscribed
     return {
       success: true,
@@ -114,6 +86,14 @@ const subscribeToNewsletter = async (email: string) => {
   }
 };
 
+const getCryptoPrices = async () => {
+  return await market.getCryptoPrices();
+};
+
+const getMarketData = async () => {
+  return await market.getMarketData();
+};
+
 export {
   getArticlesForSource,
   getArticles,
@@ -121,6 +101,7 @@ export {
   getPopularArticlesForSource,
   getSitemapForSource,
   getCryptoPrices,
+  getMarketData,
   searchArticles,
   subscribeToNewsletter,
 };
