@@ -14,7 +14,7 @@ export default async function SearchPageContent({
 
   return (
     <div className="flex flex-col">
-      <Section className="py-8 md:py-12 px-4 lg:px-8 max-w-7xl mx-auto">
+      <Section className="py-8 md:py-12 px-4 lg:px-12 container mx-auto">
         {/* Header */}
         <div className="mb-6 md:mb-8">
           <h1 className="text-2xl md:text-4xl font-heading font-bold text-gray-900 dark:text-gray-100 mb-2">

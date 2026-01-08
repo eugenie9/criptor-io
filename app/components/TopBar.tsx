@@ -22,10 +22,10 @@ export default function TopBar({ onMenuClick }: TopBarProps) {
 
   return (
     <>
-      <div className="sticky top-0 z-30 bg-white dark:bg-[#0a0e14] border-b border-gray-200 dark:border-gray-800 shadow-sm h-[89px]">
+      <div className="sticky top-0 z-30 bg-white dark:bg-[#0a0e14] border-b border-gray-200 dark:border-gray-800 shadow-sm xl:h-[89px]">
         {/* Desktop TopBar */}
-        <div className="hidden lg:flex max-w-7xl mx-auto px-4 lg:px-8 w-full h-full">
-          <div className="flex items-center justify-between px-6 py-5 w-full">
+        <div className="hidden lg:flex container mx-auto px-4 lg:px-12 w-full h-full">
+          <div className="flex items-center justify-between px-2 w-full">
             {/* Breadcrumb or page title */}
             <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
               <Link
@@ -133,7 +133,6 @@ export default function TopBar({ onMenuClick }: TopBarProps) {
                 </svg>
               </button>
             )}
-            <ThemeToggle />
           </div>
         </div>
       </div>

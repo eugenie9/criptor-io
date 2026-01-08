@@ -13,6 +13,7 @@ import type { Metadata } from "next";
 import Section from "@/app/components/Section";
 import LinkWrapper from "@/app/components/LinkWrapper";
 import MarketOverview from "@/app/components/MarketOverview";
+import SubscribeToUpdates from "@/app/components/SubscribeToUpdates";
 
 export const revalidate = 600;
 
@@ -216,7 +217,7 @@ export default async function NewsDetails({
   return (
     <>
       {/* Article content with 2-to-1 grid layout */}
-      <Section className="max-w-7xl mx-auto !pb-0 pt-8 px-4 lg:px-8">
+      <Section className="container mx-auto !pb-0 pt-8 px-4 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main article content - 2/3 width on desktop */}
           <div className="lg:col-span-2">
@@ -434,14 +435,63 @@ export default async function NewsDetails({
           </div>
 
           {/* Sidebar content - 1/3 width on desktop */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-32">
-              {/* Related articles in sidebar */}
-              <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-6 mb-8 md:mb-12">
-                <h3 className="text-xl font-heading font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center">
+          <div className="lg:col-span-1 flex flex-col space-y-8 md:space-y-12">
+            {/* Related articles in sidebar */}
+            <div className="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-6">
+              <h3 className="text-xl font-heading font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2 text-crypto-light"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                  />
+                </svg>
+                More From {getSource(article.source).name}
+              </h3>
+              <div className="space-y-6">
+                {(items || []).slice(0, 3).map((relatedArticle, index) => (
+                  <div key={index} className="group">
+                    <LinkWrapper article={relatedArticle}>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-md">
+                          <img
+                            src={
+                              relatedArticle.thumbnail ||
+                              getSource(relatedArticle.source).logo
+                            }
+                            alt={relatedArticle.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div>
+                          <h4 className="text-base font-medium text-gray-800 dark:text-gray-200 group-hover:text-crypto-light transition-colors duration-200 line-clamp-2">
+                            {relatedArticle.title}
+                          </h4>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            {getHowManyTimePassed(relatedArticle.date)}
+                          </p>
+                        </div>
+                      </div>
+                    </LinkWrapper>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6">
+                <Link
+                  href={`/publisher/${id}`}
+                  className="inline-flex items-center text-crypto-light hover:text-crypto-light/80 font-medium text-sm"
+                >
+                  View All Articles
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2 text-crypto-light"
+                    className="h-4 w-4 ml-1"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -450,71 +500,24 @@ export default async function NewsDetails({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
                     />
                   </svg>
-                  More From {getSource(article.source).name}
-                </h3>
-                <div className="space-y-6">
-                  {(items || []).slice(0, 3).map((relatedArticle, index) => (
-                    <div key={index} className="group">
-                      <LinkWrapper article={relatedArticle}>
-                        <div className="flex items-start space-x-3">
-                          <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-md">
-                            <img
-                              src={
-                                relatedArticle.thumbnail ||
-                                getSource(relatedArticle.source).logo
-                              }
-                              alt={relatedArticle.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
-                          <div>
-                            <h4 className="text-base font-medium text-gray-800 dark:text-gray-200 group-hover:text-crypto-light transition-colors duration-200 line-clamp-2">
-                              {relatedArticle.title}
-                            </h4>
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                              {getHowManyTimePassed(relatedArticle.date)}
-                            </p>
-                          </div>
-                        </div>
-                      </LinkWrapper>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6">
-                  <Link
-                    href={`/publisher/${id}`}
-                    className="inline-flex items-center text-crypto-light hover:text-crypto-light/80 font-medium text-sm"
-                  >
-                    View All Articles
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 ml-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                  </Link>
-                </div>
+                </Link>
               </div>
+            </div>
 
-              <MarketOverview />
+            <MarketOverview />
+
+            <div className="sticky top-32">
+              <SubscribeToUpdates />
             </div>
           </div>
         </div>
       </Section>
 
       {/* Additional related articles in full width - optional */}
-      <Section className="bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300 mt-12">
+      <Section className="bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300 mt-12 px-4 lg:px-8">
         <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 text-gray-900 dark:text-gray-100">
           You May Also Like
         </h2>

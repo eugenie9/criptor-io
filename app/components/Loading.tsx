@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="flex flex-col pt-8 lg:pt-4 px-4 lg:px-8 max-w-7xl mx-auto w-full animate-pulse">
+    <div className="flex flex-col pt-8 px-4 lg:px-12 container mx-auto w-full animate-pulse">
       {/* Hero section skeleton - 3 large cards */}
       <div className="grid grid-cols-8 md:grid-cols-7 gap-4 mb-8">
         <div className="col-span-8 md:col-span-3">

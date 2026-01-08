@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="w-full py-4 md:py-8 lg:py-12 max-w-7xl mx-auto !pb-0 pt-8 px-4 lg:px-8 animate-pulse">
+    <div className="w-full py-4 md:py-8 lg:py-12 container mx-auto !pb-0 pt-8 px-4 lg:px-12 animate-pulse">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main article content skeleton */}
         <div className="lg:col-span-2">

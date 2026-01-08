@@ -47,7 +47,7 @@ export default async function News() {
   const { items } = data;
 
   return (
-    <div className="flex flex-col pt-8 lg:pt-4 px-4 lg:px-8 max-w-7xl mx-auto w-full">
+    <div className="flex flex-col pt-8 px-4 lg:px-12 container mx-auto w-full">
       <div className="grid grid-cols-8 md:grid-cols-7 gap-4">
         <div className="col-span-8 md:col-span-3 flex flex-col space-y-2">
           <CarouselCardBig article={items[0]} />
