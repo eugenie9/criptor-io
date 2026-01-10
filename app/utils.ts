@@ -235,10 +235,26 @@ function formatPrice(price: string | number) {
     .replace(/\.?0+$/, ""); // Remove trailing zeros
 }
 
+const shorten = (text: string, size: number) => {
+  const periodPositions = [];
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === ".") periodPositions.push(i);
+  }
+
+  if (periodPositions.length === 0) return text;
+
+  const closestPeriod = periodPositions.reduce((closest, pos) =>
+    Math.abs(pos - size) < Math.abs(closest - size) ? pos : closest
+  );
+
+  return text.substring(0, closestPeriod + 1);
+};
+
 export {
   getSource,
   getHowManyTimePassed,
   calculateMinutesToRead,
   extractKeywords,
   formatPrice,
+  shorten,
 };

@@ -28,7 +28,25 @@ const execQuery = async (sql: string, params: any[] = []) => {
   }
 };
 
-const parseArticle = (item: any) => ({
+const isJSON = (str: string) => {
+  try {
+    JSON.parse(str);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const safeJSONParse = (data: string, defaultValue: any) => {
+  try {
+    if (!isJSON(data) && data) return data;
+    return JSON.parse(data);
+  } catch {
+    return defaultValue;
+  }
+};
+
+const parseArticle = (item: any): TArticle => ({
   id: item.id,
   title: item.title,
   content: item.content,
@@ -37,11 +55,14 @@ const parseArticle = (item: any) => ({
   thumbnail: item.thumbnail,
   date: item.date,
   readCount: item.read_count,
-  categories: item.categories,
   source: item.source,
+  url: item.original_url,
+  keywords: safeJSONParse(item.keywords || "[]", []),
+  summary: item.summary,
+  categories: safeJSONParse(item.categories || "[]", []),
 });
 
-// Use keyset pagination to optimize D1 query and reduce rows read.
+// Use keyset pagination to optimize query and reduce rows read.
 // Pass the lastDate (date of the last article from the previous page) instead of offset.
 const getArticlesForSource = async (source: string, lastDate?: number) => {
   let query: string;
@@ -109,13 +130,22 @@ const memoizedGetArticles = memoizee(getArticles, {
 });
 
 const getArticleBySourceAndSlug = async (source: string, slug: string) => {
-  const data = await execQuery(
-    "SELECT * FROM articles WHERE source = ? AND slug = ?",
+  const [article] = await execQuery(
+    `SELECT * FROM articles a WHERE a.source = ? AND a.slug = ?`,
     [source, slug]
   );
 
-  if (data.length > 0) {
-    return parseArticle(data[0]);
+  if (article) {
+    const attributes = await execQuery(
+      `SELECT attribute_name, value FROM article_attributes aa WHERE aa.article_id = ?`,
+      [article.id]
+    );
+
+    attributes.forEach((attr) => {
+      article[attr.attribute_name] = attr.value;
+    });
+
+    return parseArticle(article);
   } else {
     return null;
   }

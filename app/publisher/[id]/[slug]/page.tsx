@@ -121,6 +121,31 @@ const Card = ({ article }: { article: TArticle }) => {
   );
 };
 
+const getArticle = async (id: string, slug: string) => {
+  try {
+    const article = await getArticleWithSourceAndSlug(id, slug);
+
+    if (!article) {
+      return null;
+    }
+
+    let keywords = article.keywords;
+
+    if (!keywords || keywords.length === 0) {
+      keywords = extractKeywords(article.full_content || "");
+      keywords.push(
+        ...[getSource(article?.source).name.toLowerCase(), "criptor"]
+      );
+      shuffle(keywords);
+    }
+
+    return { ...article, keywords };
+  } catch (error) {
+    console.error("Error fetching article:", error);
+    return null;
+  }
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -128,7 +153,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const id = params.id;
   const slug = params.slug;
-  const article = await getArticleWithSourceAndSlug(id, slug);
+  const article = await getArticle(id, slug);
+
+  if (!article) {
+    return {
+      title: "Not found | Criptor.net",
+      description: "Not found",
+    };
+  }
 
   const title = `${article?.title} | Criptor.net` || "Not found";
   const description = article?.content || "Not found";
@@ -159,15 +191,22 @@ export default async function NewsDetails({
 }) {
   const id = params.id;
   const slug = params.slug;
-  const article = await getArticleWithSourceAndSlug(id, slug);
+  const article = await getArticle(id, slug);
 
   if (!article) {
-    return <div>Not found</div>;
+    return (
+      <Section className="container mx-auto !pb-0 pt-8 px-4 lg:px-12">
+        <div className="text-center py-20">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Article Not Found
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            The article you are looking for does not exist or has been removed.
+          </p>
+        </div>
+      </Section>
+    );
   }
-
-  const keywords = extractKeywords(article.full_content || "");
-  keywords.push(...[getSource(article?.source).name.toLowerCase(), "criptor"]);
-  shuffle(keywords);
 
   const data = await getArticlesForSource(id, 0);
   // @ts-ignore
@@ -329,8 +368,22 @@ export default async function NewsDetails({
                 {article.title}
               </h1>
 
+              {/* Categories */}
+              {article.categories && article.categories.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 mb-6">
+                  {article.categories.map((category, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-crypto-light hover:text-crypto-light dark:hover:border-crypto-light dark:hover:text-crypto-light transition-all duration-200 cursor-pointer"
+                    >
+                      {category}
+                    </span>
+                  ))}
+                </div>
+              )}
+
               {/* Article meta information */}
-              <div className="flex flex-wrap items-center gap-4 mb-8 text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 pb-6">
+              <div className="flex flex-wrap items-center gap-4 pb-4 text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 mb-4">
                 <div className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -422,7 +475,7 @@ export default async function NewsDetails({
                 RELATED TOPICS
               </h3>
               <div className="flex flex-wrap gap-2">
-                {(keywords || []).map((keyword, index) => (
+                {(article.keywords || []).map((keyword, index) => (
                   <span
                     className="text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full px-3 py-1 hover:bg-crypto-light/20 dark:hover:bg-crypto-light/20 transition-colors duration-200 cursor-pointer"
                     key={index}

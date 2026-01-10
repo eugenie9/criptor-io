@@ -26,7 +26,7 @@ export default async function MarketOverview() {
       </h3>
       <div className="space-y-3">
         {(prices || []).map((priceItem: any, index: number) => {
-          if (index >= 4) return null; // Show only top 5
+          if (index >= 5) return null; // Show only top 5
           const price = priceItem.lastPrice;
           const priceChangePercent = priceItem.priceChangePercent;
           const symbol = symbols[priceItem.symbol as keyof typeof symbols];

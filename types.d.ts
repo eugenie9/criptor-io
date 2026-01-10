@@ -8,6 +8,10 @@ type TArticle = {
   thumbnail: string;
   date: number;
   source: string;
+  readCount: number;
+  categories: string[];
+  keywords?: string[];
+  summary?: string;
 };
 
 type TLastEvaluatedKeyForAllSources = {
