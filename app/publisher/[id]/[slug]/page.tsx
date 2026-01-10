@@ -246,7 +246,7 @@ export default async function NewsDetails({
     // get image source
     const imageSource = imgLink?.[0].replace(/src="/, "");
     // remove the last "
-    image = imageSource?.replace(/"$/, "");
+    image = imageSource?.replace(/"$/, "") || "";
 
     // remove the image from the article
     const content = article.full_content?.replace(/<img.*?src="(.*?)\/>/, "");
