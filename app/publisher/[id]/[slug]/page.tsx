@@ -134,7 +134,7 @@ const getArticle = async (id: string, slug: string) => {
     if (!keywords || keywords.length === 0) {
       keywords = extractKeywords(article.full_content || "");
       keywords.push(
-        ...[getSource(article?.source).name.toLowerCase(), "criptor"]
+        ...[getSource(article?.source).name.toLowerCase(), "criptor"],
       );
       shuffle(keywords);
     }
@@ -231,7 +231,7 @@ export default async function NewsDetails({
   const date = `${month} ${day}, ${year}`;
   const encodedTitle = encodeURIComponent(`${article.title} | Criptor.net`);
   const encodedURL = encodeURIComponent(
-    `https://www.criptor.net/publisher/${id}/${slug}`
+    `https://www.criptor.net/publisher/${id}/${slug}`,
   );
 
   const encodedText = `${encodedTitle} ${encodedURL}`;
@@ -570,7 +570,7 @@ export default async function NewsDetails({
       </Section>
 
       {/* Additional related articles in full width - optional */}
-      <Section className="bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300 mt-12 px-4 lg:px-8">
+      <Section className="container mx-auto bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300 mt-12 px-4 lg:px-8 mb-8">
         <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 text-gray-900 dark:text-gray-100">
           You May Also Like
         </h2>
