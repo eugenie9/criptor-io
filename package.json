@@ -9,6 +9,7 @@
     "start": "node .next/standalone/server.js",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "mkdir -p .next/standalone/.next && cp -R .next/static .next/standalone/.next/static && cp -R public .next/standalone/public",
     "lint": "next lint"
   },
   "dependencies": {
