@@ -1,30 +1,30 @@
 "use server";
 
-import mysqlClient from "@/mysql/client";
+import sqliteClient from "@/sqlite/client";
 import meilisearch from "@/utils/meilisearch";
 import market from "@/app/actions/market";
 import memoizee from "memoizee";
 
 const getArticlesForSource = async (source: string, lastDate?: number) => {
-  return await mysqlClient.getArticlesForSource(source, lastDate);
+  return await sqliteClient.getArticlesForSource(source, lastDate);
 };
 
 const getPopularArticlesForSource = async (source: string) => {
-  return await mysqlClient.getPopularArticlesForSource(source);
+  return await sqliteClient.getPopularArticlesForSource(source);
 };
 
 const getArticles = async () => {
-  return await mysqlClient.getArticles();
+  return await sqliteClient.getArticles();
 };
 
 const getArticleWithSourceAndSlug = async (source: string, slug: string) => {
   try {
-    const response = await mysqlClient.getArticleBySourceAndSlug(source, slug);
+    const response = await sqliteClient.getArticleBySourceAndSlug(source, slug);
     if (response) {
       // Increase read_count by 1
-      mysqlClient.execQuery(
+      sqliteClient.execQuery(
         "UPDATE articles SET read_count = read_count + 1 WHERE source = ? AND slug = ?",
-        [source, slug]
+        [source, slug],
       );
 
       return response;
@@ -35,7 +35,7 @@ const getArticleWithSourceAndSlug = async (source: string, slug: string) => {
 };
 
 const getSitemapForSource = async (source: string) => {
-  return await mysqlClient.getSitemapForSource(source);
+  return await sqliteClient.getSitemapForSource(source);
 };
 
 const searchArticles = memoizee(
@@ -44,11 +44,11 @@ const searchArticles = memoizee(
       const { results, total, nextOffset } = await meilisearch.searchArticle(
         query,
         limit,
-        offset
+        offset,
       );
 
       const ids = results.map((item) => item.id);
-      const articles = await mysqlClient.getArticlesByIds(ids);
+      const articles = await sqliteClient.getArticlesByIds(ids);
 
       const orderedArticles = ids
         .map((id) => articles.find((article) => article.id === id))
@@ -67,14 +67,14 @@ const searchArticles = memoizee(
     promise: true,
     maxAge: 1 * 60 * 1000,
     length: 3,
-  }
+  },
 );
 
 const subscribeToNewsletter = async (email: string) => {
   try {
-    const result: any = await mysqlClient.execQuery(
+    const result: any = await sqliteClient.execQuery(
       "INSERT INTO newsletter_subscribers (email) VALUES (?) ON DUPLICATE KEY UPDATE updated_at = NOW()",
-      [email]
+      [email],
     );
     // If affectedRows === 1, it's a new subscription. If === 2, it was already subscribed
     return {

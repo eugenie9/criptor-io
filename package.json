@@ -6,9 +6,9 @@
     "node": "24.x"
   },
   "scripts": {
+    "start": "node .next/standalone/server.js",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -18,7 +18,8 @@
     "mysql2": "^3.16.0",
     "next": "^14.0.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/memoizee": "^0.4.11",

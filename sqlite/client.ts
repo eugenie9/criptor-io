@@ -1,29 +1,23 @@
 import memoizee from "memoizee";
-import mysql2 from "mysql2/promise";
 
-const MYSQL_HOST = process.env.MYSQL_HOST || "";
-const MYSQL_USER = process.env.MYSQL_USER || "";
-const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "";
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE || "";
-const MYSQL_PORT = process.env.MYSQL_PORT || "3306";
-
-const pool = mysql2.createPool({
-  host: MYSQL_HOST,
-  user: MYSQL_USER,
-  password: MYSQL_PASSWORD,
-  database: MYSQL_DATABASE,
-  port: parseInt(MYSQL_PORT),
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
+const SQLITE_BASE_URL = process.env.SQLITE_BASE_URL || "http://localhost:3001";
 
 const execQuery = async (sql: string, params: any[] = []) => {
   try {
-    const [rows] = (await pool.execute(sql, params)) as [any[], any];
+    const response = await fetch(`${SQLITE_BASE_URL}/api/query`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dbName: "criptor",
+        sql,
+        params,
+      }),
+    });
 
-    return rows;
+    const data = await response.json();
+    return data.rows as any[];
   } catch (error) {
+    console.error("Error executing query:", error);
     return [];
   }
 };
