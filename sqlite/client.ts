@@ -1,6 +1,7 @@
 import memoizee from "memoizee";
 
 const SQLITE_BASE_URL = process.env.SQLITE_BASE_URL || "http://localhost:3001";
+const SQLITE_ACCESS_TOKEN = process.env.SQLITE_ACCESS_TOKEN || "";
 
 const execQuery = async (sql: string, params: any[] = []) => {
   try {
@@ -8,7 +9,7 @@ const execQuery = async (sql: string, params: any[] = []) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        dbName: "criptor",
+        accessToken: SQLITE_ACCESS_TOKEN,
         sql,
         params,
       }),
