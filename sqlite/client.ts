@@ -1,19 +1,25 @@
 import memoizee from "memoizee";
 
 const SQLITE_BASE_URL = process.env.SQLITE_BASE_URL || "http://localhost:3001";
+const SQLITE_DB_NAME = process.env.SQLITE_DB_NAME || "criptor";
 const SQLITE_ACCESS_TOKEN = process.env.SQLITE_ACCESS_TOKEN || "";
 
 const execQuery = async (sql: string, params: any[] = []) => {
   try {
-    const response = await fetch(`${SQLITE_BASE_URL}/api/query`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        accessToken: SQLITE_ACCESS_TOKEN,
-        sql,
-        params,
-      }),
-    });
+    const response = await fetch(
+      `${SQLITE_BASE_URL}/api/databases/${SQLITE_DB_NAME}/query`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-DB-Token": SQLITE_ACCESS_TOKEN,
+        },
+        body: JSON.stringify({
+          sql,
+          params,
+        }),
+      },
+    );
 
     const data = await response.json();
     return data.rows as any[];
