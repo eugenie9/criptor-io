@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { searchArticles } from "@/app/actions";
 import HorizontalCard from "@/app/components/HorizontalCard";
+import { recordEvent } from "@/sqlite/events";
 
 export default function SearchResults({
   query,
@@ -16,7 +17,7 @@ export default function SearchResults({
 }) {
   const [results, setResults] = useState<TArticle[]>(initialResults.items);
   const [pageCount, setPageCount] = useState(
-    Math.ceil(initialResults.total / 10)
+    Math.ceil(initialResults.total / 10),
   );
   const [totalResults, setTotalResults] = useState(initialResults.total);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,6 +25,7 @@ export default function SearchResults({
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(true);
   const [initiallyRendered, setInitiallyRendered] = useState(false);
+  const eventFiredRef = useRef(false);
 
   useEffect(() => {
     const performSearch = async () => {
@@ -38,6 +40,14 @@ export default function SearchResults({
         setResults(articles);
         setPageCount(Math.ceil((response.total || 0) / 10));
         setTotalResults(response.total || 0);
+
+        if (!eventFiredRef.current && query) {
+          eventFiredRef.current = true;
+          recordEvent("search-query", {
+            query,
+            resultsCount: response.total || 0,
+          });
+        }
       } catch (error) {
         console.error("Search error:", error);
         setResults([]);

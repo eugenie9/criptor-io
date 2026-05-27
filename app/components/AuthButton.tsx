@@ -4,12 +4,14 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 import { authClient } from "@/utils/auth-client";
+import { recordEvent } from "@/sqlite/events";
 
 export default function AuthButton() {
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
 
   const handleLogout = async () => {
+    recordEvent("auth-logout", {});
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {

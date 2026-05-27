@@ -3,6 +3,7 @@ import Section from "@/app/components/Section";
 import MarketOverview from "../components/MarketOverview";
 import SubscribeToUpdates from "../components/SubscribeToUpdates";
 import SearchResults from "./Results";
+import AnalyticsTracker from "../components/AnalyticsTracker";
 
 export default async function SearchPageContent({
   searchParams,
@@ -14,6 +15,10 @@ export default async function SearchPageContent({
 
   return (
     <div className="flex flex-col">
+      <AnalyticsTracker
+        event="page-view"
+        metadata={{ route: "/search", query }}
+      />
       <Section className="py-8 md:py-12 px-4 lg:px-12 container mx-auto">
         {/* Header */}
         <div className="mb-6 md:mb-8">

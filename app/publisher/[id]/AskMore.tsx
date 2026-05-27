@@ -5,6 +5,7 @@ import { useState } from "react";
 import LoadingCircle from "@/app/components/LoadingCircle";
 import LoadMoreButton from "@/app/components/LoadMoreButton";
 import ArticleContainer from "@/app/components/ArticleContainer";
+import { recordEvent } from "@/sqlite/events";
 
 export default function AskMore({
   source,
@@ -20,6 +21,12 @@ export default function AskMore({
   const askData = async () => {
     if (loading) return;
     setLoading(true);
+
+    recordEvent("load-more", {
+      source,
+      page: data.length > 0 ? Math.ceil(data.length / 12) + 1 : 2,
+    });
+
     // @ts-ignore
     const articles: {
       items: TArticle[];

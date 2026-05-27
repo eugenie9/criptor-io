@@ -2,10 +2,12 @@ import { getSource } from "@/app/utils";
 import Section from "@/app/components/Section";
 import Link from "next/link";
 import sources from "@/sources.json";
+import AnalyticsTracker from "@/app/components/AnalyticsTracker";
 
 export default async function PublisherList() {
   return (
     <Section className="py-6 px-4 lg:px-12 pt-8 container mx-auto">
+      <AnalyticsTracker event="page-view" metadata={{ route: "/publisher" }} />
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold font-heading text-gray-900 dark:text-white mb-2">
           Publishers

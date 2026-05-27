@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { subscribeToNewsletter } from "../actions";
+import { recordEvent } from "@/sqlite/events";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -39,12 +40,17 @@ export default function SubscribeToUpdates() {
 
     try {
       subscribeToNewsletter(email).then(({ success, isNewSubscriber }) => {
+        recordEvent("subscribe", {
+          isNewSubscriber,
+          success,
+        });
+
         if (success) {
           setStatus("success");
           setSuccessMessage(
             isNewSubscriber
               ? "Successfully subscribed!"
-              : "You are already subscribed."
+              : "You are already subscribed.",
           );
           setShowMessage(true);
         } else {

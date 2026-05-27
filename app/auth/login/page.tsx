@@ -6,6 +6,7 @@ import Link from "next/link";
 import Button from "@/app/components/Button";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/utils/auth-client";
+import { recordEvent } from "@/sqlite/events";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -43,16 +44,22 @@ export default function LoginPage() {
         },
         {
           onSuccess: () => {
+            recordEvent("auth-login", { success: true });
             // Session will be updated automatically
             // Router will redirect via useEffect above
           },
           onError: (ctx) => {
+            recordEvent("auth-login", {
+              success: false,
+              error: ctx.error?.message || "Invalid email or password",
+            });
             setError(ctx.error?.message || "Invalid email or password");
             setLoading(false);
           },
-        }
+        },
       );
     } catch (err) {
+      recordEvent("auth-login", { success: false, error: "Unexpected error" });
       setError("An error occurred. Please try again.");
       setLoading(false);
     }

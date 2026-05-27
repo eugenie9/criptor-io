@@ -14,6 +14,7 @@ import Section from "@/app/components/Section";
 import LinkWrapper from "@/app/components/LinkWrapper";
 import MarketOverview from "@/app/components/MarketOverview";
 import SubscribeToUpdates from "@/app/components/SubscribeToUpdates";
+import AnalyticsTracker from "@/app/components/AnalyticsTracker";
 
 export const revalidate = 600;
 
@@ -255,6 +256,16 @@ export default async function NewsDetails({
 
   return (
     <>
+      <AnalyticsTracker
+        event="article-read"
+        metadata={{
+          articleId: article.id,
+          slug: article.slug ?? slug,
+          source: article.source ?? id,
+          title: article.title,
+        }}
+      />
+
       {/* Article content with 2-to-1 grid layout */}
       <Section className="container mx-auto !pb-0 pt-8 px-4 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

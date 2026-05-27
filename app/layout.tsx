@@ -5,6 +5,7 @@ import SidebarLayout from "@/app/components/SidebarLayout";
 import Footer from "@/app/components/Footer";
 import Script from "next/script";
 import AppProviderWrapper from "@/app/components/AppProviderWrapper";
+import AnalyticsTracker from "@/app/components/AnalyticsTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,7 +27,7 @@ const robotoMono = Roboto_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || "https://criptor.net"
+    process.env.NEXT_PUBLIC_APP_URL || "https://criptor.net",
   ),
   title: "Criptor.net - Your Ultimate Source for Cryptocurrency News",
   description:
@@ -70,6 +71,7 @@ export default function RootLayout({
       <body
         className={`font-sans bg-white dark:bg-crypto-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
+        <AnalyticsTracker event="page-view" />
         <AppProviderWrapper>
           <SidebarLayout>
             <main className="flex flex-col flex-1 animate-fade-in">

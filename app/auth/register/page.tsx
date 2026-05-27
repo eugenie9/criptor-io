@@ -5,6 +5,7 @@ import Link from "next/link";
 import Button from "@/app/components/Button";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/utils/auth-client";
+import { recordEvent } from "@/sqlite/events";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -39,11 +40,19 @@ export default function RegisterPage() {
     // Validation
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
+      recordEvent("auth-register", {
+        success: false,
+        error: "Passwords do not match",
+      });
       return;
     }
 
     if (formData.password.length < 8) {
       setError("Password must be at least 8 characters long");
+      recordEvent("auth-register", {
+        success: false,
+        error: "Password too short",
+      });
       return;
     }
 
@@ -58,15 +67,20 @@ export default function RegisterPage() {
       },
       {
         onSuccess: () => {
+          recordEvent("auth-register", { success: true });
           // Session will be updated automatically
           // Router will redirect via useEffect above
         },
         onError: (ctx) => {
           console.error(ctx);
+          recordEvent("auth-register", {
+            success: false,
+            error: ctx.error?.message || "Failed to create account",
+          });
           setError(ctx.error?.message || "Failed to create account");
           setLoading(false);
         },
-      }
+      },
     );
   };
 

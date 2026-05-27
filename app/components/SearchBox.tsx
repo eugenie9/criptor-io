@@ -3,6 +3,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { searchArticles } from "@/app/actions";
 import { getSource } from "../utils";
+import { recordEvent } from "@/sqlite/events";
 
 interface SearchResult extends TArticle {}
 
@@ -66,6 +67,11 @@ export default function SearchBox() {
         results: articles,
         isLoading: false,
       }));
+
+      recordEvent("search-dropdown", {
+        query,
+        resultsCount: articles.length,
+      });
     } catch (error) {
       setState((prev) => ({
         ...prev,

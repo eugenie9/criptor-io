@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { recordEvent } from "@/sqlite/events";
 
 export default function ThemeToggle() {
   const [darkMode, setDarkMode] = useState<boolean | undefined>(undefined);
@@ -9,7 +10,7 @@ export default function ThemeToggle() {
     // On mount, read the preference from localStorage and update state
     const isDarkMode = localStorage.getItem("darkMode") === "true";
     setDarkMode(isDarkMode);
-    
+
     // Apply the theme class to the document
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
@@ -21,16 +22,18 @@ export default function ThemeToggle() {
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    
+
     // Save the preference to localStorage
     localStorage.setItem("darkMode", newDarkMode.toString());
-    
+
     // Apply the theme class to the document
     if (newDarkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
+
+    recordEvent("theme-toggle", { mode: newDarkMode ? "dark" : "light" });
   };
 
   // Don't render anything until we know the dark mode state

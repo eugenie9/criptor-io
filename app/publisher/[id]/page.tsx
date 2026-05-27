@@ -7,6 +7,7 @@ import AnimatedContainer from "@/app/components/AnimatedContainer";
 import { getSource } from "@/app/utils";
 import Link from "next/link";
 import SubscribeToUpdates from "@/app/components/SubscribeToUpdates";
+import AnalyticsTracker from "@/app/components/AnalyticsTracker";
 
 export const revalidate = 60;
 
@@ -42,6 +43,13 @@ export default async function News({ params }: Props) {
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <AnalyticsTracker
+        event="publisher-view"
+        metadata={{
+          source: id,
+          publisherName: source.name,
+        }}
+      />
       {/* Publisher Header */}
       <div className="relative bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto py-12 px-4 lg:px-12">
@@ -310,7 +318,11 @@ export default async function News({ params }: Props) {
                             </svg>
                             {new Date(item.date || "").toLocaleDateString(
                               "en-US",
-                              { month: "long", day: "numeric", year: "numeric" }
+                              {
+                                month: "long",
+                                day: "numeric",
+                                year: "numeric",
+                              },
                             )}
                           </span>
                           <span className="text-gray-300 dark:text-gray-600">
