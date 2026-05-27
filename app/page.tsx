@@ -6,7 +6,6 @@ import Defiant from "./components/featuredPublisher/Defiant";
 import CarouselCardBig from "./components/Carousel/CardBig";
 import Section from "./components/Section";
 import HorizontalCard from "./components/HorizontalCard";
-import AnalyticsTracker from "./components/AnalyticsTracker";
 
 export const revalidate = 60;
 
@@ -49,7 +48,6 @@ export default async function News() {
 
   return (
     <div className="flex flex-col pt-8 px-4 lg:px-12 container mx-auto w-full">
-      <AnalyticsTracker event="page-view" metadata={{ route: "/" }} />
       <div className="grid grid-cols-8 md:grid-cols-7 gap-4">
         <div className="col-span-8 md:col-span-3 flex flex-col space-y-2">
           <CarouselCardBig article={items[0]} />
