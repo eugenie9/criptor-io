@@ -7,9 +7,10 @@ import SearchResults from "./Results";
 export default async function SearchPageContent({
   searchParams,
 }: {
-  searchParams: { q?: string };
+  searchParams: Promise<{ q?: string }>;
 }) {
-  const query = searchParams?.q || "";
+  const { q } = await searchParams;
+  const query = q || "";
 
   // Early return for empty/whitespace queries
   if (!query.trim()) {

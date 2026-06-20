@@ -12,11 +12,11 @@ import AnalyticsTracker from "@/app/components/AnalyticsTracker";
 export const revalidate = 60;
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const id = params.id;
+  const { id } = await params;
 
   let source = sources.find((source) => source.id == id);
   if (!source) source = { id: "", name: "404" };
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function News({ params }: Props) {
-  const id = params.id;
+  const { id } = await params;
 
   const data = await getArticlesForSource(id);
   const source = getSource(id);

@@ -13,7 +13,7 @@ const sources = [
   "protos.xml",
 ];
 
-export const revalidate = 60 * 60; // 1 hour in seconds
+export const revalidate = 3600; // 1 hour in seconds
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.nextUrl);

@@ -150,10 +150,9 @@ const getArticle = async (id: string, slug: string) => {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string; slug: string };
+  params: Promise<{ id: string; slug: string }>;
 }): Promise<Metadata> {
-  const id = params.id;
-  const slug = params.slug;
+  const { id, slug } = await params;
   const article = await getArticle(id, slug);
 
   if (!article) {
@@ -195,10 +194,9 @@ export async function generateMetadata({
 export default async function NewsDetails({
   params,
 }: {
-  params: { id: string; slug: string };
+  params: Promise<{ id: string; slug: string }>;
 }) {
-  const id = params.id;
-  const slug = params.slug;
+  const { id, slug } = await params;
   const article = await getArticle(id, slug);
 
   if (!article) {

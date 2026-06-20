@@ -123,7 +123,7 @@ const subscribeToNewsletter = async (email: string) => {
   const { email: validEmail } = parsed.data;
 
   // Rate limiting by IP
-  const headersList = headers();
+  const headersList = await headers();
   const ip =
     headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     headersList.get("x-real-ip") ||
