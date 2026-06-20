@@ -32,7 +32,7 @@ export default function AnimatedContainer({
         root: null,
         rootMargin: "0px",
         threshold: 0.1,
-      }
+      },
     );
 
     if (containerRef.current) {
@@ -44,9 +44,10 @@ export default function AnimatedContainer({
       setIsVisible(true);
     }, 1000 + delay); // 1 second fallback + delay
 
+    const element = containerRef.current;
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (element) {
+        observer.unobserve(element);
       }
       clearTimeout(fallbackTimer);
     };

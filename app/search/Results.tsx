@@ -62,7 +62,7 @@ export default function SearchResults({
     } else {
       performSearch();
     }
-  }, [query, currentOffset]);
+  }, [query, currentOffset, initiallyRendered]);
 
   return (
     <>
@@ -115,7 +115,7 @@ export default function SearchResults({
             />
           </svg>
           <p className="text-gray-600 dark:text-gray-400 text-lg">
-            No articles found for "{query}"
+            No articles found for &ldquo;{query}&rdquo;
           </p>
           <p className="text-gray-500 dark:text-gray-500 text-sm mt-2">
             Try a different search term

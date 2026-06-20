@@ -42,7 +42,9 @@ export default async function SearchPageContent({
           {query && (
             <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">
               Results for
-              <span className="font-semibold text-crypto-light">"{query}"</span>
+              <span className="font-semibold text-crypto-light">
+                &ldquo;{query}&rdquo;
+              </span>
             </p>
           )}
         </div>

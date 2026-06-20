@@ -188,7 +188,7 @@ export default async function News({ params }: Props) {
         <Section className="px-4 lg:px-12 container mx-auto">
           <div className="flex flex-col items-center text-center mb-12 mt-4">
             <span className="text-crypto-light text-sm font-medium tracking-wider uppercase mb-3 block">
-              Editor's Selection
+              Editor&rsquo;s Selection
             </span>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-3">
               Top Stories
