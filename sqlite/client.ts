@@ -115,7 +115,7 @@ const memoizedGetPopularArticlesForSource = memoizee(
   },
 );
 
-const getArticles = async () => {
+const getArticles = async (): Promise<{ items: TArticle[] }> => {
   const data = await execQuery(
     "SELECT * FROM articles ORDER BY date DESC LIMIT 20",
   );
