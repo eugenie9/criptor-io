@@ -26,23 +26,25 @@ export default function AnalyticsTracker({
   fireOnce = true,
 }: AnalyticsTrackerProps) {
   const firedRef = useRef(false);
+  const metadataRef = useRef(metadata);
+  metadataRef.current = metadata;
 
   useEffect(() => {
     if (fireOnce && firedRef.current) return;
     firedRef.current = true;
 
     recordEvent(event, {
-      ...metadata,
+      ...metadataRef.current,
       // Add client-side context automatically
       path:
-        metadata.path ??
+        metadataRef.current.path ??
         (typeof window !== "undefined" ? window.location.pathname : ""),
       referrer:
         typeof document !== "undefined"
           ? document.referrer || undefined
           : undefined,
     });
-  }, [event]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [event, fireOnce]);
 
   // This component renders nothing
   return null;
