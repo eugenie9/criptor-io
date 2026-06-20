@@ -3,8 +3,8 @@
 import sqliteClient from "@/sqlite/client";
 import meilisearch from "@/utils/meilisearch";
 import market from "@/app/actions/market";
-import memoizee from "memoizee";
 import { z } from "zod";
+import { cache } from "react";
 import { headers } from "next/headers";
 
 // ── In-memory rate limiter ────────────────────────────────────────────
@@ -82,7 +82,7 @@ const getSitemapForSource = async (source: string) => {
   return await sqliteClient.getSitemapForSource(source);
 };
 
-const searchArticles = memoizee(
+const searchArticles = cache(
   async (query: string, limit: number = 10, offset: number = 0) => {
     const parsed = searchArticlesSchema.safeParse({ query, limit, offset });
     if (!parsed.success) {
@@ -112,11 +112,6 @@ const searchArticles = memoizee(
     } catch (error) {
       return { items: [], total: 0, nextOffset: null };
     }
-  },
-  {
-    promise: true,
-    maxAge: 1 * 60 * 1000,
-    length: 3,
   },
 );
 

@@ -1,4 +1,4 @@
-import memoizee from "memoizee";
+import { cache } from "react";
 
 const SQLITE_BASE_URL = process.env.SQLITE_BASE_URL || "http://localhost:3001";
 const SQLITE_DB_NAME = process.env.SQLITE_DB_NAME || "criptor";
@@ -91,11 +91,7 @@ const getArticlesForSource = async (source: string, lastDate?: number) => {
   };
 };
 
-const memoizedGetArticlesForSource = memoizee(getArticlesForSource, {
-  promise: true,
-  maxAge: 1000 * 60 * 2,
-  length: 2,
-});
+const getArticlesForSourceCached = cache(getArticlesForSource);
 
 const getPopularArticlesForSource = async (source: string) => {
   const data = await execQuery(
@@ -106,14 +102,7 @@ const getPopularArticlesForSource = async (source: string) => {
   return data.map(parseArticle);
 };
 
-const memoizedGetPopularArticlesForSource = memoizee(
-  getPopularArticlesForSource,
-  {
-    promise: true,
-    maxAge: 1000 * 60 * 2,
-    length: 1,
-  },
-);
+const getPopularArticlesForSourceCached = cache(getPopularArticlesForSource);
 
 const getArticles = async (): Promise<{ items: TArticle[] }> => {
   const data = await execQuery(
@@ -125,10 +114,7 @@ const getArticles = async (): Promise<{ items: TArticle[] }> => {
   };
 };
 
-const memoizedGetArticles = memoizee(getArticles, {
-  promise: true,
-  maxAge: 1000 * 60 * 2,
-});
+const getArticlesCached = cache(getArticles);
 
 const getArticleBySourceAndSlug = async (source: string, slug: string) => {
   const [article] = await execQuery(
@@ -152,11 +138,7 @@ const getArticleBySourceAndSlug = async (source: string, slug: string) => {
   }
 };
 
-const memoizedGetArticleBySourceAndSlug = memoizee(getArticleBySourceAndSlug, {
-  promise: true,
-  maxAge: 1000 * 60 * 2,
-  length: 2,
-});
+const getArticleBySourceAndSlugCached = cache(getArticleBySourceAndSlug);
 
 const getSitemapForSource = async (source: string) => {
   const data = await execQuery(
@@ -166,11 +148,7 @@ const getSitemapForSource = async (source: string) => {
   return data;
 };
 
-const memoizedGetSitemapForSource = memoizee(getSitemapForSource, {
-  promise: true,
-  maxAge: 1000 * 60 * 60,
-  length: 1,
-});
+const getSitemapForSourceCached = cache(getSitemapForSource);
 
 const getArticlesByIds = async (ids: string[]) => {
   if (ids.length === 0) {
@@ -182,18 +160,14 @@ const getArticlesByIds = async (ids: string[]) => {
   return data.map(parseArticle);
 };
 
-const memoizedGetArticlesByIds = memoizee(getArticlesByIds, {
-  promise: true,
-  maxAge: 1000 * 60 * 2,
-  length: 1,
-});
+const getArticlesByIdsCached = cache(getArticlesByIds);
 
 export default {
   execQuery,
-  getArticles: memoizedGetArticles,
-  getArticlesForSource: memoizedGetArticlesForSource,
-  getArticleBySourceAndSlug: memoizedGetArticleBySourceAndSlug,
-  getPopularArticlesForSource: memoizedGetPopularArticlesForSource,
-  getSitemapForSource: memoizedGetSitemapForSource,
-  getArticlesByIds: memoizedGetArticlesByIds,
+  getArticles: getArticlesCached,
+  getArticlesForSource: getArticlesForSourceCached,
+  getArticleBySourceAndSlug: getArticleBySourceAndSlugCached,
+  getPopularArticlesForSource: getPopularArticlesForSourceCached,
+  getSitemapForSource: getSitemapForSourceCached,
+  getArticlesByIds: getArticlesByIdsCached,
 };

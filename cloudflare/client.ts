@@ -1,4 +1,4 @@
-import memoizee from "memoizee";
+import { cache } from "react";
 import d1Query from "./d1";
 
 const parseArticle = (item: any) => ({
@@ -42,31 +42,22 @@ const getArticlesForSource = async (source: string, lastDate?: number) => {
   };
 };
 
-const memoizedGetArticlesForSource = memoizee(getArticlesForSource, {
-  promise: true,
-  maxAge: 1000 * 60 * 2,
-});
+const GetArticlesForSourceCached = cache(getArticlesForSource);
 
 const getPopularArticlesForSource = async (source: string) => {
   const data = await d1Query(
     "SELECT * FROM articles WHERE source = ? AND date > ? ORDER BY read_count DESC LIMIT 5",
-    [source, Date.now() - 1000 * 60 * 60 * 24 * 7]
+    [source, Date.now() - 1000 * 60 * 60 * 24 * 7],
   );
 
   return data.map(parseArticle);
 };
 
-const memoizedGetPopularArticlesForSource = memoizee(
-  getPopularArticlesForSource,
-  {
-    promise: true,
-    maxAge: 1000 * 60 * 2,
-  }
-);
+const GetPopularArticlesForSourceCached = cache(getPopularArticlesForSource);
 
 const getArticles = async () => {
   const data = await d1Query(
-    "SELECT * FROM articles ORDER BY date DESC LIMIT 20"
+    "SELECT * FROM articles ORDER BY date DESC LIMIT 20",
   );
 
   return {
@@ -74,22 +65,19 @@ const getArticles = async () => {
   };
 };
 
-const memoizedGetArticles = memoizee(getArticles, {
-  promise: true,
-  maxAge: 1000 * 60 * 2,
-});
+const GetArticlesCached = cache(getArticles);
 
 const getArticleBySourceAndSlug = async (source: string, slug: string) => {
   const data = await d1Query(
     "SELECT * FROM articles WHERE source = ? AND slug = ?",
-    [source, slug]
+    [source, slug],
   );
 
   if (data.length > 0) {
     // Increase read_count by 1
     d1Query(
       "UPDATE articles SET read_count = read_count + 1 WHERE source = ? AND slug = ?",
-      [source, slug]
+      [source, slug],
     );
     return parseArticle(data[0]);
   } else {
@@ -97,30 +85,24 @@ const getArticleBySourceAndSlug = async (source: string, slug: string) => {
   }
 };
 
-const memoizedGetArticleBySourceAndSlug = memoizee(getArticleBySourceAndSlug, {
-  promise: true,
-  maxAge: 1000 * 60 * 2,
-});
+const GetArticleBySourceAndSlugCached = cache(getArticleBySourceAndSlug);
 
 const getSitemapForSource = async (source: string) => {
   const data = await d1Query(
     "SELECT slug, date FROM articles WHERE source = ? ORDER BY date DESC LIMIT 100",
-    [source]
+    [source],
   );
   return data;
 };
 
-const memoizedGetSitemapForSource = memoizee(getSitemapForSource, {
-  promise: true,
-  maxAge: 1000 * 60 * 60,
-});
+const GetSitemapForSourceCached = cache(getSitemapForSource);
 
 const cloudflareClient = {
-  getArticles: memoizedGetArticles,
-  getArticlesForSource: memoizedGetArticlesForSource,
-  getArticleBySourceAndSlug: memoizedGetArticleBySourceAndSlug,
-  getPopularArticlesForSource: memoizedGetPopularArticlesForSource,
-  getSitemapForSource: memoizedGetSitemapForSource,
+  getArticles: GetArticlesCached,
+  getArticlesForSource: GetArticlesForSourceCached,
+  getArticleBySourceAndSlug: GetArticleBySourceAndSlugCached,
+  getPopularArticlesForSource: GetPopularArticlesForSourceCached,
+  getSitemapForSource: GetSitemapForSourceCached,
 };
 
 export default cloudflareClient;

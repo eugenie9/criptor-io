@@ -15,7 +15,6 @@
   "dependencies": {
     "better-auth": "^1.4.10",
     "meilisearch": "^0.55.0",
-    "memoizee": "^0.4.15",
     "mysql2": "^3.16.0",
     "next": "^14.0.2",
     "react": "^18",
@@ -24,7 +23,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/memoizee": "^0.4.11",
     "@types/node": "^20.19.27",
     "@types/react": "^18",
     "@types/react-dom": "^18",

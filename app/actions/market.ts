@@ -1,4 +1,4 @@
-import memoizee from "memoizee";
+import { cache } from "react";
 
 const getCryptoPrices = async () => {
   try {
@@ -7,7 +7,7 @@ const getCryptoPrices = async () => {
       {
         method: "GET",
         redirect: "follow",
-      }
+      },
     );
     const prices = await data.json();
     return prices;
@@ -15,11 +15,6 @@ const getCryptoPrices = async () => {
     return [];
   }
 };
-
-const memoizedGetCryptoPrices = memoizee(getCryptoPrices, {
-  promise: true,
-  maxAge: 1 * 60 * 1000,
-});
 
 const getMarketData = async () => {
   try {
@@ -31,12 +26,7 @@ const getMarketData = async () => {
   }
 };
 
-const memoizedGetMarketData = memoizee(getMarketData, {
-  promise: true,
-  maxAge: 2 * 60 * 1000,
-});
-
 export default {
-  getCryptoPrices: memoizedGetCryptoPrices,
-  getMarketData: memoizedGetMarketData,
+  getCryptoPrices: cache(getCryptoPrices),
+  getMarketData: cache(getMarketData),
 };

@@ -1,4 +1,4 @@
-import memoizee from "memoizee";
+import { cache } from "react";
 import { MeiliSearch } from "meilisearch";
 
 const meiliClient = new MeiliSearch({
@@ -39,5 +39,5 @@ const searchArticle = async (
 };
 
 export default {
-  searchArticle,
+  searchArticle: cache(searchArticle),
 };
