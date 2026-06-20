@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getArticles } from "@/app/actions";
 import CryptoSlate from "./components/featuredPublisher/CryptoSlate";
 import BeInCrypto from "./components/featuredPublisher/BeInCrypto";
@@ -6,6 +7,7 @@ import Defiant from "./components/featuredPublisher/Defiant";
 import CarouselCardBig from "./components/Carousel/CardBig";
 import Section from "./components/Section";
 import HorizontalCard from "./components/HorizontalCard";
+import PublisherSkeleton from "./components/PublisherSkeleton";
 
 export const revalidate = 60;
 
@@ -51,19 +53,27 @@ export default async function News() {
 
       {row1Articles.length > 0 && <ArticleRow items={row1Articles} />}
 
-      <CryptoSlate />
+      <Suspense fallback={<PublisherSkeleton />}>
+        <CryptoSlate />
+      </Suspense>
 
       {row2Articles.length > 0 && <ArticleRow items={row2Articles} />}
 
-      <BeInCrypto />
+      <Suspense fallback={<PublisherSkeleton />}>
+        <BeInCrypto />
+      </Suspense>
 
       {row3Articles.length > 0 && <ArticleRow items={row3Articles} />}
 
-      <Protos />
+      <Suspense fallback={<PublisherSkeleton />}>
+        <Protos />
+      </Suspense>
 
       {row4Articles.length > 0 && <ArticleRow items={row4Articles} />}
 
-      <Defiant />
+      <Suspense fallback={<PublisherSkeleton />}>
+        <Defiant />
+      </Suspense>
 
       {row5Articles.length > 0 && <ArticleRow items={row5Articles} />}
     </div>
