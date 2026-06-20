@@ -71,7 +71,6 @@ export default function RootLayout({
             </Script>
           </>
         )}
-        </Script>
       </head>
       <body
         className={`font-sans bg-white dark:bg-crypto-dark text-gray-900 dark:text-gray-100 transition-colors duration-300`}
