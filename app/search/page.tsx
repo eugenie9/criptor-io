@@ -10,6 +10,25 @@ export default async function SearchPageContent({
   searchParams: { q?: string };
 }) {
   const query = searchParams?.q || "";
+
+  // Early return for empty/whitespace queries
+  if (!query.trim()) {
+    return (
+      <div className="flex flex-col">
+        <Section className="py-8 md:py-12 px-4 lg:px-12 container mx-auto">
+          <div className="mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-4xl font-heading font-bold text-gray-900 dark:text-gray-100 mb-2">
+              Search
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">
+              Please enter a search term to find articles.
+            </p>
+          </div>
+        </Section>
+      </div>
+    );
+  }
+
   const results = await searchArticles(query, 10, 0);
 
   return (
