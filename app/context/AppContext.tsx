@@ -35,7 +35,7 @@ export function AppProvider({
   const [cryptoData, setCryptoData] = useState<any[]>(initialCryptoData);
   const [marketData, setMarketData] = useState<any>(initialMarketData);
   const [isLoading, setIsLoading] = useState(
-    !initialCryptoData.length && !initialMarketData
+    !initialCryptoData.length && !initialMarketData,
   );
 
   useEffect(() => {
@@ -66,7 +66,6 @@ export function AppProvider({
 
     // Start fetching after 2 minutes
     const initialDelay = setTimeout(() => {
-      return;
       fetchCryptoData();
       fetchMarketData();
 
