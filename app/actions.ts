@@ -41,14 +41,14 @@ const getArticleWithSourceAndSlug = async (source: string, slug: string) => {
   const { source: s, slug: sl } = parsed.data;
 
   try {
+    // Increase read_count by 1 (await before returning article)
+    await sqliteClient.execQuery(
+      "UPDATE articles SET read_count = read_count + 1 WHERE source = ? AND slug = ?",
+      [s, sl],
+    );
+
     const response = await sqliteClient.getArticleBySourceAndSlug(s, sl);
     if (response) {
-      // Increase read_count by 1
-      sqliteClient.execQuery(
-        "UPDATE articles SET read_count = read_count + 1 WHERE source = ? AND slug = ?",
-        [s, sl],
-      );
-
       return response;
     }
   } catch (error) {
