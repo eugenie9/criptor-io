@@ -5,6 +5,28 @@ import meilisearch from "@/utils/meilisearch";
 import market from "@/app/actions/market";
 import memoizee from "memoizee";
 import { z } from "zod";
+import { headers } from "next/headers";
+
+// ── In-memory rate limiter ────────────────────────────────────────────
+
+const rateLimitStore = new Map<string, number[]>();
+const RATE_LIMIT_WINDOW = 60_000; // 1 minute
+const RATE_LIMIT_MAX = 3; // max 3 requests per window
+
+function checkRateLimit(key: string): boolean {
+  const now = Date.now();
+  const timestamps = rateLimitStore.get(key) || [];
+  const recent = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW);
+
+  if (recent.length >= RATE_LIMIT_MAX) {
+    rateLimitStore.set(key, recent);
+    return false;
+  }
+
+  recent.push(now);
+  rateLimitStore.set(key, recent);
+  return true;
+}
 
 const searchArticlesSchema = z.object({
   query: z.string().min(1).max(200),
@@ -105,6 +127,17 @@ const subscribeToNewsletter = async (email: string) => {
   }
   const { email: validEmail } = parsed.data;
 
+  // Rate limiting by IP
+  const headersList = headers();
+  const ip =
+    headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    headersList.get("x-real-ip") ||
+    "unknown";
+
+  if (!checkRateLimit(`subscribe:${ip}`)) {
+    return { success: false, isNewSubscriber: false };
+  }
+
   try {
     // Check if already subscribed
     const existing = await sqliteClient.execQuery(
@@ -126,6 +159,7 @@ const subscribeToNewsletter = async (email: string) => {
       );
     }
 
+    // Always return success without revealing subscriber status
     return {
       success: true,
       isNewSubscriber,
