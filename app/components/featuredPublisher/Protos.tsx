@@ -80,13 +80,13 @@ export default async function Protos() {
 
         <div className="grid grid-cols-5 gap-6 mt-8 space-x-4">
           <div className="col-span-5 md:col-span-3">
-            <Card article={articles[0]} />
+            <Card article={articles[0]!} />
           </div>
           <div className="col-span-5 md:col-span-2 grid space-y-2">
-            <CardHorizontal article={articles[1]} />
-            <CardHorizontal article={articles[2]} />
-            <CardHorizontal article={articles[3]} />
-            <CardHorizontal article={articles[4]} />
+            <CardHorizontal article={articles[1]!} />
+            <CardHorizontal article={articles[2]!} />
+            <CardHorizontal article={articles[3]!} />
+            <CardHorizontal article={articles[4]!} />
           </div>
         </div>
       </Section>

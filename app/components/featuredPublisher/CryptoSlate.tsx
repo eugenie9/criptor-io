@@ -56,13 +56,13 @@ export default async function CryptoSlate() {
 
         <div className="grid grid-cols-3 gap-4 mt-8">
           <div className="col-span-3 md:col-span-1">
-            <Card article={articles[0]} />
+            <Card article={articles[0]!} />
           </div>
           <div className="col-span-3 md:col-span-1">
-            <Card article={articles[1]} />
+            <Card article={articles[1]!} />
           </div>
           <div className="col-span-3 md:col-span-1">
-            <Card article={articles[2]} />
+            <Card article={articles[2]!} />
           </div>
         </div>
       </Section>

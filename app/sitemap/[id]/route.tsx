@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.nextUrl);
   const id = url.pathname.split("/")[2];
 
-  if (!sources.includes(id)) {
+  if (!id || !sources.includes(id)) {
     return new Response("Not found", { status: 404 });
   }
   const source = id.replace(".xml", "");
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     xmlContent += `  <url>\n`;
     xmlContent += `    <loc>https://www.criptor.net/publisher/${source}/${item.slug}</loc>\n`;
     xmlContent += `    <lastmod>${new Date(
-      item.date
+      item.date,
     ).toISOString()}</lastmod>\n`;
     xmlContent += `    <changefreq>weekly</changefreq>\n`;
     xmlContent += `    <priority>0.7</priority>\n`;

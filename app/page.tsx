@@ -42,13 +42,13 @@ export default async function News() {
     <div className="flex flex-col pt-8 px-4 lg:px-12 container mx-auto w-full">
       <div className="grid grid-cols-8 md:grid-cols-7 gap-4">
         <div className="col-span-8 md:col-span-3 flex flex-col space-y-2">
-          <CarouselCardBig article={items[0]} />
+          <CarouselCardBig article={items[0]!} />
         </div>
         <div className="col-span-4 md:col-span-2">
-          <CarouselCardBig article={items[1]} />
+          <CarouselCardBig article={items[1]!} />
         </div>
         <div className="col-span-4 md:col-span-2 flex flex-col space-y-2">
-          <CarouselCardBig article={items[2]} />
+          <CarouselCardBig article={items[2]!} />
         </div>
       </div>
 

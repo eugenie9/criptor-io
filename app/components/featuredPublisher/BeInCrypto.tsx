@@ -82,20 +82,20 @@ export default async function BeInCrypto() {
 
         <div className="grid grid-cols-4 gap-6 mt-8">
           <div className="col-span-4 md:col-span-2">
-            <Card article={articles[0]} />
+            <Card article={articles[0]!} />
           </div>
           <div className="col-span-2 md:col-span-1">
-            <Card article={articles[1]} />
+            <Card article={articles[1]!} />
           </div>
           <div className="col-span-2 md:col-span-1">
-            <Card article={articles[2]} />
+            <Card article={articles[2]!} />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 mt-4">
-          <CardHorizontal article={articles[3]} />
-          <CardHorizontal article={articles[4]} />
-          <CardHorizontal article={articles[5]} />
+          <CardHorizontal article={articles[3]!} />
+          <CardHorizontal article={articles[4]!} />
+          <CardHorizontal article={articles[5]!} />
         </div>
       </Section>
     </div>

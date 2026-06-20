@@ -116,11 +116,11 @@ export default async function News({ params }: Props) {
                 Featured Article
               </span>
               <h2 className="text-xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-6">
-                {items[0].title}
+                {items[0]!.title}
               </h2>
               <div className="w-16 h-1 bg-crypto-light mb-6"></div>
               <p className="text-gray-600 dark:text-gray-300 text-base xl:text-lg leading-relaxed mb-8">
-                {items[0].content?.slice(0, 280)}...
+                {items[0]!.content?.slice(0, 280)}...
               </p>
               <div className="flex items-center mb-8">
                 <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
@@ -138,7 +138,7 @@ export default async function News({ params }: Props) {
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
-                  {new Date(items[0].date || "").toLocaleDateString("en-US", {
+                  {new Date(items[0]!.date || "").toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
                     year: "numeric",
@@ -146,7 +146,7 @@ export default async function News({ params }: Props) {
                 </span>
               </div>
               <Link
-                href={`/publisher/${id}/${items[0].slug}`}
+                href={`/publisher/${id}/${items[0]!.slug}`}
                 className="inline-flex items-center text-crypto-light hover:text-crypto-dark dark:hover:text-white font-medium transition-colors group"
               >
                 Continue Reading
@@ -170,8 +170,8 @@ export default async function News({ params }: Props) {
             <AnimatedContainer className="order-1 lg:order-2" delay={100}>
               <div className="relative rounded-lg overflow-hidden">
                 <img
-                  src={items[0].thumbnail}
-                  alt={items[0].title}
+                  src={items[0]!.thumbnail}
+                  alt={items[0]!.title}
                   width={600}
                   height={400}
                   className="w-full h-[400px] object-cover"
