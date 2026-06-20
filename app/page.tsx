@@ -9,27 +9,15 @@ import HorizontalCard from "./components/HorizontalCard";
 
 export const revalidate = 60;
 
-const NewsRow = ({
-  items,
-  min,
-  max,
-}: {
-  items: TArticle[];
-  min: number;
-  max: number;
-}) => {
+const ArticleRow = ({ items }: { items: TArticle[] }) => {
   return (
     <Section className="py-8 md:py-10">
       <div className="grid grid-cols-2 gap-4">
-        {items.map((item, index) => {
-          if (index < min || index >= max) return;
-
-          return (
-            <div className={`col-span-2 md:col-span-1`} key={item.url}>
-              <HorizontalCard article={item} />
-            </div>
-          );
-        })}
+        {items.map((item) => (
+          <div className="col-span-2 md:col-span-1" key={item.url}>
+            <HorizontalCard article={item} />
+          </div>
+        ))}
       </div>
     </Section>
   );
@@ -38,37 +26,46 @@ const NewsRow = ({
 export default async function News() {
   const { items } = await getArticles();
 
+  // Data-driven layout: slice articles into logical sections
+  const heroArticles = items.slice(0, 3);
+  const row1Articles = items.slice(3, 7);
+  const row2Articles = items.slice(7, 9);
+  const row3Articles = items.slice(9, 13);
+  const row4Articles = items.slice(13, 15);
+  const row5Articles = items.slice(15, 17);
+
   return (
     <div className="flex flex-col pt-8 px-4 lg:px-12 container mx-auto w-full">
+      {/* Hero Section */}
       <div className="grid grid-cols-8 md:grid-cols-7 gap-4">
         <div className="col-span-8 md:col-span-3 flex flex-col space-y-2">
-          <CarouselCardBig article={items[0]!} />
+          {heroArticles[0] && <CarouselCardBig article={heroArticles[0]} />}
         </div>
         <div className="col-span-4 md:col-span-2">
-          <CarouselCardBig article={items[1]!} />
+          {heroArticles[1] && <CarouselCardBig article={heroArticles[1]} />}
         </div>
         <div className="col-span-4 md:col-span-2 flex flex-col space-y-2">
-          <CarouselCardBig article={items[2]!} />
+          {heroArticles[2] && <CarouselCardBig article={heroArticles[2]} />}
         </div>
       </div>
 
-      <NewsRow items={items} min={3} max={7} />
+      {row1Articles.length > 0 && <ArticleRow items={row1Articles} />}
 
       <CryptoSlate />
 
-      <NewsRow items={items} min={7} max={9} />
+      {row2Articles.length > 0 && <ArticleRow items={row2Articles} />}
 
       <BeInCrypto />
 
-      <NewsRow items={items} min={9} max={13} />
+      {row3Articles.length > 0 && <ArticleRow items={row3Articles} />}
 
       <Protos />
 
-      <NewsRow items={items} min={13} max={15} />
+      {row4Articles.length > 0 && <ArticleRow items={row4Articles} />}
 
       <Defiant />
 
-      <NewsRow items={items} min={15} max={17} />
+      {row5Articles.length > 0 && <ArticleRow items={row5Articles} />}
     </div>
   );
 }
