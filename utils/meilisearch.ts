@@ -9,7 +9,7 @@ const meiliClient = new MeiliSearch({
 const searchArticle = async (
   query: string,
   limit: number = 10,
-  offset: number = 0
+  offset: number = 0,
 ) => {
   try {
     if (!query || query.trim().length === 0 || limit <= 0 || offset < 0) {
@@ -17,7 +17,7 @@ const searchArticle = async (
     }
 
     const allArticles = await meiliClient.index("articles").search(query, {
-      limit: 10,
+      limit: limit,
       offset: offset,
       attributesToRetrieve: ["id"],
     });
