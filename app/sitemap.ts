@@ -2,17 +2,18 @@ import { MetadataRoute } from "next";
 import sources from "@/sources.json";
 const BASE_URL = process.env.BASE_URL || "";
 
-// Sub-sitemaps from @frontend/app/robots.ts
+// Sub-sitemaps — served from app/sitemap-sources/[id]/route.tsx to avoid
+// Next.js metadata route collision (__metadata_id__ vs id)
 const subSitemaps = [
-  "/sitemap/beincrypto.xml",
-  "/sitemap/bitcoin_news.xml",
-  "/sitemap/bitcoin_magazine.xml",
-  "/sitemap/coin_gape.xml",
-  "/sitemap/crypto_potato.xml",
-  "/sitemap/crypto_slate.xml",
-  "/sitemap/defiant.xml",
-  "/sitemap/forkast.xml",
-  "/sitemap/protos.xml",
+  "/sitemap-sources/beincrypto.xml",
+  "/sitemap-sources/bitcoin_news.xml",
+  "/sitemap-sources/bitcoin_magazine.xml",
+  "/sitemap-sources/coin_gape.xml",
+  "/sitemap-sources/crypto_potato.xml",
+  "/sitemap-sources/crypto_slate.xml",
+  "/sitemap-sources/defiant.xml",
+  "/sitemap-sources/forkast.xml",
+  "/sitemap-sources/protos.xml",
 ].map((path) => ({
   url: `${BASE_URL}${path}`,
   changeFrequency: "hourly" as const,
