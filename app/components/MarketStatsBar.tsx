@@ -1,5 +1,3 @@
-import { formatPrice } from "../utils";
-
 interface MarketStatsBarProps {
   data?: {
     total_market_cap?: { usd?: number };
@@ -87,7 +85,7 @@ export default function MarketStatsBar({ data }: MarketStatsBarProps) {
             EXCHANGES
           </span>
           <span className="text-xs font-bold text-gray-900 dark:text-gray-100">
-            {formatPrice(totalMarkets)}
+            {totalMarkets.toLocaleString()}
           </span>
         </div>
 
