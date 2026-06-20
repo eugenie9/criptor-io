@@ -85,7 +85,7 @@ export default function MarketStatsBar({ data }: MarketStatsBarProps) {
             EXCHANGES
           </span>
           <span className="text-xs font-bold text-gray-900 dark:text-gray-100">
-            {totalMarkets.toLocaleString()}
+            {totalMarkets.toLocaleString("en-US")}
           </span>
         </div>
 
