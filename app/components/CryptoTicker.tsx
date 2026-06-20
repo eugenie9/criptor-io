@@ -17,16 +17,19 @@ export default function CryptoTicker({ initialData }: { initialData?: any[] }) {
 
   useEffect(() => {
     if (initialData && initialData.length > 0) {
-      const items: TickerItem[] = initialData.map((priceItem) => {
-        const symbol = symbols[priceItem.symbol as keyof typeof symbols];
-        return {
-          symbol: symbol.shortName,
-          name: symbol.name,
-          logo: symbol.logo,
-          price: formatPrice(priceItem.lastPrice),
-          priceChangePercent: Number(priceItem.priceChangePercent).toFixed(2),
-        };
-      });
+      const items: TickerItem[] = initialData
+        .map((priceItem) => {
+          const symbol = symbols[priceItem.symbol as keyof typeof symbols];
+          if (!symbol) return null;
+          return {
+            symbol: symbol.shortName,
+            name: symbol.name,
+            logo: symbol.logo,
+            price: formatPrice(priceItem.lastPrice),
+            priceChangePercent: Number(priceItem.priceChangePercent).toFixed(2),
+          };
+        })
+        .filter((item): item is TickerItem => item !== null);
       setTickerItems(items);
     }
   }, [initialData]);
