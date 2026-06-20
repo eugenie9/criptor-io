@@ -34,6 +34,28 @@ export const metadata: Metadata = {
     "Stay updated with the latest cryptocurrency news from around the globe with Criptor.net, your comprehensive RSS reader for all things crypto.",
   keywords:
     "Cryptocurrency, Crypto News, Bitcoin, Ethereum, Blockchain, Crypto Market, Altcoins, Crypto Trading, Crypto Investment, Crypto Updates, Blockchain Technology, DeFi, NFT, Crypto RSS Reader, Criptor",
+  openGraph: {
+    type: "website",
+    siteName: "Criptor.net",
+    title: "Criptor.net - Your Ultimate Source for Cryptocurrency News",
+    description:
+      "Stay updated with the latest cryptocurrency news from around the globe with Criptor.net, your comprehensive RSS reader for all things crypto.",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "Criptor.net Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Criptor.net - Your Ultimate Source for Cryptocurrency News",
+    description:
+      "Stay updated with the latest cryptocurrency news from around the globe with Criptor.net.",
+    images: ["/logo.png"],
+  },
 };
 
 export const viewport: Viewport = {

@@ -173,6 +173,7 @@ export async function generateMetadata({
     keywords,
     description,
     openGraph: {
+      type: "article",
       title,
       description,
       images: [
@@ -181,6 +182,12 @@ export async function generateMetadata({
           alt: title,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [article?.thumbnail || getSource(article?.source).logo],
     },
   };
 }
