@@ -5,9 +5,34 @@ import {
   useContext,
   useState,
   useEffect,
+  useMemo,
   ReactNode,
 } from "react";
 import { getCryptoPrices, getMarketData } from "../actions";
+
+// ── Separate Contexts for granular subscriptions ──────────────────────
+
+interface CryptoContextType {
+  cryptoData: any[];
+  isLoading: boolean;
+}
+
+const CryptoContext = createContext<CryptoContextType>({
+  cryptoData: [],
+  isLoading: true,
+});
+
+interface MarketContextType {
+  marketData: any;
+  isLoading: boolean;
+}
+
+const MarketContext = createContext<MarketContextType>({
+  marketData: null,
+  isLoading: true,
+});
+
+// ── Combined type kept for backward compatibility ─────────────────────
 
 interface AppContextType {
   cryptoData: any[];
@@ -20,6 +45,8 @@ const AppContext = createContext<AppContextType>({
   marketData: null,
   isLoading: true,
 });
+
+// ── Provider ──────────────────────────────────────────────────────────
 
 interface AppProviderProps {
   children: ReactNode;
@@ -84,13 +111,54 @@ export function AppProvider({
     };
   }, [initialCryptoData, initialMarketData]);
 
+  // Memoized context values to prevent unnecessary re-renders
+  const cryptoValue = useMemo(
+    () => ({ cryptoData, isLoading }),
+    [cryptoData, isLoading],
+  );
+
+  const marketValue = useMemo(
+    () => ({ marketData, isLoading }),
+    [marketData, isLoading],
+  );
+
+  const combinedValue = useMemo(
+    () => ({ cryptoData, marketData, isLoading }),
+    [cryptoData, marketData, isLoading],
+  );
+
   return (
-    <AppContext.Provider value={{ cryptoData, marketData, isLoading }}>
-      {children}
-    </AppContext.Provider>
+    <CryptoContext.Provider value={cryptoValue}>
+      <MarketContext.Provider value={marketValue}>
+        <AppContext.Provider value={combinedValue}>
+          {children}
+        </AppContext.Provider>
+      </MarketContext.Provider>
+    </CryptoContext.Provider>
   );
 }
 
+// ── Hooks ─────────────────────────────────────────────────────────────
+
+/** Granular hook — only re-renders when cryptoData or isLoading changes */
+export function useCrypto() {
+  const context = useContext(CryptoContext);
+  if (!context) {
+    throw new Error("useCrypto must be used within AppProvider");
+  }
+  return context;
+}
+
+/** Granular hook — only re-renders when marketData or isLoading changes */
+export function useMarket() {
+  const context = useContext(MarketContext);
+  if (!context) {
+    throw new Error("useMarket must be used within AppProvider");
+  }
+  return context;
+}
+
+/** Combined hook — kept for backward compatibility. Prefer useCrypto() or useMarket() for better performance. */
 export function useApp() {
   const context = useContext(AppContext);
   if (!context) {
