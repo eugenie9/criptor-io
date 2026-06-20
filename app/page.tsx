@@ -9,10 +9,6 @@ import HorizontalCard from "./components/HorizontalCard";
 
 export const revalidate = 60;
 
-type TArticleWithPubDate = TArticle & {
-  pubDate: string;
-};
-
 const NewsRow = ({
   items,
   min,
@@ -40,11 +36,7 @@ const NewsRow = ({
 };
 
 export default async function News() {
-  // @ts-ignore
-  const data: {
-    items: TArticleWithPubDate[];
-  } = await getArticles();
-  const { items } = data;
+  const { items } = await getArticles();
 
   return (
     <div className="flex flex-col pt-8 px-4 lg:px-12 container mx-auto w-full">
