@@ -96,9 +96,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               onClick={onClose}
               className="absolute left-1/2 -translate-x-1/2"
             >
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-crypto-light">
-                <span className="text-white font-bold text-xl">C</span>
-              </div>
+              <span className="text-2xl font-heading font-bold text-crypto-light">Criptor</span>
             </Link>
 
             {/* Theme Toggle */}
